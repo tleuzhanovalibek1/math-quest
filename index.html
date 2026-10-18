@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MathQuest — Математика Әлемі</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Жұлдыздар фоны -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Басты экран -->
+  <main class="hero" id="heroScreen">
+
+    <!-- Логотип -->
+    <div class="logo-wrapper">
+      <div class="logo-icon">🧮</div>
+    </div>
+
+    <!-- Тақырып -->
+    <h1 class="title">
+      <span class="title-math">Math</span><span class="title-quest">Quest</span>
+    </h1>
+    <p class="subtitle">Математика әлемін зерттей, есептер шеш, жетістіктерге жет!</p>
+
+    <!-- Статистика карточкалары (динамикалық) -->
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card">
+        <span class="stat-icon">🏆</span>
+        <span class="stat-value" id="statLevel">1</span>
+        <span class="stat-label">Деңгейің</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">⭐</span>
+        <span class="stat-value" id="statXP">0</span>
+        <span class="stat-label">XP</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🪙</span>
+        <span class="stat-value" id="statCoins">0</span>
+        <span class="stat-label">Монета</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🎖️</span>
+        <span class="stat-value" id="statAch">0</span>
+        <span class="stat-label">Жетістік</span>
+      </div>
+    </div>
+
+    <!-- Бастау түймесі -->
+    <a href="game.html" class="btn-start">
+      <span class="btn-icon">🚀</span>
+      Ойнау
+    </a>
+
+    <!-- Кіші сілтемелер -->
+    <nav class="bottom-nav">
+      <a href="game.html">🎮 Ойын</a>
+      <span>•</span>
+      <a href="leaderboard.html">🏆 Рейтинг</a>
+      <span>•</span>
+      <a href="about.html">ℹ️ Жоба туралы</a>
+    </nav>
+
+  </main>
+
+  <!-- Толқын -->
+  <div class="wave-bottom">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="rgba(255,255,255,0.05)"/>
+    </svg>
+  </div>
+
+  <script src="js/stars.js"></script>
+  <script>
+    // Динамикалық статистика
+    const raw = localStorage.getItem('mathquest_state_v2');
+    const s = raw ? JSON.parse(raw) : { xp: 0, coins: 0, levelsCompleted: 0, achievements: [] };
+    const playerLevel = Math.floor(s.xp / 200) + 1;
+    document.getElementById('statLevel').textContent = playerLevel;
+    document.getElementById('statXP').textContent    = s.xp || 0;
+    document.getElementById('statCoins').textContent = s.coins || 0;
+    document.getElementById('statAch').textContent   = (s.achievements || []).length;
+  </script>
+</body>
+</html>

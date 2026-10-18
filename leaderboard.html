@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MathQuest — Рейтинг</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    .lb-page {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.8rem;
+    }
+
+    .back-link {
+      align-self: flex-start;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .back-link:hover { color: #fbbf24; transform: translateX(-4px); }
+
+    h1 { font-size: clamp(1.8rem,5vw,3rem); font-weight: 900; text-align:center; }
+    h1 span { color: #fbbf24; }
+
+    /* Менің статистикам */
+    .my-stats {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(168,85,247,0.4);
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      padding: 1.5rem 2rem;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .my-stats-title {
+      font-size: 0.78rem;
+      color: #a855f7;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .my-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+
+    .my-stat { text-align: center; }
+    .my-stat-val { font-size: 1.6rem; font-weight: 900; color: #fbbf24; }
+    .my-stat-lbl { font-size: 0.68rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+    /* Жетістіктер */
+    .achievements-section {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .ach-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #a855f7;
+      margin-bottom: 0.75rem;
+    }
+
+    .ach-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .ach-chip {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: transform 0.2s;
+    }
+    .ach-chip:hover { transform: scale(1.05); }
+    .ach-chip.locked { opacity: 0.3; filter: grayscale(1); }
+
+    /* Кесте */
+    .lb-table {
+      width: 100%;
+      max-width: 520px;
+      border-collapse: separate;
+      border-spacing: 0 0.5rem;
+    }
+
+    .lb-row {
+      background: rgba(255,255,255,0.06);
+      border-radius: 14px;
+      transition: transform 0.2s;
+    }
+    .lb-row:hover { transform: translateX(4px); }
+
+    .lb-row td {
+      padding: 0.95rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    .lb-row td:first-child {
+      border-radius: 14px 0 0 14px;
+      font-size: 1.3rem;
+      font-weight: 900;
+      width: 2.5rem;
+      text-align: center;
+    }
+
+    .lb-row td:last-child {
+      border-radius: 0 14px 14px 0;
+      text-align: right;
+      color: #fbbf24;
+      font-weight: 800;
+    }
+
+    .lb-row.top1 { background: rgba(251,191,36,0.15); border: 1px solid rgba(251,191,36,0.35); }
+    .lb-row.top2 { background: rgba(192,192,192,0.12); border: 1px solid rgba(192,192,192,0.3); }
+    .lb-row.top3 { background: rgba(205,127,50,0.12); border: 1px solid rgba(205,127,50,0.3); }
+    .lb-row.you  { background: rgba(124,58,237,0.2); border: 1px solid rgba(168,85,247,0.5); }
+
+    .player-lvl {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+      display: block;
+    }
+
+    .reset-btn {
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.35);
+      color: #f87171;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.5rem 1.3rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .reset-btn:hover { background: rgba(239,68,68,0.25); transform: scale(1.03); }
+
+    @media (max-width: 480px) {
+      .my-stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .my-stat-val { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <main class="lb-page">
+    <a class="back-link" href="index.html">← Артқа</a>
+    <h1>🏆 <span>Рейтинг</span></h1>
+
+    <!-- Менің статистикам -->
+    <div class="my-stats">
+      <div class="my-stats-title">👤 Менің нәтижем</div>
+      <div class="my-stats-grid" id="myStats"></div>
+    </div>
+
+    <!-- Жетістіктер -->
+    <div class="achievements-section">
+      <div class="ach-title">🎖️ Жетістіктер</div>
+      <div class="ach-grid" id="achGrid"></div>
+    </div>
+
+    <!-- Рейтинг кестесі -->
+    <table class="lb-table" id="lbTable"></table>
+
+    <button class="reset-btn" id="resetBtn">🗑 Деректерді жою (тесттеу)</button>
+  </main>
+
+  <script src="js/stars.js"></script>
+  <script>
+    const ALL_ACHIEVEMENTS = [
+      { id: 'first_win',     icon: '🥇', title: 'Алғашқы жеңіс!' },
+      { id: 'perfect',       icon: '💯', title: 'Мінсіз!' },
+      { id: 'collector',     icon: '💰', title: 'Байлық жинаушы' },
+      { id: 'speed_demon',   icon: '⚡', title: 'Жылдамшыл!' },
+      { id: 'master',        icon: '👑', title: 'Шебер!' },
+      { id: 'combo_3',       icon: '🔥', title: 'Үштік комбо!' },
+      { id: 'combo_5',       icon: '💥', title: 'Бесті комбо!' },
+      { id: 'rich',          icon: '💎', title: 'Алмаз статус' },
+      { id: 'halfway',       icon: '🌟', title: 'Жарты жол!' },
+      { id: 'mathematician', icon: '🧮', title: 'Математик!' },
+    ];
+
+    const DEMO = [
+      { name: 'Алия',    xp: 1480, coins: 720, lvl: 8, ach: 9 },
+      { name: 'Темір',   xp: 1090, coins: 540, lvl: 6, ach: 7 },
+      { name: 'Зарина',  xp:  810, coins: 400, lvl: 5, ach: 6 },
+      { name: 'Данияр',  xp:  520, coins: 260, lvl: 3, ach: 4 },
+      { name: 'Айгерім', xp:  350, coins: 175, lvl: 2, ach: 3 },
+    ];
+
+    function loadState() {
+      const raw = localStorage.getItem('mathquest_state_v2');
+      return raw ? JSON.parse(raw) : { xp: 0, coins: 0, levelsCompleted: 0, achievements: [], maxCombo: 0, totalCorrect: 0, totalQuestions: 0 };
+    }
+
+    const s = loadState();
+    const myLevel    = Math.floor(s.xp / 200) + 1;
+    const myAch      = (s.achievements || []);
+    const accuracy   = s.totalQuestions > 0 ? Math.round(s.totalCorrect / s.totalQuestions * 100) : 0;
+
+    // Статистика
+    document.getElementById('myStats').innerHTML = `
+      <div class="my-stat"><div class="my-stat-val">${s.xp}</div><div class="my-stat-lbl">XP</div></div>
+      <div class="my-stat"><div class="my-stat-val">${s.coins}</div><div class="my-stat-lbl">Монета</div></div>
+      <div class="my-stat"><div class="my-stat-val">${s.levelsCompleted}</div><div class="my-stat-lbl">Деңгей</div></div>
+      <div class="my-stat"><div class="my-stat-val">${accuracy}%</div><div class="my-stat-lbl">Дәлдік</div></div>`;
+
+    // Жетістіктер
+    document.getElementById('achGrid').innerHTML = ALL_ACHIEVEMENTS.map(a => {
+      const unlocked = myAch.includes(a.id);
+      return `<div class="ach-chip ${unlocked ? '' : 'locked'}" title="${a.title}">
+        ${a.icon} ${a.title}
+      </div>`;
+    }).join('');
+
+    // Рейтинг
+    const all = [
+      ...DEMO,
+      { name: '👤 Мен', xp: s.xp, coins: s.coins, lvl: myLevel, ach: myAch.length, isMe: true }
+    ].sort((a, b) => b.xp - a.xp);
+
+    const medals = ['🥇','🥈','🥉'];
+    const rowClass = (i, p) => {
+      if (p.isMe) return 'you';
+      if (i === 0) return 'top1';
+      if (i === 1) return 'top2';
+      if (i === 2) return 'top3';
+      return '';
+    };
+
+    document.getElementById('lbTable').innerHTML = all.map((p, i) => `
+      <tr class="lb-row ${rowClass(i, p)}">
+        <td>${medals[i] || (i + 1)}</td>
+        <td>
+          ${p.name}
+          <span class="player-lvl">Дең. ${p.lvl || Math.floor(p.xp/200)+1} • 🎖️ ${p.ach || 0}</span>
+        </td>
+        <td>${p.xp} XP</td>
+      </tr>`).join('');
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (confirm('Барлық мәліметтер жойылсын ба?')) {
+        localStorage.removeItem('mathquest_state_v2');
+        location.reload();
+      }
+    });
+  </script>
+</body>
+</html>

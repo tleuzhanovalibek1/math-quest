@@ -1,0 +1,427 @@
+/* ===========================
+   MathQuest v2.0 — Ойын беті стильдері
+   =========================== */
+
+.game-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+/* ---- Жоғарғы панель ---- */
+.top-bar {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.top-bar .home-link {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: color 0.2s, transform 0.2s;
+}
+.top-bar .home-link:hover { color: #fbbf24; transform: scale(1.2); }
+
+/* XP секциясы */
+.xp-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 120px;
+}
+
+.xp-bar-wrap {
+  flex: 1;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50px;
+  height: 14px;
+  overflow: hidden;
+}
+.xp-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #7c3aed, #ec4899);
+  border-radius: 50px;
+  transition: width 0.6s ease;
+}
+
+.xp-label {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.coins {
+  background: rgba(251,191,36,0.15);
+  border: 1px solid rgba(251,191,36,0.4);
+  border-radius: 50px;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fbbf24;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: transform 0.2s;
+}
+.coins:hover { transform: scale(1.05); }
+
+/* ---- Деңгей таңдауы ---- */
+.select-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 720px;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.level-select-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #a855f7;
+}
+
+.accuracy-badge {
+  background: rgba(16,185,129,0.15);
+  border: 1px solid rgba(16,185,129,0.4);
+  border-radius: 50px;
+  padding: 0.25rem 0.85rem;
+  font-size: 0.85rem;
+  color: #10b981;
+  font-weight: 700;
+}
+
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.9rem;
+  width: 100%;
+  max-width: 720px;
+}
+
+.level-card {
+  background: rgba(255,255,255,0.06);
+  border: 2px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 1.2rem 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.level-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--lv-color, #7c3aed) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.level-card:hover::before { opacity: 0.15; }
+
+.level-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.35), 0 0 20px var(--lv-color, rgba(124,58,237,0.3));
+  border-color: var(--lv-color, #a855f7);
+}
+
+.level-card.done {
+  border-color: rgba(251,191,36,0.4);
+}
+
+.level-card.locked {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(0.6);
+}
+
+.level-card .level-icon  { font-size: 2.2rem; }
+.level-card .level-name  { font-size: 0.82rem; font-weight: 700; margin-top: 0.4rem; }
+.level-card .level-stars { color: #fbbf24; font-size: 0.75rem; margin-top: 0.25rem; }
+.level-card .level-lock  { font-size: 0.65rem; margin-top: 4px; opacity: 0.7; }
+
+.lb-link {
+  color: #a855f7;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+  padding: 0.4rem 1rem;
+  border: 1px solid rgba(168,85,247,0.3);
+  border-radius: 50px;
+}
+.lb-link:hover { color: #fbbf24; border-color: rgba(251,191,36,0.4); }
+
+/* ---- Есеп беті ---- */
+.question-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px);
+  border-radius: 24px;
+  padding: 1.8rem 2rem;
+  width: 100%;
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.q-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.q-level-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.q-counter {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.6);
+}
+
+.combo-badge {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  border-radius: 50px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 900;
+  animation: comboFlash 0.5s ease;
+}
+
+/* Прогресс жолағы */
+.progress-track {
+  background: rgba(255,255,255,0.08);
+  border-radius: 50px;
+  height: 5px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 50px;
+  transition: width 0.5s ease;
+}
+
+/* Таймер */
+.timer-bar-wrap {
+  background: rgba(255,255,255,0.1);
+  border-radius: 50px;
+  height: 8px;
+  overflow: hidden;
+}
+.timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #fbbf24);
+  border-radius: 50px;
+  transition: width 1s linear, background 0.5s;
+}
+
+.timer-label {
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+}
+
+.question-text {
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+}
+
+.answers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.answer-btn {
+  background: rgba(255,255,255,0.07);
+  border: 2px solid rgba(255,255,255,0.18);
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.9rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.answer-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.05);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.answer-btn:hover {
+  background: rgba(124,58,237,0.3);
+  border-color: #a855f7;
+  transform: scale(1.04) translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124,58,237,0.3);
+}
+
+.answer-btn:hover::before { opacity: 1; }
+
+.answer-btn.correct {
+  background: rgba(16,185,129,0.3);
+  border-color: #10b981;
+  box-shadow: 0 0 20px rgba(16,185,129,0.4);
+  transform: scale(1.05);
+}
+
+.answer-btn.wrong {
+  background: rgba(239,68,68,0.3);
+  border-color: #ef4444;
+  box-shadow: 0 0 20px rgba(239,68,68,0.3);
+}
+
+/* ---- Нәтиже модалы ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: linear-gradient(135deg, #1e1050, #2d0a5e);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 28px;
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  transform: scale(0.8) translateY(30px);
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.modal-overlay.active .modal { transform: scale(1) translateY(0); }
+
+.modal-emoji { font-size: 4rem; }
+.modal-title { font-size: 2rem; font-weight: 900; margin: 0.5rem 0; }
+.modal-stars { font-size: 2rem; margin: 0.5rem 0; }
+
+.modal-stats-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 0.5rem;
+  margin: 1.2rem 0;
+  background: rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 1rem 0.5rem;
+}
+
+.modal-stat span {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #fbbf24;
+}
+.modal-stat small {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.modal-btn {
+  padding: 0.75rem 1.8rem;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.modal-btn:hover { transform: scale(1.06) translateY(-2px); }
+
+.modal-btn.primary {
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  color: white;
+  box-shadow: 0 4px 20px rgba(124,58,237,0.5);
+}
+.modal-btn.secondary {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+}
+
+/* ---- Жетістіктер тосты ---- */
+.achievement-toast {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: linear-gradient(135deg, #1a0545, #2d0a5e);
+  border: 2px solid #fbbf24;
+  border-radius: 18px;
+  padding: 1rem 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  z-index: 300;
+  transform: translateX(130%);
+  transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+  max-width: 300px;
+  box-shadow: 0 8px 30px rgba(251,191,36,0.3);
+}
+.achievement-toast.show { transform: translateX(0); }
+
+.toast-icon  { font-size: 2rem; }
+.toast-title { font-size: 0.72rem; color: #fbbf24; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.toast-text  { font-size: 0.95rem; font-weight: 800; }
+.toast-desc  { font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+/* ---- Адаптивтілік ---- */
+@media (max-width: 500px) {
+  .question-card   { padding: 1.3rem 1rem; }
+  .answers-grid    { gap: 0.5rem; }
+  .answer-btn      { font-size: 1rem; padding: 0.75rem; }
+  .question-text   { font-size: 1.4rem; }
+  .modal-stats-row { gap: 0.25rem; }
+  .modal-stat span { font-size: 1.1rem; }
+  .level-grid      { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+}

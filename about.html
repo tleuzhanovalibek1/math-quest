@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MathQuest — Жоба туралы</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    .about-page {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .back-link {
+      align-self: flex-start;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: #fbbf24; }
+
+    .about-hero { text-align: center; }
+    .about-hero h1 { font-size: clamp(2rem,6vw,3.5rem); font-weight: 900; }
+    .about-hero h1 span { color: #a855f7; }
+    .about-hero p  { color: rgba(255,255,255,0.7); max-width: 560px; margin: 0.8rem auto 0; line-height: 1.7; }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 1.2rem;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .info-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+
+    .info-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.6rem; display: flex; align-items:center; gap:0.5rem; }
+    .info-card p  { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+    .btn-start-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #7c3aed, #ec4899);
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 800;
+      padding: 0.85rem 2.4rem;
+      border-radius: 50px;
+      box-shadow: 0 6px 24px rgba(124,58,237,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-start-sm:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(236,72,153,0.5); }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <main class="about-page">
+
+    <a class="back-link" href="index.html">← Артқа</a>
+
+    <div class="about-hero">
+      <h1>Math<span>Quest</span> туралы</h1>
+      <p>
+        Бұл жоба математиканы ойын арқылы оқыту — <strong>геймификация</strong> әдісіне негізделген
+        интерактивті білім беру ресурсы. Магистрлік диссертация жұмысы аясында жасалды.
+      </p>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>🎯 Мақсаты</h3>
+        <p>Математикалық есептерді шешуге деген оқушылардың қызығушылығы мен мотивациясын арттыру.</p>
+      </div>
+      <div class="info-card">
+        <h3>🎮 Геймификация</h3>
+        <p>XP жүйесі, монеталар, жетістік белгілері (бейджтер), уақыт таймері және жұлдызды бағалау.</p>
+      </div>
+      <div class="info-card">
+        <h3>📚 Мазмұны</h3>
+        <p>Бастауыш арифметикадан алгебра мен геометрияға дейін 5 деңгей, 500+ есеп.</p>
+      </div>
+      <div class="info-card">
+        <h3>📊 Зерттеу негізі</h3>
+        <p>Геймификация теориясы: Deterding et al., Hamari et al. зерттеулеріне сүйенген.</p>
+      </div>
+    </div>
+
+    <a class="btn-start-sm" href="game.html">🚀 Ойынды бастау</a>
+
+  </main>
+
+  <script src="js/stars.js"></script>
+</body>
+</html>
