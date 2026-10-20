@@ -235,7 +235,7 @@ const BridgeGame = {
             <div class="mode-toggle-group">
               <button class="mode-btn" onclick="App.showTaldyMap()">🗺️ Карта</button>
               <button class="mode-btn active">🌉 Көпір</button>
-              <button class="mode-btn" onclick="App.showHomescapesStudio()">🛠️ Жөндеу</button>
+              <button class="mode-btn" onclick="App.showRenovationStudio()">🛠️ Жөндеу</button>
             </div>
 
             <div class="bridge-level-nav">

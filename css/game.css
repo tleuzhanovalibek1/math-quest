@@ -952,10 +952,10 @@
 }
 
 /* ===================================================
-   HOMESCAPES СТИЛІНДЕГІ ЖӨНДЕУ ЖӘНЕ БЕЗЕНДІРУ РЕЖИМІ
+   ҚАЛАНЫ КӨРКЕЙТУ: ЖӨНДЕУ ЖӘНЕ БЕЗЕНДІРУ РЕЖИМІ
    =================================================== */
 
-.homescapes-wrapper {
+.reno-wrapper {
   width: 100%;
   max-width: 900px;
   display: flex;
@@ -964,7 +964,7 @@
   align-items: center;
 }
 
-.homescapes-header {
+.reno-header {
   width: 100%;
   display: flex;
   align-items: center;
@@ -973,7 +973,7 @@
   gap: 0.8rem;
 }
 
-.homescapes-title {
+.reno-title {
   font-size: 1.5rem;
   font-weight: 900;
   background: linear-gradient(135deg, #f472b6, #fbbf24);
@@ -984,7 +984,7 @@
   gap: 0.5rem;
 }
 
-.homescapes-stars-box {
+.reno-stars-box {
   background: rgba(251, 191, 36, 0.18);
   border: 1px solid rgba(251, 191, 36, 0.5);
   border-radius: 50px;
@@ -997,8 +997,8 @@
   gap: 0.4rem;
 }
 
-/* Homescapes Сквері / Алаңы (Плаза) */
-.homescapes-scene {
+/* Қала Сквері / Алаңы (Плаза) */
+.reno-scene {
   width: 100%;
   background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #0d0b2b 100%);
   border: 1px solid rgba(236, 72, 153, 0.35);
@@ -1138,8 +1138,8 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* Homescapes 3 дизайн таңдау модалі (Signature 3-Choice Picker) */
-.homescapes-picker-overlay {
+/* 3 дизайн таңдау модалі (Signature 3-Choice Picker) */
+.reno-picker-overlay {
   position: fixed;
   inset: 0;
   background: rgba(13, 11, 43, 0.85);
@@ -1152,7 +1152,7 @@
   animation: fadeIn 0.25s ease;
 }
 
-.homescapes-picker-modal {
+.reno-picker-modal {
   background: linear-gradient(135deg, #1e1b4b, #2d1052);
   border: 2px solid #fbbf24;
   border-radius: 28px;
@@ -1500,7 +1500,7 @@
   .picker-choices-row {
     grid-template-columns: 1fr;
   }
-  .homescapes-title {
+  .reno-title {
     font-size: 1.2rem;
   }
 }

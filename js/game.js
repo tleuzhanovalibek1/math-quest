@@ -1,10 +1,11 @@
 /**
- * MathQuest — v3.5 (Quizizz Стиліндегі Есептер & Homescapes Жөндеу Жүйесі)
+ * MathQuest — v3.6 (Интерактивті Көпір Физикасы & Қала Сәулеті)
  * =======================================================================
- * Жаңалықтар v3.5:
- *  - 🛠️ HOMESCAPES: Талдықорған қаласын жұлдыздармен жөндеу және безендіру (3 дизайннан таңдау!)
- *  - ⚡ QUIZIZZ: Бустерлер (💡 50:50, ⏳ +15 сек, ⚡ 2x XP/Монета)
- *  - 🔥 QUIZIZZ: Әсерлі мемдер, комбо реакциялары және мотивациялық баннерлер
+ * Жаңалықтар v3.6:
+ *  - 🛠️ ҚАЛАНЫ КӨРКЕЙТУ: Талдықорғанды жұлдыздармен жөндеу және безендіру (3 дизайннан таңдау!)
+ *  - 🌉 «ҚАРАТАЛ ИНЖЕНЕРІ»: Нақты 2D физикалық көпір салу және көлік сынағы!
+ *  - ⚡ БУСТЕРЛЕР: (💡 50:50, ⏳ +15 сек, ⚡ 2x XP/Монета)
+ *  - 🔥 РЕАКЦИЯЛАР: Әсерлі мемдер, комбо реакциялары және мотивациялық баннерлер
  *  - 🗺️ Талдықорғанның 10 шағын ауданы, Қаратал өзені және 4 көпір
  *  - 📐 KaTeX математикалық формулалардың жоғары сапалы рендерингі
  */
@@ -224,7 +225,7 @@ const BRIDGES = [
   { name: 'Шығыс көпірі',   from: 8, to: 9,  x: 780, y: 365, rot: 55 },
 ];
 
-/* ===================== HOMESCAPES: ЖӨНДЕУ НЫСАНДАРЫ ===================== */
+/* ===================== ҚАЛАНЫ КӨРКЕЙТУ: ЖӨНДЕУ НЫСАНДАРЫ ===================== */
 
 const RENOVATION_ITEMS = [
   {
@@ -338,7 +339,7 @@ const ACHIEVEMENTS = [
   { id: 'halfway',          icon: '🌟', title: 'Қала жартысы!',             desc: '5 шағын аудан ашылды',                 trigger: s => s.levelsCompleted >= 5 },
   { id: 'mathematician',    icon: '🧮', title: 'Бас Математик!',           desc: '1000 XP жиналды',                       trigger: s => s.xp >= 1000 },
   { id: 'taldy_conqueror',  icon: '🏙️', title: 'Талдықорған Аңызы',        desc: 'Қала картасында барлық есептер ашылды', trigger: s => s.levelsCompleted >= 10 },
-  { id: 'city_builder',     icon: '🛠️', title: 'Бас Сәулетші',             desc: 'Homescapes стилінде 3 нысанды жөндедің', trigger: s => Object.keys(s.renovations || {}).length >= 3 },
+  { id: 'city_builder',     icon: '🛠️', title: 'Бас Сәулетші',             desc: 'Қала бойынша 3 нысанды жөндеп көркейту', trigger: s => Object.keys(s.renovations || {}).length >= 3 },
 ];
 
 /* ===================== КҮЙДІ САҚТАУ (STATE) ===================== */
@@ -487,7 +488,7 @@ const Audio = {
       o.start(now); o.stop(now + 0.25);
 
     } else if (type === 'hammer') {
-      // Homescapes құрылыс балғасының дыбысы
+      // Құрылыс балғасының дыбысы
       [220, 260, 310].forEach((f, i) => {
         const oo = this.ctx.createOscillator();
         const gg = this.ctx.createGain();
@@ -545,8 +546,8 @@ const App = {
     this._bindKeyboardNavigation();
     if (this.state.viewMode === 'grid') {
       this.showLevelSelect();
-    } else if (this.state.viewMode === 'homescapes') {
-      this.showHomescapesStudio();
+    } else if (this.state.viewMode === 'reno') {
+      this.showRenovationStudio();
     } else if (this.state.viewMode === 'bridge') {
       if (typeof BridgeGame !== 'undefined') BridgeGame.init();
       else this.showTaldyMap();
@@ -555,7 +556,7 @@ const App = {
     }
   },
 
-  /* Жұлдыздар балансы (Homescapes үшін) */
+  /* Жұлдыздар балансы (Қаланы жөндеу үшін) */
   getTotalStarsEarned() {
     const stars = this.state.starsPerLevel || {};
     return Object.values(stars).reduce((acc, v) => acc + (v || 0), 0);
@@ -790,7 +791,7 @@ const App = {
       this.showLevelSelect();
     });
     document.getElementById('btnModeReno')?.addEventListener('click', () => {
-      this.showHomescapesStudio();
+      this.showRenovationStudio();
     });
     document.getElementById('btnModeBridge')?.addEventListener('click', () => {
       this.state.viewMode = 'bridge';
@@ -893,11 +894,11 @@ const App = {
   },
 
   /* ========================================================
-     2. HOMESCAPES: ТАЛДЫҚОРҒАНДЫ ЖӨНДЕУ ЖӘНЕ БЕЗЕНДІРУ СТУДИЯСЫ
+     2. ҚАЛАНЫ КӨРКЕЙТУ: ТАЛДЫҚОРҒАНДЫ ЖӨНДЕУ СТУДИЯСЫ
      ======================================================== */
 
-  showHomescapesStudio() {
-    this.state.viewMode = 'homescapes';
+  showRenovationStudio() {
+    this.state.viewMode = 'reno';
     saveState(this.state);
     const root = document.getElementById('app');
     const availStars = this.getAvailableStars();
@@ -942,17 +943,17 @@ const App = {
       <div class="game-wrapper">
         ${this._topBar()}
 
-        <div class="homescapes-wrapper">
-          <div class="homescapes-header">
-            <div class="homescapes-title">
-              🛠️ Талдықорған Сәулеті (Homescapes)
+        <div class="reno-wrapper">
+          <div class="reno-header">
+            <div class="reno-title">
+              🛠️ Талдықорған Сәулеті (Реновация)
             </div>
-            <div class="homescapes-stars-box">
+            <div class="reno-stars-box">
               ⭐ Қолда бар жұлдыздар: ${availStars}
             </div>
           </div>
 
-          <div class="homescapes-scene">
+          <div class="reno-scene">
             <div class="scene-intro-bubble">
               <div class="scene-butler-avatar">👷‍♂️</div>
               <div class="scene-bubble-text">
@@ -976,7 +977,7 @@ const App = {
     this._bindTopBar();
   },
 
-  /* Homescapes: 3 дизайн таңдау модалі (Signature 3-Choice Picker) */
+  /* 3 дизайн таңдау модалі (Signature 3-Choice Picker) */
   openRenovationPicker(itemId) {
     const item = RENOVATION_ITEMS.find(i => i.id === itemId);
     if (!item) return;
@@ -992,13 +993,13 @@ const App = {
     }
 
     const modal = document.createElement('div');
-    modal.className = 'homescapes-picker-overlay';
+    modal.className = 'reno-picker-overlay';
     modal.id = 'renoPickerOverlay';
 
     modal.innerHTML = `
-      <div class="homescapes-picker-modal">
+      <div class="reno-picker-modal">
         <div class="picker-title">🛠️ ${item.name} — Дизайн таңдаңыз</div>
-        <div class="picker-subtitle">Homescapes стиліндегі 3 нұсқаның бірін таңдап, қаланы көркейтіңіз!</div>
+        <div class="picker-subtitle">3 ерекше нұсқаның бірін таңдап, қаланы көркейтіңіз!</div>
 
         <div class="picker-choices-row">
           ${item.options.map((opt, idx) => `
@@ -1048,7 +1049,7 @@ const App = {
 
     this._checkAchievements();
     this._showToast(`🎉 Тамаша! ${item.name} сәтті жаңартылды!`);
-    this.showHomescapesStudio();
+    this.showRenovationStudio();
   },
 
   /* ========================================================
@@ -1109,7 +1110,7 @@ const App = {
       if (typeof BridgeGame !== 'undefined') BridgeGame.init();
     });
     document.getElementById('btnModeRenoGrid')?.addEventListener('click', () => {
-      this.showHomescapesStudio();
+      this.showRenovationStudio();
     });
 
     root.querySelectorAll('.level-card:not(.locked)').forEach(card => {
@@ -1419,7 +1420,7 @@ const App = {
     modal.querySelector('#btnGoReno').addEventListener('click', () => {
       modal.remove();
       this.currentLevel = null;
-      this.showHomescapesStudio();
+      this.showRenovationStudio();
     });
 
     modal.querySelector('#btnNext').addEventListener('click', () => {
@@ -1500,10 +1501,10 @@ const App = {
       if (typeof BridgeGame !== 'undefined') BridgeGame.init();
     });
     document.getElementById('btnRenovateTop')?.addEventListener('click', () => {
-      this.showHomescapesStudio();
+      this.showRenovationStudio();
     });
     document.getElementById('starsDisplay')?.addEventListener('click', () => {
-      this.showHomescapesStudio();
+      this.showRenovationStudio();
     });
   },
 
