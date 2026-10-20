@@ -1,12 +1,12 @@
 /**
- * MathQuest — v3.0 (Талдықорған Қаласының Интерактивті Картасы)
- * ==============================================================
- * Жаңалықтар v3.0:
- *  - Талдықорған қаласының 10 негізгі шағын ауданының интерактивті картасы
- *  - Кнопкалар (D-Pad) және пернетақта (W,A,S,D / Бағыттауыштар) арқылы қалада жүру
- *  - Қаратал өзені, көпірлер мен шағын аудандардың орналасуы
- *  - Әр ауданда жасырын математикалық сандықтар мен есептерді ашу жүйесі
- *  - KaTeX математикалық өрнектерді толық рендерингтеу
+ * MathQuest — v3.5 (Quizizz Стиліндегі Есептер & Homescapes Жөндеу Жүйесі)
+ * =======================================================================
+ * Жаңалықтар v3.5:
+ *  - 🛠️ HOMESCAPES: Талдықорған қаласын жұлдыздармен жөндеу және безендіру (3 дизайннан таңдау!)
+ *  - ⚡ QUIZIZZ: Бустерлер (💡 50:50, ⏳ +15 сек, ⚡ 2x XP/Монета)
+ *  - 🔥 QUIZIZZ: Әсерлі мемдер, комбо реакциялары және мотивациялық баннерлер
+ *  - 🗺️ Талдықорғанның 10 шағын ауданы, Қаратал өзені және 4 көпір
+ *  - 📐 KaTeX математикалық формулалардың жоғары сапалы рендерингі
  */
 
 /* ===================== ТАЛДЫҚОРҒАН ШАҒЫН АУДАНДАРЫ ===================== */
@@ -210,20 +210,121 @@ const LEVELS = [
   },
 ];
 
-/* Қаладағы аудандарды байланыстыратын жолдар торабы */
+/* Жолдар мен көпірлер торабы */
 const MAP_ROADS = [
   [1, 4], [1, 3], [1, 7], [1, 6], [1, 5],
   [2, 3], [2, 10], [3, 4], [4, 7],
   [5, 6], [5, 10], [6, 9], [7, 8], [8, 9]
 ];
 
-/* Қаратал көпірлері (өзеннен өтетін негізгі тораптар) */
 const BRIDGES = [
   { name: 'Батыс көпірі',   from: 2, to: 10, x: 225, y: 320, rot: 65 },
   { name: 'Арбат көпірі',   from: 1, to: 5,  x: 435, y: 365, rot: 40 },
   { name: 'Жастар көпірі',  from: 1, to: 6,  x: 525, y: 375, rot: -20 },
   { name: 'Шығыс көпірі',   from: 8, to: 9,  x: 780, y: 365, rot: 55 },
 ];
+
+/* ===================== HOMESCAPES: ЖӨНДЕУ НЫСАНДАРЫ ===================== */
+
+const RENOVATION_ITEMS = [
+  {
+    id: 'fountain',
+    cost: 1,
+    name: 'Орталық Арбат Субұрқағы',
+    location: 'Орталық (Арбат)',
+    desc: 'Талдықорғанның орталық көшесіне әсем субұрқақ орнатып, көркін ашыңыз!',
+    defaultIcon: '⛲',
+    options: [
+      { name: 'Хан сарайы мәрмәрі', icon: '🏛️', desc: 'Ақ мәрмәрдан қашалған классикалық сәнді субұрқақ' },
+      { name: 'Кристалл LED Неон',  icon: '💎', desc: 'Түнгі қалаға жарық сыйлайтын заманауи неон субұрқақ' },
+      { name: 'Жетісу Табиғи Тасы', icon: '🌊', desc: 'Табиғи гранит пен сарқырама стиліндегі су бұрқағы' },
+    ]
+  },
+  {
+    id: 'karatal_arch',
+    cost: 1,
+    name: 'Қаратал Жағалауы Аркасы',
+    location: 'Қаратал (6-мкр)',
+    desc: 'Өзен жағасындағы жаяу жүргіншілер аллеясына салтанатты қақпа соғыңыз!',
+    defaultIcon: '🌉',
+    options: [
+      { name: 'Алтын Қанатты Арка',   icon: '🦅', desc: 'Күн нұрымен шағылысатын алтын оюлы қақпа' },
+      { name: 'Лазерлік Түнгі Арка',  icon: '🌌', desc: 'Түнгі набережнаяны нұрға бөлейтін кибер-арка' },
+      { name: 'Жасыл Гүлді Эко-Арка', icon: '🌿', desc: 'Жан-жағы гүлмен көмкерілген саябақ аркасы' },
+    ]
+  },
+  {
+    id: 'park_benches',
+    cost: 1,
+    name: 'Жастар Саябағының Беседкасы',
+    location: 'Жастар шағын ауданы',
+    desc: 'Студенттер мен оқушылар есеп шығарып тынығатын заманауи демалыс аймағы!',
+    defaultIcon: '🛋️',
+    options: [
+      { name: 'Ыңғайлы Ағаш Беседка', icon: '🛖', desc: 'Табиғи қарағайдан жасалған жылы әрі жайлы орындық' },
+      { name: 'Смарт Күн Батареясы',  icon: '💡', desc: 'Телефон қуаттайтын және Wi-Fi тарататын смарт орындық' },
+      { name: 'Ретро Шойын Шамдары',  icon: '🏰', desc: 'Ежелгі еуропалық стильдегі тарихи шамдар' },
+    ]
+  },
+  {
+    id: 'flower_garden',
+    cost: 1,
+    name: 'Самал Гүлзары мен Аллеясы',
+    location: 'Самал (4-мкр)',
+    desc: 'Самал шағын ауданын көгалдандырып, әсем гүлдер мен ағаштар отырғызыңыз!',
+    defaultIcon: '🌷',
+    options: [
+      { name: 'Қызғалдақтар Кілемі', icon: '🌷', desc: 'Жетісудың қызыл-сары таңғажайып қызғалдақтары' },
+      { name: 'Тянь-Шань Шыршалары', icon: '🌲', desc: 'Алатау баурайының мәңгі жасыл жұпар иісті шыршалары' },
+      { name: 'Қызғылт Сакура Бағы',  icon: '🌸', desc: 'Көктемде құлпыратын сәнді гүлді ағаштар' },
+    ]
+  },
+  {
+    id: 'it_lab',
+    cost: 2,
+    name: 'Болашақ IT Hub Лабораториясы',
+    location: 'Болашақ шағын ауданы',
+    desc: 'Жас өнертапқыштарға арналған жасанды интеллект және робототехника орталығы!',
+    defaultIcon: '💻',
+    options: [
+      { name: 'Кибер Неон Станциясы', icon: '🖥️', desc: 'Геймерлік қуатты компьютерлер мен жарықдиодты шамдар' },
+      { name: 'Кванттық AI Сервері',  icon: '🚀', desc: 'Ғарыштық жылдамдықпен есептейтін суперкомпьютер' },
+      { name: 'Эко-Ақылды Кеңсе',     icon: '🍃', desc: 'Табиғи өсімдіктермен көмкерілген тыныш IT бөлме' },
+    ]
+  },
+  {
+    id: 'sports_ground',
+    cost: 2,
+    name: 'Мүшелтой Спорт & Скейт Паркі',
+    location: 'Мүшелтой (7-мкр)',
+    desc: 'Балалар мен жастарға арналған заманауи белсенді спорт кешені!',
+    defaultIcon: '🛹',
+    options: [
+      { name: 'Еуро Шағын Футбол',   icon: '⚽', desc: 'Жасанды көгалды кәсіби жабық футбол алаңы' },
+      { name: 'Заманауи Скейт-Парк', icon: '🛹', desc: 'Ролик пен скейтке арналған рамптар мен трамплиндер' },
+      { name: 'Street Workout & Сақина', icon: '🏀', desc: 'Турниктер мен көше баскетболы сақиналары' },
+    ]
+  },
+];
+
+/* ===================== QUIZIZZ: МЕМАЛАР МЕН РЕАКЦИЯЛАР ===================== */
+
+const QUIZIZZ_MEMES = {
+  correct: [
+    '🔥 ОТТАЙ ЖАНДЫҢ! ТАМАША!',
+    '🎯 ДӘЛ ОНДЫҚҚА! МАТЕМАТИК!',
+    '⚡ СУПЕР ЖЫЛДАМДЫҚ! ТОҚТАМА!',
+    '🧠 ТАЛДЫҚОРҒАН ЭЙНШТЕЙНІ!',
+    '🚀 ҒАРЫШТЫҚ ДӘЛДІК!',
+    '💎 АЛМАЗДАЙ МІНСІЗ ЖАУАП!',
+  ],
+  wrong: [
+    '💪 БОСАҢСЫМА, ҚАЙТА ТЫРЫС!',
+    '🌱 ҚАТЕЛІК — ТӘЖІРИБЕ БАСТАУЫ!',
+    '🛡️ КЕЛЕСІ СҰРАҚТА ҚАРЫМТАСЫН ҚАЙТАР!',
+    '⚡ ТАҒЫ БІР РЕТ ОЙЛАНЫП КӨР!',
+  ]
+};
 
 const ACHIEVEMENTS = [
   { id: 'first_win',        icon: '🥇', title: 'Алғашқы жеңіс!',         desc: 'Орталық ауданын аяқтадың',              trigger: s => s.levelsCompleted >= 1 },
@@ -237,6 +338,7 @@ const ACHIEVEMENTS = [
   { id: 'halfway',          icon: '🌟', title: 'Қала жартысы!',             desc: '5 шағын аудан ашылды',                 trigger: s => s.levelsCompleted >= 5 },
   { id: 'mathematician',    icon: '🧮', title: 'Бас Математик!',           desc: '1000 XP жиналды',                       trigger: s => s.xp >= 1000 },
   { id: 'taldy_conqueror',  icon: '🏙️', title: 'Талдықорған Аңызы',        desc: 'Қала картасында барлық есептер ашылды', trigger: s => s.levelsCompleted >= 10 },
+  { id: 'city_builder',     icon: '🛠️', title: 'Бас Сәулетші',             desc: 'Homescapes стилінде 3 нысанды жөндедің', trigger: s => Object.keys(s.renovations || {}).length >= 3 },
 ];
 
 /* ===================== КҮЙДІ САҚТАУ (STATE) ===================== */
@@ -255,13 +357,24 @@ function loadState() {
     totalQuestions: 0,
     totalCorrect: 0,
     playerName: 'Мен',
-    currentDistrictId: 1, // Бастапқы нүкте: Орталық (Центр)
-    viewMode: 'map',       // 'map' (Карта) немесе 'grid' (Кесте)
+    currentDistrictId: 1,
+    viewMode: 'map',
+    renovations: {}, // { fountain: { style: 1 }, ... }
+    powerups: {
+      fiftyFifty: 3,
+      freezeTime: 3,
+      doubleXP: 3
+    }
   };
   if (!raw) return defaults;
   try {
     const parsed = JSON.parse(raw);
-    return { ...defaults, ...parsed };
+    return {
+      ...defaults,
+      ...parsed,
+      powerups: { ...defaults.powerups, ...(parsed.powerups || {}) },
+      renovations: { ...defaults.renovations, ...(parsed.renovations || {}) }
+    };
   } catch (e) {
     return defaults;
   }
@@ -310,18 +423,19 @@ const Audio = {
 
     if (type === 'correct') {
       o.frequency.setValueAtTime(523, now);
-      o.frequency.setValueAtTime(659, now + 0.1);
-      o.frequency.setValueAtTime(784, now + 0.2);
+      o.frequency.setValueAtTime(659, now + 0.08);
+      o.frequency.setValueAtTime(784, now + 0.16);
       g.gain.setValueAtTime(0.25, now);
-      g.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
-      o.start(now); o.stop(now + 0.5);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+      o.start(now); o.stop(now + 0.45);
 
     } else if (type === 'wrong') {
-      o.frequency.setValueAtTime(300, now);
-      o.frequency.setValueAtTime(220, now + 0.15);
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(280, now);
+      o.frequency.setValueAtTime(210, now + 0.12);
       g.gain.setValueAtTime(0.25, now);
-      g.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
-      o.start(now); o.stop(now + 0.4);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+      o.start(now); o.stop(now + 0.35);
 
     } else if (type === 'win') {
       [523, 659, 784, 1047].forEach((f, i) => {
@@ -329,21 +443,20 @@ const Audio = {
         const gg = this.ctx.createGain();
         oo.connect(gg); gg.connect(this.ctx.destination);
         oo.frequency.value = f;
-        gg.gain.setValueAtTime(0.22, now + i * 0.12);
-        gg.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.4);
-        oo.start(now + i * 0.12);
-        oo.stop(now + i * 0.12 + 0.4);
+        gg.gain.setValueAtTime(0.22, now + i * 0.1);
+        gg.gain.exponentialRampToValueAtTime(0.001, now + i * 0.1 + 0.38);
+        oo.start(now + i * 0.1);
+        oo.stop(now + i * 0.1 + 0.38);
       });
 
     } else if (type === 'combo') {
       o.frequency.setValueAtTime(880, now);
-      o.frequency.setValueAtTime(1100, now + 0.1);
+      o.frequency.setValueAtTime(1100, now + 0.08);
       g.gain.setValueAtTime(0.3, now);
       g.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
       o.start(now); o.stop(now + 0.3);
 
     } else if (type === 'step') {
-      // Картада жүру дыбысы (жұмсақ импульс)
       o.type = 'sine';
       o.frequency.setValueAtTime(340, now);
       o.frequency.exponentialRampToValueAtTime(560, now + 0.08);
@@ -352,7 +465,6 @@ const Audio = {
       o.start(now); o.stop(now + 0.08);
 
     } else if (type === 'unlock') {
-      // Жаңа аудан/сандық ашылғандағы сиқырлы дыбыс
       [587, 740, 880, 1174].forEach((f, i) => {
         const oo = this.ctx.createOscillator();
         const gg = this.ctx.createGain();
@@ -364,11 +476,34 @@ const Audio = {
         oo.start(now + i * 0.08);
         oo.stop(now + i * 0.08 + 0.3);
       });
+
+    } else if (type === 'powerup') {
+      // Quizizz бустер қолданылғандағы футуристік дыбыс
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(400, now);
+      o.frequency.exponentialRampToValueAtTime(1200, now + 0.22);
+      g.gain.setValueAtTime(0.3, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      o.start(now); o.stop(now + 0.25);
+
+    } else if (type === 'hammer') {
+      // Homescapes құрылыс балғасының дыбысы
+      [220, 260, 310].forEach((f, i) => {
+        const oo = this.ctx.createOscillator();
+        const gg = this.ctx.createGain();
+        oo.type = 'square';
+        oo.frequency.value = f;
+        gg.gain.setValueAtTime(0.2, now + i * 0.1);
+        gg.gain.exponentialRampToValueAtTime(0.001, now + i * 0.1 + 0.08);
+        oo.connect(gg); gg.connect(this.ctx.destination);
+        oo.start(now + i * 0.1);
+        oo.stop(now + i * 0.1 + 0.08);
+      });
     }
   }
 };
 
-/* ===================== САЛТАНАТТЫ КОНФЕТТИ ===================== */
+/* ===================== КОНФЕТТИ ===================== */
 
 function launchConfetti() {
   const colors = ['#7c3aed', '#ec4899', '#fbbf24', '#10b981', '#06b6d4', '#ffffff'];
@@ -379,7 +514,7 @@ function launchConfetti() {
       width:${6 + Math.random() * 8}px; height:${6 + Math.random() * 8}px;
       background:${colors[Math.floor(Math.random() * colors.length)]};
       border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
-      z-index:9999; pointer-events:none;
+      z-index:99999; pointer-events:none;
       animation: confettiFall ${1 + Math.random() * 2}s ${Math.random() * 0.5}s forwards;
       transform: rotate(${Math.random() * 360}deg);
     `;
@@ -403,26 +538,49 @@ const App = {
   combo: 0,
   shuffledQuestions: [],
   keyHandlerBound: false,
+  doubleXpActive: false,
 
   init() {
     Audio.init();
     this._bindKeyboardNavigation();
     if (this.state.viewMode === 'grid') {
       this.showLevelSelect();
+    } else if (this.state.viewMode === 'homescapes') {
+      this.showHomescapesStudio();
     } else {
       this.showTaldyMap();
     }
   },
 
-  /* Аудан ашық па? (Көршілері аяқталған немесе деңгейі жеткен) */
+  /* Жұлдыздар балансы (Homescapes үшін) */
+  getTotalStarsEarned() {
+    const stars = this.state.starsPerLevel || {};
+    return Object.values(stars).reduce((acc, v) => acc + (v || 0), 0);
+  },
+
+  getSpentStars() {
+    const reno = this.state.renovations || {};
+    let spent = 0;
+    RENOVATION_ITEMS.forEach(item => {
+      if (reno[item.id] !== undefined) {
+        spent += item.cost;
+      }
+    });
+    return spent;
+  },
+
+  getAvailableStars() {
+    return Math.max(0, this.getTotalStarsEarned() - this.getSpentStars());
+  },
+
   isDistrictUnlocked(id) {
-    if (id === 1) return true; // Орталық әрқашан ашық
+    if (id === 1) return true;
     if (id <= (this.state.levelsCompleted + 1)) return true;
     return false;
   },
 
   /* ========================================================
-     1. ТАЛДЫҚОРҒАН ИНТЕРАКТИВТІ КАРТАСЫ (НЕГІЗГІ РЕЖИМ)
+     1. ТАЛДЫҚОРҒАН ИНТЕРАКТИВТІ КАРТАСЫ (MAP MODE)
      ======================================================== */
 
   showTaldyMap() {
@@ -445,6 +603,7 @@ const App = {
             <div class="mode-toggle-group">
               <button class="mode-btn active" id="btnModeMap">🗺️ Карта</button>
               <button class="mode-btn" id="btnModeGrid">📋 Тізім</button>
+              <button class="mode-btn" id="btnModeReno">🛠️ Жөндеу</button>
             </div>
           </div>
 
@@ -465,12 +624,11 @@ const App = {
     this._bindMapInteractions();
   },
 
-  /* SVG картасын құрастыру */
   _generateMapSVG() {
     const curId = this.state.currentDistrictId || 1;
     const curDist = LEVELS.find(l => l.id === curId) || LEVELS[0];
 
-    // 1. Жолдар сызығы
+    // Жолдар
     const roadsHTML = MAP_ROADS.map(([aId, bId]) => {
       const a = LEVELS.find(l => l.id === aId);
       const b = LEVELS.find(l => l.id === bId);
@@ -484,16 +642,14 @@ const App = {
         />`;
     }).join('');
 
-    // 2. Көпірлер
-    const bridgesHTML = BRIDGES.map(br => {
-      return `
-        <g transform="translate(${br.x}, ${br.y}) rotate(${br.rot})">
-          <rect x="-24" y="-7" width="48" height="14" rx="4" fill="#1e293b" stroke="#fbbf24" stroke-width="2.5" />
-          <line x1="-20" y1="0" x2="20" y2="0" stroke="#f59e0b" stroke-dasharray="3 3" stroke-width="2" />
-        </g>`;
-    }).join('');
+    // Көпірлер
+    const bridgesHTML = BRIDGES.map(br => `
+      <g transform="translate(${br.x}, ${br.y}) rotate(${br.rot})">
+        <rect x="-24" y="-7" width="48" height="14" rx="4" fill="#1e293b" stroke="#fbbf24" stroke-width="2.5" />
+        <line x1="-20" y1="0" x2="20" y2="0" stroke="#f59e0b" stroke-dasharray="3 3" stroke-width="2" />
+      </g>`).join('');
 
-    // 3. Шағын аудандар нүктелері (Nodes)
+    // Шағын аудандар
     const nodesHTML = LEVELS.map(lv => {
       const isCur    = lv.id === curId;
       const unlocked = this.isDistrictUnlocked(lv.id);
@@ -504,7 +660,6 @@ const App = {
         <g class="district-node-g" data-id="${lv.id}" transform="translate(${lv.coords.x}, ${lv.coords.y})">
           ${isCur ? `<circle cx="0" cy="0" r="28" fill="none" stroke="#fbbf24" stroke-width="2.5" class="node-pulse-ring" />` : ''}
 
-          <!-- Аудан шеңбері -->
           <circle cx="0" cy="0" r="24"
                   class="node-circle"
                   fill="${unlocked ? lv.color : '#334155'}"
@@ -513,12 +668,10 @@ const App = {
                   opacity="${unlocked ? '1' : '0.55'}"
           />
 
-          <!-- Аудан эмоджи белгісі немесе құлып -->
           <text x="0" y="7" text-anchor="middle" font-size="20" pointer-events="none">
             ${unlocked ? lv.icon : '🔒'}
           </text>
 
-          <!-- Атауы жазылған плашка -->
           <g transform="translate(0, 36)" pointer-events="none">
             <rect x="-55" y="-12" width="110" height="20" rx="10"
                   fill="rgba(13, 11, 43, 0.88)"
@@ -534,11 +687,9 @@ const App = {
     return `
       <svg class="map-svg" viewBox="0 0 1000 580" preserveAspectRatio="xMidYMid meet" id="taldySvgMap">
         <defs>
-          <!-- Тор сызықтары -->
           <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
             <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.035)" stroke-width="1"/>
           </pattern>
-          <!-- Қаратал өзені градиенті -->
           <linearGradient id="riverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#0284c7" />
             <stop offset="50%" stop-color="#06b6d4" />
@@ -546,30 +697,23 @@ const App = {
           </linearGradient>
         </defs>
 
-        <!-- Фон тор -->
         <rect width="1000" height="580" fill="url(#gridPattern)" />
 
-        <!-- Қаратал өзені (Талдықорғанды бойлай ағады) -->
+        <!-- Қаратал өзені -->
         <path d="M -20,310 C 180,330 320,350 450,370 C 580,390 720,440 1020,570"
               fill="none" stroke="url(#riverGrad)" stroke-width="36" stroke-linecap="round" opacity="0.85" />
         <path d="M -20,310 C 180,330 320,350 450,370 C 580,390 720,440 1020,570"
               fill="none" stroke="#e0f2fe" stroke-width="3" stroke-linecap="round" class="river-flow" opacity="0.6" />
 
-        <!-- Өзен жазуы -->
         <text x="790" y="495" fill="#38bdf8" font-size="12" font-weight="900" letter-spacing="3" opacity="0.8" transform="rotate(22 790 495)">
           🌊 ҚАРАТАЛ ӨЗЕНІ
         </text>
 
-        <!-- Көпірлер -->
         ${bridgesHTML}
-
-        <!-- Байланыстырушы жолдар -->
         ${roadsHTML}
-
-        <!-- Шағын аудандар -->
         ${nodesHTML}
 
-        <!-- Ойыншы аватары (Маркер) -->
+        <!-- Ойыншы аватары -->
         <g id="playerAvatar" class="player-marker-g" transform="translate(${curDist.coords.x}, ${curDist.coords.y - 32})">
           <g class="player-bubble">
             <ellipse cx="0" cy="18" rx="14" ry="4" fill="rgba(0,0,0,0.5)" />
@@ -580,7 +724,6 @@ const App = {
       </svg>`;
   },
 
-  /* Төменгі аудан карточкасының HTML-і */
   _generateDistrictCardHTML(district) {
     const unlocked = this.isDistrictUnlocked(district.id);
     const stars    = (this.state.starsPerLevel || {})[district.id] || 0;
@@ -621,7 +764,6 @@ const App = {
       </div>`;
   },
 
-  /* Экрандық басқару крестовинасы (D-Pad) */
   _generateDPadHTML(currentDistrict) {
     const { neighbors } = currentDistrict;
     return `
@@ -638,14 +780,14 @@ const App = {
       </div>`;
   },
 
-  /* Интерактивті карта оқиғаларын байланыстыру */
   _bindMapInteractions() {
-    // 1. Режимді ауыстыру (Карта / Тізім)
     document.getElementById('btnModeGrid')?.addEventListener('click', () => {
       this.showLevelSelect();
     });
+    document.getElementById('btnModeReno')?.addEventListener('click', () => {
+      this.showHomescapesStudio();
+    });
 
-    // 2. Аудан нүктелерін шерту арқылы жүру
     document.querySelectorAll('.district-node-g').forEach(node => {
       node.addEventListener('click', () => {
         const id = parseInt(node.dataset.id);
@@ -653,7 +795,6 @@ const App = {
       });
     });
 
-    // 3. D-Pad батырмаларын басу
     document.querySelectorAll('.dpad-btn[data-dir]').forEach(btn => {
       btn.addEventListener('click', () => {
         const dir = btn.dataset.dir;
@@ -661,24 +802,20 @@ const App = {
       });
     });
 
-    // 4. Ортадағы іс-қимыл батырмасы (🔍)
     document.getElementById('dpadActionBtn')?.addEventListener('click', () => {
       this.openDistrictQuest(this.state.currentDistrictId || 1);
     });
 
-    // 5. Үлкен «Есепті ашу» батырмасы
     document.getElementById('btnOpenQuest')?.addEventListener('click', () => {
       this.openDistrictQuest(this.state.currentDistrictId || 1);
     });
   },
 
-  /* Пернетақтамен жүруді байланыстыру (бір рет қосылады) */
   _bindKeyboardNavigation() {
     if (this.keyHandlerBound) return;
     this.keyHandlerBound = true;
 
     window.addEventListener('keydown', (e) => {
-      // Тек карта ашық тұрғанда пернетақтамен басқару істейді
       if (this.state.viewMode !== 'map' || this.currentLevel !== null) return;
 
       if (e.key === 'ArrowUp' || e.key === 'KeyW' || e.key === 'w' || e.key === 'W') {
@@ -695,7 +832,6 @@ const App = {
     });
   },
 
-  /* Бағыт бойынша келесі ауданға жүру */
   handleDirection(dir) {
     const curId = this.state.currentDistrictId || 1;
     const cur   = LEVELS.find(l => l.id === curId);
@@ -714,7 +850,6 @@ const App = {
     this.movePlayerToDistrict(targetId);
   },
 
-  /* Ойыншыны таңдалған ауданға жылжыту */
   movePlayerToDistrict(targetId) {
     const target = LEVELS.find(l => l.id === targetId);
     if (!target) return;
@@ -722,12 +857,9 @@ const App = {
     this.state.currentDistrictId = targetId;
     saveState(this.state);
     Audio.play('step');
-
-    // Картаны толық қайта салмай, аватар мен мәліметтерді жеңіл жаңарту
     this.showTaldyMap();
   },
 
-  /* Ауданның есептерін ашып, ойынды бастау */
   openDistrictQuest(districtId) {
     const level = LEVELS.find(l => l.id === districtId);
     if (!level) return;
@@ -743,7 +875,166 @@ const App = {
   },
 
   /* ========================================================
-     2. КЛАССИКАЛЫҚ ДЕҢГЕЙЛЕР КЕСТЕСІ (GRID MODE)
+     2. HOMESCAPES: ТАЛДЫҚОРҒАНДЫ ЖӨНДЕУ ЖӘНЕ БЕЗЕНДІРУ СТУДИЯСЫ
+     ======================================================== */
+
+  showHomescapesStudio() {
+    this.state.viewMode = 'homescapes';
+    saveState(this.state);
+    const root = document.getElementById('app');
+    const availStars = this.getAvailableStars();
+    const renoState  = this.state.renovations || {};
+
+    const cardsHTML = RENOVATION_ITEMS.map(item => {
+      const isBuilt    = renoState[item.id] !== undefined;
+      const currentOpt = isBuilt ? item.options[renoState[item.id].style] : null;
+      const canAfford  = availStars >= item.cost;
+
+      return `
+        <div class="reno-card ${isBuilt ? 'built' : ''}">
+          <div class="reno-card-header">
+            <div class="reno-icon-box">
+              ${isBuilt ? currentOpt.icon : item.defaultIcon}
+            </div>
+            <div>
+              <div class="reno-title">${item.name}</div>
+              <div class="reno-location">📍 ${item.location}</div>
+            </div>
+          </div>
+
+          <div class="reno-desc">
+            ${isBuilt
+              ? `✅ Орнатылды: <strong>${currentOpt.name}</strong>`
+              : item.desc}
+          </div>
+
+          <div class="reno-status-row">
+            ${isBuilt
+              ? `<button class="btn-reno-action change-style" onclick="App.openRenovationPicker('${item.id}')">
+                   🎨 Стильді ауыстыру
+                 </button>`
+              : `<button class="btn-reno-action" onclick="App.openRenovationPicker('${item.id}')" ${!canAfford ? 'disabled' : ''}>
+                   🔨 Жөндеу (⭐ ${item.cost})
+                 </button>`}
+          </div>
+        </div>`;
+    }).join('');
+
+    root.innerHTML = `
+      <div class="game-wrapper">
+        ${this._topBar()}
+
+        <div class="homescapes-wrapper">
+          <div class="homescapes-header">
+            <div class="homescapes-title">
+              🛠️ Талдықорған Сәулеті (Homescapes)
+            </div>
+            <div class="homescapes-stars-box">
+              ⭐ Қолда бар жұлдыздар: ${availStars}
+            </div>
+          </div>
+
+          <div class="homescapes-scene">
+            <div class="scene-intro-bubble">
+              <div class="scene-butler-avatar">👷‍♂️</div>
+              <div class="scene-bubble-text">
+                <strong>Қош келдіңіз, Бас Сәулетші!</strong><br>
+                Аудандардың есептерін шешіп жинаған <strong>Жұлдыздарыңызбен (⭐)</strong> қаланы жаңартыңыз.
+                Әр нысанға <strong>3 түрлі дизайннан</strong> өзіңізге ұнағанын таңдай аласыз!
+              </div>
+            </div>
+
+            <div class="renovation-grid">
+              ${cardsHTML}
+            </div>
+          </div>
+
+          <div style="display:flex; gap:1rem; width:100%; justify-content:center; margin-top:0.5rem;">
+            <button class="modal-btn primary" onclick="App.showTaldyMap()">🗺️ Қала Картасына Оралу</button>
+          </div>
+        </div>
+      </div>`;
+
+    this._bindTopBar();
+  },
+
+  /* Homescapes: 3 дизайн таңдау модалі (Signature 3-Choice Picker) */
+  openRenovationPicker(itemId) {
+    const item = RENOVATION_ITEMS.find(i => i.id === itemId);
+    if (!item) return;
+
+    const isBuilt   = (this.state.renovations || {})[itemId] !== undefined;
+    const curStyle  = isBuilt ? this.state.renovations[itemId].style : 0;
+    const availStars= this.getAvailableStars();
+
+    if (!isBuilt && availStars < item.cost) {
+      Audio.play('wrong');
+      this._showToast(`⭐ Бұл нысанды салу үшін ${item.cost} жұлдыз керек! Аудандардың есебін шешіңіз.`);
+      return;
+    }
+
+    const modal = document.createElement('div');
+    modal.className = 'homescapes-picker-overlay';
+    modal.id = 'renoPickerOverlay';
+
+    modal.innerHTML = `
+      <div class="homescapes-picker-modal">
+        <div class="picker-title">🛠️ ${item.name} — Дизайн таңдаңыз</div>
+        <div class="picker-subtitle">Homescapes стиліндегі 3 нұсқаның бірін таңдап, қаланы көркейтіңіз!</div>
+
+        <div class="picker-choices-row">
+          ${item.options.map((opt, idx) => `
+            <div class="choice-card ${isBuilt && curStyle === idx ? 'selected' : ''}" data-idx="${idx}">
+              <div class="choice-icon">${opt.icon}</div>
+              <div class="choice-name">${opt.name}</div>
+              <div class="choice-desc">${opt.desc}</div>
+              <button class="modal-btn primary" style="font-size:0.8rem; padding:0.4rem 0.8rem; margin-top:0.4rem;">
+                ${isBuilt && curStyle === idx ? 'Таңдалған ✓' : 'Таңдау'}
+              </button>
+            </div>`).join('')}
+        </div>
+
+        <div class="picker-actions">
+          <button class="modal-btn secondary" id="btnCancelPicker">Жабу</button>
+        </div>
+      </div>`;
+
+    document.body.appendChild(modal);
+
+    modal.querySelectorAll('.choice-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const chosenIdx = parseInt(card.dataset.idx);
+        this.applyRenovation(itemId, chosenIdx);
+        modal.remove();
+      });
+    });
+
+    modal.querySelector('#btnCancelPicker').addEventListener('click', () => {
+      modal.remove();
+    });
+  },
+
+  applyRenovation(itemId, styleIdx) {
+    const item = RENOVATION_ITEMS.find(i => i.id === itemId);
+    if (!item) return;
+
+    if (!this.state.renovations) this.state.renovations = {};
+    const isFirstTime = this.state.renovations[itemId] === undefined;
+
+    this.state.renovations[itemId] = { style: styleIdx };
+    saveState(this.state);
+
+    Audio.play('hammer');
+    setTimeout(() => Audio.play('win'), 300);
+    launchConfetti();
+
+    this._checkAchievements();
+    this._showToast(`🎉 Тамаша! ${item.name} сәтті жаңартылды!`);
+    this.showHomescapesStudio();
+  },
+
+  /* ========================================================
+     3. КЛАССИКАЛЫҚ ДЕҢГЕЙЛЕР КЕСТЕСІ (GRID MODE)
      ======================================================== */
 
   showLevelSelect() {
@@ -782,6 +1073,7 @@ const App = {
           <div class="mode-toggle-group">
             <button class="mode-btn" id="btnModeMapGrid">🗺️ Карта</button>
             <button class="mode-btn active">📋 Тізім</button>
+            <button class="mode-btn" id="btnModeRenoGrid">🛠️ Жөндеу</button>
           </div>
         </div>
         <div class="level-grid">${cards}</div>
@@ -791,6 +1083,9 @@ const App = {
     this._bindTopBar();
     document.getElementById('btnModeMapGrid')?.addEventListener('click', () => {
       this.showTaldyMap();
+    });
+    document.getElementById('btnModeRenoGrid')?.addEventListener('click', () => {
+      this.showHomescapesStudio();
     });
 
     root.querySelectorAll('.level-card:not(.locked)').forEach(card => {
@@ -802,17 +1097,18 @@ const App = {
   },
 
   /* ========================================================
-     3. ЕСЕПТЕРДІ ШЕШУ БӨЛІМІ (GAMEPLAY + KATEX)
+     4. QUIZIZZ СТИЛІНДЕГІ СҰРАҚ-ЖАУАП ОЙЫНЫ
      ======================================================== */
 
   startLevel(level) {
-    this.currentLevel  = level;
-    this.currentQIdx   = 0;
-    this.wrongCount    = 0;
-    this.fastCount     = 0;
-    this.combo         = 0;
-    this.startTime     = Date.now();
-    this.shuffledQuestions = [...level.questions].sort(() => Math.random() - 0.5);
+    this.currentLevel     = level;
+    this.currentQIdx      = 0;
+    this.wrongCount       = 0;
+    this.fastCount        = 0;
+    this.combo            = 0;
+    this.doubleXpActive   = false;
+    this.startTime        = Date.now();
+    this.shuffledQuestions= [...level.questions].sort(() => Math.random() - 0.5);
     this.showQuestion();
   },
 
@@ -822,15 +1118,19 @@ const App = {
     const total = shuffledQuestions.length;
     const root  = document.getElementById('app');
     const prog  = Math.round((currentQIdx / total) * 100);
+    const pu    = this.state.powerups || { fiftyFifty: 3, freezeTime: 3, doubleXP: 3 };
 
     root.innerHTML = `
       <div class="game-wrapper">
         ${this._topBar()}
-        <div class="question-card">
+        <div class="question-card" style="position:relative;">
+          <!-- Quizizz Мем-Реакция баннері -->
+          <div class="quizizz-reaction-banner" id="quizizzBanner"></div>
+
           <div class="q-top-row">
             <span class="q-level-badge" style="color:${currentLevel.color}">${currentLevel.icon} ${currentLevel.fullName}</span>
             <span class="q-counter">${currentQIdx + 1} / ${total}</span>
-            ${combo >= 2 ? `<span class="combo-badge">🔥 x${combo}</span>` : ''}
+            ${combo >= 2 ? `<span class="combo-badge">🔥 x${combo} STREAK</span>` : ''}
           </div>
 
           <div class="progress-track">
@@ -841,7 +1141,7 @@ const App = {
             <div class="timer-bar" id="timerBar" style="width:100%"></div>
           </div>
 
-          <!-- KaTeX өрнектерін әдемі шығару -->
+          <!-- KaTeX өрнегі -->
           <div class="question-text">${renderQ(q)}</div>
 
           <div class="answers-grid" id="answersGrid">
@@ -850,10 +1150,24 @@ const App = {
           </div>
 
           <div class="timer-label" id="timerLabel">⏱ 15 сек</div>
+
+          <!-- Quizizz Бустерлер тақтасы -->
+          <div class="quizizz-powerups-bar">
+            <button class="powerup-btn" id="btnPower50" ${pu.fiftyFifty <= 0 ? 'disabled' : ''} title="2 қате жауапты өшіру">
+              💡 50:50 <span class="p-count">${pu.fiftyFifty}</span>
+            </button>
+            <button class="powerup-btn" id="btnPowerFreeze" ${pu.freezeTime <= 0 ? 'disabled' : ''} title="+15 сек уақыт қосу">
+              ⏳ +15с <span class="p-count">${pu.freezeTime}</span>
+            </button>
+            <button class="powerup-btn" id="btnPower2X" ${pu.doubleXP <= 0 || this.doubleXpActive ? 'disabled' : ''} title="2x XP & Монета көбейткіші">
+              ⚡ 2x XP <span class="p-count">${pu.doubleXP}</span>
+            </button>
+          </div>
         </div>
       </div>`;
 
     this._bindTopBar();
+    this._bindPowerUps(q);
     this._startTimer();
     this.questionStartTime = Date.now();
 
@@ -861,6 +1175,61 @@ const App = {
       btn.addEventListener('click', () => {
         this.selectAnswer(parseInt(btn.dataset.index), q.correct);
       });
+    });
+  },
+
+  _bindPowerUps(q) {
+    // 1. 50:50 бустері
+    document.getElementById('btnPower50')?.addEventListener('click', () => {
+      if (this.state.powerups.fiftyFifty <= 0) return;
+      this.state.powerups.fiftyFifty--;
+      saveState(this.state);
+      Audio.play('powerup');
+
+      const wrongIndices = q.answers.map((_, i) => i).filter(i => i !== q.correct);
+      const toRemove = wrongIndices.sort(() => Math.random() - 0.5).slice(0, 2);
+
+      toRemove.forEach(idx => {
+        const btn = document.querySelector(`.answer-btn[data-index="${idx}"]`);
+        if (btn) {
+          btn.style.opacity = '0.2';
+          btn.style.pointerEvents = 'none';
+          btn.textContent = '❌';
+        }
+      });
+      document.getElementById('btnPower50').disabled = true;
+      document.getElementById('btnPower50').querySelector('.p-count').textContent = this.state.powerups.fiftyFifty;
+      this._showToast('💡 50:50 қолданылды! Екі қате жауап өшірілді.');
+    });
+
+    // 2. +15с Уақыт бустері
+    document.getElementById('btnPowerFreeze')?.addEventListener('click', () => {
+      if (this.state.powerups.freezeTime <= 0) return;
+      this.state.powerups.freezeTime--;
+      saveState(this.state);
+      Audio.play('powerup');
+
+      this.timeLeft = Math.min(30, this.timeLeft + 15);
+      const bar = document.getElementById('timerBar');
+      if (bar) bar.style.background = 'linear-gradient(90deg, #38bdf8, #818cf8)';
+      document.getElementById('btnPowerFreeze').disabled = true;
+      document.getElementById('btnPowerFreeze').querySelector('.p-count').textContent = this.state.powerups.freezeTime;
+      this._showToast('⏳ +15 секунд қосылды!');
+    });
+
+    // 3. 2x XP бустері
+    document.getElementById('btnPower2X')?.addEventListener('click', () => {
+      if (this.state.powerups.doubleXP <= 0 || this.doubleXpActive) return;
+      this.state.powerups.doubleXP--;
+      this.doubleXpActive = true;
+      saveState(this.state);
+      Audio.play('powerup');
+
+      const btn = document.getElementById('btnPower2X');
+      btn.style.background = 'linear-gradient(135deg, #fbbf24, #f59e0b)';
+      btn.style.color = '#0d0b2b';
+      btn.querySelector('.p-count').textContent = this.state.powerups.doubleXP;
+      this._showToast('⚡ 2x Множитель қосылды! Келесі дұрыс жауап қос есе ұпай береді.');
     });
   },
 
@@ -877,16 +1246,26 @@ const App = {
       else if (i === chosen && !isCorrect) btn.classList.add('wrong');
     });
 
+    // Quizizz реакциялық баннерін көрсету
+    this._showQuizizzReaction(isCorrect, this.combo);
+
     if (isCorrect) {
       this.combo++;
       this.state.totalCorrect = (this.state.totalCorrect || 0) + 1;
       const baseXP  = 10;
       const timeXP  = Math.round((15 - Math.min(elapsed, 15)) * 2);
       const comboXP = this.combo >= 3 ? Math.round(this.combo * 5) : 0;
-      const xpGain  = baseXP + timeXP + comboXP;
+      let xpGain    = baseXP + timeXP + comboXP;
+      let coinGain  = 5 + (this.combo >= 3 ? this.combo : 0);
+
+      if (this.doubleXpActive) {
+        xpGain   *= 2;
+        coinGain *= 2;
+        this.doubleXpActive = false;
+      }
 
       this.state.xp     += xpGain;
-      this.state.coins  += 5 + (this.combo >= 3 ? this.combo : 0);
+      this.state.coins  += coinGain;
       this.state.maxCombo = Math.max(this.state.maxCombo || 0, this.combo);
 
       if (elapsed < 5) {
@@ -901,6 +1280,7 @@ const App = {
 
     } else {
       this.combo = 0;
+      this.doubleXpActive = false;
       this.wrongCount++;
       this.state.lastWrong = this.wrongCount;
       Audio.play('wrong');
@@ -918,7 +1298,22 @@ const App = {
       } else {
         this.finishLevel();
       }
-    }, 1000);
+    }, 1100);
+  },
+
+  _showQuizizzReaction(isCorrect, combo) {
+    const banner = document.getElementById('quizizzBanner');
+    if (!banner) return;
+
+    const list = isCorrect ? QUIZIZZ_MEMES.correct : QUIZIZZ_MEMES.wrong;
+    const text = list[Math.floor(Math.random() * list.length)];
+
+    banner.textContent = text;
+    banner.className   = `quizizz-reaction-banner show ${isCorrect ? 'correct' : 'wrong'}`;
+
+    setTimeout(() => {
+      banner.classList.remove('show');
+    }, 900);
   },
 
   _flyXP(text, btnIdx) {
@@ -931,7 +1326,7 @@ const App = {
     el.style.cssText = `
       position:fixed; left:${rect.left + rect.width / 2}px; top:${rect.top}px;
       font-size:1.1rem; font-weight:900; color:#fbbf24;
-      pointer-events:none; z-index:9999;
+      pointer-events:none; z-index:99999;
       animation: xpFly 1s forwards;
       text-shadow: 0 0 10px rgba(251,191,36,0.8);
     `;
@@ -982,9 +1377,10 @@ const App = {
           <div class="modal-stat"><span>${timeSec}с</span><small>Уақыт</small></div>
           <div class="modal-stat"><span>+${win ? bonus : 0}</span><small>Монета</small></div>
         </div>
-        <div class="modal-buttons">
+        <div class="modal-buttons" style="flex-wrap:wrap;">
           <button class="modal-btn secondary" id="btnHome">🗺️ Қала Картасы</button>
-          <button class="modal-btn primary"   id="btnNext">${win ? '▶ Келесі аудан' : '🔁 Қайта байқау'}</button>
+          <button class="modal-btn" style="background:#ec4899; color:white;" id="btnGoReno">🛠️ Жөндеу (⭐ ${this.getAvailableStars()})</button>
+          <button class="modal-btn primary"   id="btnNext">${win ? '▶ Келесі' : '🔁 Қайталау'}</button>
         </div>
       </div>`;
     document.body.appendChild(modal);
@@ -994,6 +1390,12 @@ const App = {
       modal.remove();
       this.currentLevel = null;
       this.showTaldyMap();
+    });
+
+    modal.querySelector('#btnGoReno').addEventListener('click', () => {
+      modal.remove();
+      this.currentLevel = null;
+      this.showHomescapesStudio();
     });
 
     modal.querySelector('#btnNext').addEventListener('click', () => {
@@ -1024,7 +1426,7 @@ const App = {
       const label = document.getElementById('timerLabel');
       const pct   = (this.timeLeft / 15) * 100;
       if (bar) {
-        bar.style.width = `${pct}%`;
+        bar.style.width = `${Math.min(100, pct)}%`;
         bar.style.background = pct > 50
           ? 'linear-gradient(90deg,#10b981,#fbbf24)'
           : pct > 25
@@ -1043,6 +1445,8 @@ const App = {
     const xpNeeded = 200;
     const xpPct    = Math.min((this.state.xp % xpNeeded) / xpNeeded * 100, 100).toFixed(1);
     const level    = Math.floor(this.state.xp / xpNeeded) + 1;
+    const availStars = this.getAvailableStars();
+
     return `
       <div class="top-bar" id="topBar">
         <a class="home-link" href="index.html" title="Басты бет">🏠</a>
@@ -1053,10 +1457,23 @@ const App = {
           <span class="xp-label" id="xpLabel">Дең. ${level}</span>
         </div>
         <div class="coins" id="coinsDisplay">🪙 ${this.state.coins}</div>
+        <div class="stars-badge" id="starsDisplay" title="Жөндеуге арналған қолда бар жұлдыздар">
+          ⭐ ${availStars}
+        </div>
+        <button class="btn-renovate-top" id="btnRenovateTop">
+          🛠️ Жөндеу
+        </button>
       </div>`;
   },
 
-  _bindTopBar() {},
+  _bindTopBar() {
+    document.getElementById('btnRenovateTop')?.addEventListener('click', () => {
+      this.showHomescapesStudio();
+    });
+    document.getElementById('starsDisplay')?.addEventListener('click', () => {
+      this.showHomescapesStudio();
+    });
+  },
 
   _updateTopBar() {
     const xpNeeded = 200;
@@ -1065,18 +1482,20 @@ const App = {
     const bar  = document.getElementById('xpBarFill');
     const lbl  = document.getElementById('xpLabel');
     const coin = document.getElementById('coinsDisplay');
+    const star = document.getElementById('starsDisplay');
     if (bar)  bar.style.width = xpPct + '%';
     if (lbl)  lbl.textContent = `Дең. ${level}`;
     if (coin) coin.textContent = `🪙 ${this.state.coins}`;
+    if (star) star.innerHTML = `⭐ ${this.getAvailableStars()}`;
   },
 
   _showToast(msg) {
     const toast = document.createElement('div');
     toast.style.cssText = `
       position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
-      background:rgba(15, 23, 42, 0.95); border:1px solid #f87171; color:#fca5a5;
+      background:rgba(15, 23, 42, 0.95); border:1px solid #fbbf24; color:#fef08a;
       padding:0.75rem 1.4rem; border-radius:50px; font-weight:800; font-size:0.9rem;
-      z-index:99999; box-shadow:0 8px 30px rgba(0,0,0,0.5); pointer-events:none;
+      z-index:99999; box-shadow:0 8px 30px rgba(0,0,0,0.6); pointer-events:none;
       transition:opacity 0.3s;
     `;
     toast.textContent = msg;

@@ -829,7 +829,424 @@
   to   { box-shadow: 0 0 15px rgba(251, 191, 36, 0.5); }
 }
 
+/* ===================================================
+   QUIZIZZ СТИЛІНДЕГІ СУПЕР БУСТЕРЛЕР ЖӘНЕ МЕМ-БАННЕРЛЕР
+   =================================================== */
+
+/* Жоғарғы жұлдыздар мен жөндеу батырмасы */
+.stars-badge {
+  background: rgba(236, 72, 153, 0.15);
+  border: 1px solid rgba(236, 72, 153, 0.45);
+  border-radius: 50px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #f472b6;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.stars-badge:hover {
+  transform: scale(1.05);
+  background: rgba(236, 72, 153, 0.25);
+}
+
+.btn-renovate-top {
+  background: linear-gradient(135deg, #ec4899, #f59e0b);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.84rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-renovate-top:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+}
+
+/* Quizizz бустерлер тақтасы (Power-ups) */
+.quizizz-powerups-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.powerup-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  padding: 0.5rem 0.85rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.powerup-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+  border-color: #fbbf24;
+}
+.powerup-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.powerup-btn .p-count {
+  background: #fbbf24;
+  color: #0d0b2b;
+  border-radius: 50px;
+  padding: 1px 6px;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+/* Quizizz мем және мотивациялық баннер */
+.quizizz-reaction-banner {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  padding: 1.2rem 2.2rem;
+  border-radius: 24px;
+  font-size: 1.35rem;
+  font-weight: 900;
+  text-align: center;
+  pointer-events: none;
+  z-index: 999;
+  box-shadow: 0 15px 45px rgba(0,0,0,0.7);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+}
+.quizizz-reaction-banner.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+.quizizz-reaction-banner.correct {
+  background: linear-gradient(135deg, #059669, #10b981);
+  border: 2px solid #34d399;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+.quizizz-reaction-banner.wrong {
+  background: linear-gradient(135deg, #b91c1c, #ef4444);
+  border: 2px solid #f87171;
+  color: white;
+}
+
+/* ===================================================
+   HOMESCAPES СТИЛІНДЕГІ ЖӨНДЕУ ЖӘНЕ БЕЗЕНДІРУ РЕЖИМІ
+   =================================================== */
+
+.homescapes-wrapper {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  align-items: center;
+}
+
+.homescapes-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.homescapes-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #f472b6, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.homescapes-stars-box {
+  background: rgba(251, 191, 36, 0.18);
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  border-radius: 50px;
+  padding: 0.4rem 1.1rem;
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fbbf24;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Homescapes Сквері / Алаңы (Плаза) */
+.homescapes-scene {
+  width: 100%;
+  background: radial-gradient(circle at 50% 20%, #1e1b4b 0%, #0d0b2b 100%);
+  border: 1px solid rgba(236, 72, 153, 0.35);
+  border-radius: 24px;
+  padding: 1.8rem;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.scene-intro-bubble {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 1rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.scene-butler-avatar {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+}
+.scene-bubble-text {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+/* Жөндеу нысандарының торы */
+.renovation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.reno-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.9rem;
+  transition: all 0.25s ease;
+  position: relative;
+}
+.reno-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(236, 72, 153, 0.5);
+  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.2);
+}
+.reno-card.built {
+  border-color: rgba(16, 185, 129, 0.5);
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.reno-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.reno-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+.reno-title {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: white;
+}
+.reno-location {
+  font-size: 0.78rem;
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.reno-desc {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+.reno-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.btn-reno-action {
+  flex: 1;
+  background: linear-gradient(135deg, #ec4899, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.35);
+  font-family: inherit;
+}
+.btn-reno-action:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+.btn-reno-action:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.4);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.btn-reno-action.change-style {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+}
+.btn-reno-action.change-style:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Homescapes 3 дизайн таңдау модалі (Signature 3-Choice Picker) */
+.homescapes-picker-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 11, 43, 0.85);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 1.5rem;
+  animation: fadeIn 0.25s ease;
+}
+
+.homescapes-picker-modal {
+  background: linear-gradient(135deg, #1e1b4b, #2d1052);
+  border: 2px solid #fbbf24;
+  border-radius: 28px;
+  max-width: 650px;
+  width: 100%;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 30px rgba(251, 191, 36, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  align-items: center;
+  animation: popUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.picker-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #fbbf24;
+  text-align: center;
+}
+
+.picker-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  margin-top: -0.8rem;
+}
+
+/* 3 карточка қатар орналасуы */
+.picker-choices-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.choice-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  padding: 1.2rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.choice-card:hover {
+  transform: translateY(-5px);
+  border-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.15);
+  box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+}
+.choice-card.selected {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.2);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+.choice-icon {
+  font-size: 2.8rem;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+}
+.choice-name {
+  font-size: 0.92rem;
+  font-weight: 900;
+  color: white;
+}
+.choice-desc {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.3;
+}
+
+.picker-actions {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
 /* ---- Адаптивтілік ---- */
+@media (max-width: 600px) {
+  .picker-choices-row {
+    grid-template-columns: 1fr;
+  }
+  .homescapes-title {
+    font-size: 1.2rem;
+  }
+}
+
 @media (max-width: 720px) {
   .map-dock-bar {
     grid-template-columns: 1fr;
