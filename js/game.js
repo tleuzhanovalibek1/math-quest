@@ -1,16 +1,27 @@
 /**
- * MathQuest — v2.1 (KaTeX математикалық рендеринг)
- * ==================================================
- * Жаңалықтар v2.1:
- *  - KaTeX арқылы математикалық өрнектер әдемі көрінеді
- *  - Барлық деңгейлерге tex өрісі қосылды
+ * MathQuest — v3.0 (Талдықорған Қаласының Интерактивті Картасы)
+ * ==============================================================
+ * Жаңалықтар v3.0:
+ *  - Талдықорған қаласының 10 негізгі шағын ауданының интерактивті картасы
+ *  - Кнопкалар (D-Pad) және пернетақта (W,A,S,D / Бағыттауыштар) арқылы қалада жүру
+ *  - Қаратал өзені, көпірлер мен шағын аудандардың орналасуы
+ *  - Әр ауданда жасырын математикалық сандықтар мен есептерді ашу жүйесі
+ *  - KaTeX математикалық өрнектерді толық рендерингтеу
  */
 
-/* ===================== ДЕРЕКТЕР БАЗАСЫ ===================== */
+/* ===================== ТАЛДЫҚОРҒАН ШАҒЫН АУДАНДАРЫ ===================== */
 
 const LEVELS = [
   {
-    id: 1, name: 'Бастауыш', icon: '🌱', color: '#10b981',
+    id: 1,
+    name: 'Орталық',
+    fullName: 'Орталық (Центр / Арбат)',
+    landmark: '🏛️ Тәуелсіздік алаңы, І. Жансүгіров саябағы & Арбат',
+    districtDesc: 'Талдықорғанның қақ ортасы! Мұнда қала әкімдігі, демалыс аллеялары және білімнің бас кілті орналасқан.',
+    icon: '🏛️',
+    color: '#10b981',
+    coords: { x: 500, y: 310 },
+    neighbors: { up: 4, left: 3, right: 7, down: 6 },
     questions: [
       { q: '5 + 3 = ?',   answers: [8, 6, 7, 9],    correct: 0 },
       { q: '12 − 4 = ?',  answers: [7, 8, 9, 6],    correct: 1 },
@@ -22,7 +33,15 @@ const LEVELS = [
     ]
   },
   {
-    id: 2, name: 'Орташа', icon: '⚡', color: '#f59e0b',
+    id: 2,
+    name: '1-мкр',
+    fullName: '1-ші шағын аудан (Ғарышкер)',
+    landmark: '🚀 Ғарышкерлер көшесі & саябағы',
+    districtDesc: 'Талдықорғанның батыс бөлігіндегі тарихи аудан. Ғарыштық жылдамдық пен көбейту есептерін шешіңіз!',
+    icon: '🚀',
+    color: '#f59e0b',
+    coords: { x: 260, y: 210 },
+    neighbors: { right: 3, down: 10 },
     questions: [
       { q: '14 × 3 = ?',   tex: '14 \\times 3 = ?',  answers: [38, 40, 42, 36], correct: 2 },
       { q: '81 ÷ 9 = ?',   tex: '81 \\div 9 = ?',    answers: [7, 8, 9, 10],    correct: 2 },
@@ -34,7 +53,15 @@ const LEVELS = [
     ]
   },
   {
-    id: 3, name: 'Жоғары', icon: '🔥', color: '#ef4444',
+    id: 3,
+    name: 'Самал',
+    fullName: 'Самал шағын ауданы (4-мкр)',
+    landmark: '🌿 Самал саябағы & Жетісу сауда кешені',
+    districtDesc: 'Жасыл желекті, тыныш әрі көрнекті аудан. Мұнда дәрежелер мен түбірлердің құпиясы сақталған!',
+    icon: '🌿',
+    color: '#ef4444',
+    coords: { x: 380, y: 220 },
+    neighbors: { left: 2, right: 4, down: 1 },
     questions: [
       { q: '√144 = ?',       tex: '\\sqrt{144} = ?',            answers: [11, 12, 13, 14],     correct: 1 },
       { q: '2³ × 5 = ?',     tex: '2^3 \\times 5 = ?',          answers: [30, 40, 45, 50],     correct: 1 },
@@ -46,7 +73,15 @@ const LEVELS = [
     ]
   },
   {
-    id: 4, name: 'Алгебра', icon: '🔣', color: '#8b5cf6',
+    id: 4,
+    name: 'Мүшелтой',
+    fullName: 'Мүшелтой шағын ауданы (7-мкр)',
+    landmark: '🏢 Мүшелтой тұрғын ауданы & мектептер кешені',
+    districtDesc: 'Қаланың солтүстігіндегі үлкен шағын аудан. Алгебралық теңдеулер жұмбағын шешіңіз!',
+    icon: '🏢',
+    color: '#8b5cf6',
+    coords: { x: 510, y: 160 },
+    neighbors: { left: 3, right: 7, down: 1 },
     questions: [
       { q: 'x + 5 = 12, x = ?',  tex: 'x + 5 = 12,\\quad x = ?',       answers: [5, 6, 7, 8],     correct: 2 },
       { q: '2x = 18, x = ?',     tex: '2x = 18,\\quad x = ?',           answers: [7, 8, 9, 10],    correct: 2 },
@@ -58,7 +93,15 @@ const LEVELS = [
     ]
   },
   {
-    id: 5, name: 'Геометрия', icon: '📐', color: '#0ea5e9',
+    id: 5,
+    name: 'Қаратал',
+    fullName: 'Қаратал шағын ауданы (6-мкр)',
+    landmark: '🌊 Қаратал өзенінің Жағалауы & Аркасы',
+    districtDesc: 'Қараталдың саф ауасы мен сылдыраған суы! Өзен арқылы өтетін көпірлер мен геометриялық есептер.',
+    icon: '🌊',
+    color: '#06b6d4',
+    coords: { x: 370, y: 420 },
+    neighbors: { left: 10, right: 6, up: 1 },
     questions: [
       { q: 'Шеңбер ауданы (r=5)?',         tex: 'S = \\pi r^2,\\ r=5,\\ S=?',            answers: ['25π','20π','15π','10π'],    correct: 0 },
       { q: 'Тік үшбұрыш a=3, b=4, c=?',   tex: 'a^2+b^2=c^2,\\ a=3,\\ b=4,\\ c=?',     answers: ['5','6','7','4.5'],          correct: 0 },
@@ -70,7 +113,15 @@ const LEVELS = [
     ]
   },
   {
-    id: 6, name: 'Ықтималдық', icon: '🎲', color: '#ec4899',
+    id: 6,
+    name: 'Жастар',
+    fullName: 'Жастар шағын ауданы',
+    landmark: '🏟️ "Жастар" спорт сарайы & саябағы',
+    districtDesc: 'Спорт, серпін және жастық жігер алаңы! Мұнда ықтималдық пен комбинаторика шыңдалады.',
+    icon: '🏟️',
+    color: '#ec4899',
+    coords: { x: 550, y: 440 },
+    neighbors: { left: 5, right: 9, up: 1 },
     questions: [
       { q: 'Монета лақтырғанда "тура" ықтималдығы?', tex: 'P(\\text{тура}) = ?',          answers: ['1/4','1/3','1/2','2/3'],     correct: 2 },
       { q: '6 қырлы кубикте 3 шығу ықт.?',           tex: 'P(3) = ?,\\ n=6',              answers: ['1/4','1/6','1/3','1/2'],     correct: 1 },
@@ -81,7 +132,15 @@ const LEVELS = [
     ]
   },
   {
-    id: 7, name: 'Статистика', icon: '📊', color: '#14b8a6',
+    id: 7,
+    name: 'Көктем',
+    fullName: 'Көктем шағын ауданы',
+    landmark: '🌸 Көктем саябағы & білім беру орталықтары',
+    districtDesc: 'Жаңарып жатқан жайлы мекен. Статистика, орташа мән, медиана және мода формулаларын игеріңіз!',
+    icon: '🌸',
+    color: '#14b8a6',
+    coords: { x: 690, y: 210 },
+    neighbors: { left: 4, right: 8, down: 1 },
     questions: [
       { q: '[2,4,6,8,10] орташа мәні?',      tex: '\\bar{x} = \\frac{2+4+6+8+10}{5} = ?', answers: ['5','6','7','8'],             correct: 1 },
       { q: '[3,5,5,7,9] медианасы?',          answers: ['3','5','7','9'],                    correct: 1 },
@@ -92,7 +151,15 @@ const LEVELS = [
     ]
   },
   {
-    id: 8, name: 'Тригонометрия', icon: '🌊', color: '#f97316',
+    id: 8,
+    name: 'Шығыс',
+    fullName: 'Шығыс шағын ауданы (8-мкр)',
+    landmark: '🌅 Шығыс қақпасы & Сауда торабы',
+    districtDesc: 'Күн шығыс жақтан ашылатын қақпа. Бұрыштар мен тригонометриялық толқындардың сандығы осында!',
+    icon: '🌅',
+    color: '#f97316',
+    coords: { x: 830, y: 270 },
+    neighbors: { left: 7, down: 9 },
     questions: [
       { q: 'sin(0°) = ?',        tex: '\\sin 0^\\circ = ?',         answers: ['0','1','-1','0.5'],   correct: 0 },
       { q: 'cos(90°) = ?',       tex: '\\cos 90^\\circ = ?',        answers: ['1','0','-1','0.5'],   correct: 1 },
@@ -103,7 +170,15 @@ const LEVELS = [
     ]
   },
   {
-    id: 9, name: 'Логика', icon: '🧩', color: '#a855f7',
+    id: 9,
+    name: 'Болашақ',
+    fullName: 'Болашақ шағын ауданы',
+    landmark: '💻 IT Hub, Салтанат сарайы & Жаңа қалашық',
+    districtDesc: 'Заманауи архитектура мен жаңа технологиялар тоғысы. Логика мен сандық алгоритмдерді бағындырыңыз!',
+    icon: '💻',
+    color: '#a855f7',
+    coords: { x: 730, y: 460 },
+    neighbors: { left: 6, up: 8 },
     questions: [
       { q: 'Барлық мысықтар жануар. Барсик мысық. Барсик...?', answers: ['Жануар емес','Жануар','Белгісіз','Өсімдік'], correct: 1 },
       { q: '2, 4, 8, 16, ...?',            tex: '2,\\ 4,\\ 8,\\ 16,\\ \\ldots = ?',  answers: ['24','30','32','36'],    correct: 2 },
@@ -114,7 +189,15 @@ const LEVELS = [
     ]
   },
   {
-    id: 10, name: '🏆 Гранд Мастер', icon: '👑', color: '#fbbf24',
+    id: 10,
+    name: 'Батыс / Хутор',
+    fullName: 'Батыс / Хутор (Сарыбұлақ)',
+    landmark: '🏔️ Қаратал көпірі, Сарыбұлақ өткелі & Тау баурайы',
+    districtDesc: 'Алатау баурайындағы қасиетті мекен. Ең жоғары математика — интегралдар мен туындылар Гранд Мастері!',
+    icon: '🏔️',
+    color: '#fbbf24',
+    coords: { x: 190, y: 430 },
+    neighbors: { up: 2, right: 5 },
     questions: [
       { q: 'e ≈ ?',                       tex: 'e \\approx ?',                               answers: ['2.718','3.141','1.618','2.303'],   correct: 0 },
       { q: 'ln(e²) = ?',                  tex: '\\ln(e^2) = ?',                              answers: ['1','e','2','2e'],                  correct: 2 },
@@ -127,30 +210,61 @@ const LEVELS = [
   },
 ];
 
-const ACHIEVEMENTS = [
-  { id: 'first_win',    icon: '🥇', title: 'Алғашқы жеңіс!',   desc: 'Бірінші деңгейді аяқтадың',  trigger: s => s.levelsCompleted >= 1 },
-  { id: 'perfect',      icon: '💯', title: 'Мінсіз!',            desc: 'Деңгейді қатесіз аяқтадың',  trigger: s => s.lastWrong === 0 && s.levelsCompleted >= 1 },
-  { id: 'collector',    icon: '💰', title: 'Байлық жинаушы',     desc: '100 монета жиналды',          trigger: s => s.coins >= 100 },
-  { id: 'speed_demon',  icon: '⚡', title: 'Жылдамшыл!',         desc: '5 есепті 5 сек ішінде шеш',  trigger: s => s.fastAnswers >= 5 },
-  { id: 'master',       icon: '👑', title: 'Шебер!',              desc: 'Барлық деңгейлерді аяқта',   trigger: s => s.levelsCompleted >= 10 },
-  { id: 'combo_3',      icon: '🔥', title: 'Үштік комбо!',        desc: '3 қатарынан дұрыс жауап',    trigger: s => s.maxCombo >= 3 },
-  { id: 'combo_5',      icon: '💥', title: 'Бесті комбо!',         desc: '5 қатарынан дұрыс жауап',    trigger: s => s.maxCombo >= 5 },
-  { id: 'rich',         icon: '💎', title: 'Алмаз статус',         desc: '500 монета жиналды',          trigger: s => s.coins >= 500 },
-  { id: 'halfway',      icon: '🌟', title: 'Жарты жол!',           desc: '5 деңгейді аяқтадың',        trigger: s => s.levelsCompleted >= 5 },
-  { id: 'mathematician',icon: '🧮', title: 'Математик!',           desc: '1000 XP жиналды',             trigger: s => s.xp >= 1000 },
+/* Қаладағы аудандарды байланыстыратын жолдар торабы */
+const MAP_ROADS = [
+  [1, 4], [1, 3], [1, 7], [1, 6], [1, 5],
+  [2, 3], [2, 10], [3, 4], [4, 7],
+  [5, 6], [5, 10], [6, 9], [7, 8], [8, 9]
 ];
 
-/* ===================== КҮЙДІ САҚТАУ ===================== */
+/* Қаратал көпірлері (өзеннен өтетін негізгі тораптар) */
+const BRIDGES = [
+  { name: 'Батыс көпірі',   from: 2, to: 10, x: 225, y: 320, rot: 65 },
+  { name: 'Арбат көпірі',   from: 1, to: 5,  x: 435, y: 365, rot: 40 },
+  { name: 'Жастар көпірі',  from: 1, to: 6,  x: 525, y: 375, rot: -20 },
+  { name: 'Шығыс көпірі',   from: 8, to: 9,  x: 780, y: 365, rot: 55 },
+];
+
+const ACHIEVEMENTS = [
+  { id: 'first_win',        icon: '🥇', title: 'Алғашқы жеңіс!',         desc: 'Орталық ауданын аяқтадың',              trigger: s => s.levelsCompleted >= 1 },
+  { id: 'perfect',          icon: '💯', title: 'Мінсіз!',                  desc: 'Аудан есебін қатесіз шештің',          trigger: s => s.lastWrong === 0 && s.levelsCompleted >= 1 },
+  { id: 'collector',        icon: '💰', title: 'Байлық жинаушы',           desc: '100 монета жиналды',                    trigger: s => s.coins >= 100 },
+  { id: 'speed_demon',      icon: '⚡', title: 'Жылдамшыл!',               desc: '5 есепті 5 сек ішінде шеш',            trigger: s => s.fastAnswers >= 5 },
+  { id: 'master',           icon: '👑', title: 'Талдықорған Шебері!',      desc: '10 шағын ауданның барлығын бағындырдың',trigger: s => s.levelsCompleted >= 10 },
+  { id: 'combo_3',          icon: '🔥', title: 'Үштік комбо!',              desc: '3 қатарынан дұрыс жауап',              trigger: s => s.maxCombo >= 3 },
+  { id: 'combo_5',          icon: '💥', title: 'Бесті комбо!',               desc: '5 қатарынан дұрыс жауап',              trigger: s => s.maxCombo >= 5 },
+  { id: 'rich',             icon: '💎', title: 'Алмаз мәртебе',            desc: '500 монета жиналды',                    trigger: s => s.coins >= 500 },
+  { id: 'halfway',          icon: '🌟', title: 'Қала жартысы!',             desc: '5 шағын аудан ашылды',                 trigger: s => s.levelsCompleted >= 5 },
+  { id: 'mathematician',    icon: '🧮', title: 'Бас Математик!',           desc: '1000 XP жиналды',                       trigger: s => s.xp >= 1000 },
+  { id: 'taldy_conqueror',  icon: '🏙️', title: 'Талдықорған Аңызы',        desc: 'Қала картасында барлық есептер ашылды', trigger: s => s.levelsCompleted >= 10 },
+];
+
+/* ===================== КҮЙДІ САҚТАУ (STATE) ===================== */
 
 function loadState() {
   const raw = localStorage.getItem('mathquest_state_v2');
-  return raw ? JSON.parse(raw) : {
-    xp: 0, coins: 0, levelsCompleted: 0,
-    starsPerLevel: {}, lastWrong: 0,
-    fastAnswers: 0, achievements: [],
-    maxCombo: 0, totalQuestions: 0,
-    totalCorrect: 0, playerName: 'Мен'
+  const defaults = {
+    xp: 0,
+    coins: 0,
+    levelsCompleted: 0,
+    starsPerLevel: {},
+    lastWrong: 0,
+    fastAnswers: 0,
+    achievements: [],
+    maxCombo: 0,
+    totalQuestions: 0,
+    totalCorrect: 0,
+    playerName: 'Мен',
+    currentDistrictId: 1, // Бастапқы нүкте: Орталық (Центр)
+    viewMode: 'map',       // 'map' (Карта) немесе 'grid' (Кесте)
   };
+  if (!raw) return defaults;
+  try {
+    const parsed = JSON.parse(raw);
+    return { ...defaults, ...parsed };
+  } catch (e) {
+    return defaults;
+  }
 }
 
 function saveState(state) {
@@ -174,100 +288,104 @@ function renderQ(q) {
   return q.q;
 }
 
-/* ===================== ДЫБЫС ЖҮЙЕСІ ===================== */
+/* ===================== ДЫБЫС ЖҮЙЕСІ (WEB AUDIO API) ===================== */
 
 const Audio = {
   ctx: null,
   init() {
-    try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+    try {
+      this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch(e) {}
   },
   play(type) {
     if (!this.ctx) return;
-    const o = this.ctx.createOscillator();
-    const g = this.ctx.createGain();
-    o.connect(g); g.connect(this.ctx.destination);
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+    const now = this.ctx.currentTime;
+    const o   = this.ctx.createOscillator();
+    const g   = this.ctx.createGain();
+    o.connect(g);
+    g.connect(this.ctx.destination);
+
     if (type === 'correct') {
-      o.frequency.setValueAtTime(523, this.ctx.currentTime);
-      o.frequency.setValueAtTime(659, this.ctx.currentTime + 0.1);
-      o.frequency.setValueAtTime(784, this.ctx.currentTime + 0.2);
-      g.gain.setValueAtTime(0.3, this.ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.5);
-      o.start(); o.stop(this.ctx.currentTime + 0.5);
+      o.frequency.setValueAtTime(523, now);
+      o.frequency.setValueAtTime(659, now + 0.1);
+      o.frequency.setValueAtTime(784, now + 0.2);
+      g.gain.setValueAtTime(0.25, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+      o.start(now); o.stop(now + 0.5);
+
     } else if (type === 'wrong') {
-      o.frequency.setValueAtTime(300, this.ctx.currentTime);
-      o.frequency.setValueAtTime(220, this.ctx.currentTime + 0.15);
-      g.gain.setValueAtTime(0.3, this.ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.4);
-      o.start(); o.stop(this.ctx.currentTime + 0.4);
+      o.frequency.setValueAtTime(300, now);
+      o.frequency.setValueAtTime(220, now + 0.15);
+      g.gain.setValueAtTime(0.25, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+      o.start(now); o.stop(now + 0.4);
+
     } else if (type === 'win') {
-      [523,659,784,1047].forEach((f,i) => {
+      [523, 659, 784, 1047].forEach((f, i) => {
         const oo = this.ctx.createOscillator();
         const gg = this.ctx.createGain();
         oo.connect(gg); gg.connect(this.ctx.destination);
         oo.frequency.value = f;
-        gg.gain.setValueAtTime(0.25, this.ctx.currentTime + i*0.12);
-        gg.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + i*0.12 + 0.4);
-        oo.start(this.ctx.currentTime + i*0.12);
-        oo.stop(this.ctx.currentTime + i*0.12 + 0.4);
+        gg.gain.setValueAtTime(0.22, now + i * 0.12);
+        gg.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.4);
+        oo.start(now + i * 0.12);
+        oo.stop(now + i * 0.12 + 0.4);
       });
+
     } else if (type === 'combo') {
-      o.frequency.setValueAtTime(880, this.ctx.currentTime);
-      o.frequency.setValueAtTime(1100, this.ctx.currentTime + 0.1);
-      g.gain.setValueAtTime(0.4, this.ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.3);
-      o.start(); o.stop(this.ctx.currentTime + 0.3);
+      o.frequency.setValueAtTime(880, now);
+      o.frequency.setValueAtTime(1100, now + 0.1);
+      g.gain.setValueAtTime(0.3, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+      o.start(now); o.stop(now + 0.3);
+
+    } else if (type === 'step') {
+      // Картада жүру дыбысы (жұмсақ импульс)
+      o.type = 'sine';
+      o.frequency.setValueAtTime(340, now);
+      o.frequency.exponentialRampToValueAtTime(560, now + 0.08);
+      g.gain.setValueAtTime(0.12, now);
+      g.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      o.start(now); o.stop(now + 0.08);
+
+    } else if (type === 'unlock') {
+      // Жаңа аудан/сандық ашылғандағы сиқырлы дыбыс
+      [587, 740, 880, 1174].forEach((f, i) => {
+        const oo = this.ctx.createOscillator();
+        const gg = this.ctx.createGain();
+        oo.type = 'sine';
+        oo.frequency.value = f;
+        gg.gain.setValueAtTime(0.15, now + i * 0.08);
+        gg.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.3);
+        oo.connect(gg); gg.connect(this.ctx.destination);
+        oo.start(now + i * 0.08);
+        oo.stop(now + i * 0.08 + 0.3);
+      });
     }
   }
 };
 
-/* ===================== КОНФЕТТИ ===================== */
+/* ===================== САЛТАНАТТЫ КОНФЕТТИ ===================== */
 
 function launchConfetti() {
-  const colors = ['#fbbf24','#a855f7','#10b981','#ec4899','#60a5fa'];
-  for (let i = 0; i < 80; i++) {
+  const colors = ['#7c3aed', '#ec4899', '#fbbf24', '#10b981', '#06b6d4', '#ffffff'];
+  for (let i = 0; i < 70; i++) {
     const el = document.createElement('div');
     el.style.cssText = `
-      position:fixed; top:${Math.random()*30}%; left:${Math.random()*100}%;
-      width:${6+Math.random()*8}px; height:${6+Math.random()*8}px;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      border-radius:${Math.random()>0.5?'50%':'2px'};
+      position:fixed; top:${Math.random() * 30}%; left:${Math.random() * 100}%;
+      width:${6 + Math.random() * 8}px; height:${6 + Math.random() * 8}px;
+      background:${colors[Math.floor(Math.random() * colors.length)]};
+      border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
       z-index:9999; pointer-events:none;
-      animation: confettiFall ${1+Math.random()*2}s ${Math.random()*0.5}s forwards;
-      transform: rotate(${Math.random()*360}deg);
+      animation: confettiFall ${1 + Math.random() * 2}s ${Math.random() * 0.5}s forwards;
+      transform: rotate(${Math.random() * 360}deg);
     `;
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 3000);
   }
-}
-
-if (!document.getElementById('confettiStyle')) {
-  const s = document.createElement('style');
-  s.id = 'confettiStyle';
-  s.textContent = `
-    @keyframes confettiFall {
-      0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
-    @keyframes xpFly {
-      0%   { transform: translateY(0); opacity: 1; }
-      100% { transform: translateY(-80px); opacity: 0; }
-    }
-    @keyframes comboFlash {
-      0%,100% { transform: scale(1); }
-      50%     { transform: scale(1.3); color: #fbbf24; }
-    }
-    @keyframes shakePulse {
-      0%,100% { transform: translateX(0); }
-      20%     { transform: translateX(-8px); }
-      40%     { transform: translateX(8px); }
-      60%     { transform: translateX(-4px); }
-      80%     { transform: translateX(4px); }
-    }
-    /* KaTeX өрнектері ақ болсын */
-    .question-text .katex { color: white !important; }
-    .question-text .katex-display { margin: 0 !important; }
-  `;
-  document.head.appendChild(s);
 }
 
 /* ===================== ОЙЫН КОНТРОЛЛЕРІ ===================== */
@@ -284,8 +402,353 @@ const App = {
   fastCount: 0,
   combo: 0,
   shuffledQuestions: [],
+  keyHandlerBound: false,
+
+  init() {
+    Audio.init();
+    this._bindKeyboardNavigation();
+    if (this.state.viewMode === 'grid') {
+      this.showLevelSelect();
+    } else {
+      this.showTaldyMap();
+    }
+  },
+
+  /* Аудан ашық па? (Көршілері аяқталған немесе деңгейі жеткен) */
+  isDistrictUnlocked(id) {
+    if (id === 1) return true; // Орталық әрқашан ашық
+    if (id <= (this.state.levelsCompleted + 1)) return true;
+    return false;
+  },
+
+  /* ========================================================
+     1. ТАЛДЫҚОРҒАН ИНТЕРАКТИВТІ КАРТАСЫ (НЕГІЗГІ РЕЖИМ)
+     ======================================================== */
+
+  showTaldyMap() {
+    this.state.viewMode = 'map';
+    saveState(this.state);
+    const root = document.getElementById('app');
+    const curId = this.state.currentDistrictId || 1;
+    const currentDistrict = LEVELS.find(l => l.id === curId) || LEVELS[0];
+
+    root.innerHTML = `
+      <div class="game-wrapper">
+        ${this._topBar()}
+
+        <div class="taldy-map-wrapper">
+          <div class="map-header">
+            <div class="map-title-wrap">
+              <span class="map-title">🗺️ Талдықорған Саяхаты</span>
+              <span class="map-city-badge">10 Шағын Аудан</span>
+            </div>
+            <div class="mode-toggle-group">
+              <button class="mode-btn active" id="btnModeMap">🗺️ Карта</button>
+              <button class="mode-btn" id="btnModeGrid">📋 Тізім</button>
+            </div>
+          </div>
+
+          <!-- Интерактивті SVG карта -->
+          <div class="map-canvas-card">
+            ${this._generateMapSVG()}
+          </div>
+
+          <!-- Төменгі басқару және сандық мәліметтер тақтасы -->
+          <div class="map-dock-bar">
+            ${this._generateDistrictCardHTML(currentDistrict)}
+            ${this._generateDPadHTML(currentDistrict)}
+          </div>
+        </div>
+      </div>`;
+
+    this._bindTopBar();
+    this._bindMapInteractions();
+  },
+
+  /* SVG картасын құрастыру */
+  _generateMapSVG() {
+    const curId = this.state.currentDistrictId || 1;
+    const curDist = LEVELS.find(l => l.id === curId) || LEVELS[0];
+
+    // 1. Жолдар сызығы
+    const roadsHTML = MAP_ROADS.map(([aId, bId]) => {
+      const a = LEVELS.find(l => l.id === aId);
+      const b = LEVELS.find(l => l.id === bId);
+      if (!a || !b) return '';
+      const unlocked = this.isDistrictUnlocked(aId) && this.isDistrictUnlocked(bId);
+      const isActive = (curId === aId && this.isDistrictUnlocked(bId)) || (curId === bId && this.isDistrictUnlocked(aId));
+      return `
+        <line x1="${a.coords.x}" y1="${a.coords.y}"
+              x2="${b.coords.x}" y2="${b.coords.y}"
+              class="road-line ${unlocked ? 'unlocked' : 'locked'} ${isActive ? 'active' : ''}"
+        />`;
+    }).join('');
+
+    // 2. Көпірлер
+    const bridgesHTML = BRIDGES.map(br => {
+      return `
+        <g transform="translate(${br.x}, ${br.y}) rotate(${br.rot})">
+          <rect x="-24" y="-7" width="48" height="14" rx="4" fill="#1e293b" stroke="#fbbf24" stroke-width="2.5" />
+          <line x1="-20" y1="0" x2="20" y2="0" stroke="#f59e0b" stroke-dasharray="3 3" stroke-width="2" />
+        </g>`;
+    }).join('');
+
+    // 3. Шағын аудандар нүктелері (Nodes)
+    const nodesHTML = LEVELS.map(lv => {
+      const isCur    = lv.id === curId;
+      const unlocked = this.isDistrictUnlocked(lv.id);
+      const stars    = (this.state.starsPerLevel || {})[lv.id] || 0;
+      const isDone   = stars > 0;
+
+      return `
+        <g class="district-node-g" data-id="${lv.id}" transform="translate(${lv.coords.x}, ${lv.coords.y})">
+          ${isCur ? `<circle cx="0" cy="0" r="28" fill="none" stroke="#fbbf24" stroke-width="2.5" class="node-pulse-ring" />` : ''}
+
+          <!-- Аудан шеңбері -->
+          <circle cx="0" cy="0" r="24"
+                  class="node-circle"
+                  fill="${unlocked ? lv.color : '#334155'}"
+                  stroke="${isCur ? '#fbbf24' : (unlocked ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.2)')}"
+                  stroke-width="${isCur ? '4' : '2'}"
+                  opacity="${unlocked ? '1' : '0.55'}"
+          />
+
+          <!-- Аудан эмоджи белгісі немесе құлып -->
+          <text x="0" y="7" text-anchor="middle" font-size="20" pointer-events="none">
+            ${unlocked ? lv.icon : '🔒'}
+          </text>
+
+          <!-- Атауы жазылған плашка -->
+          <g transform="translate(0, 36)" pointer-events="none">
+            <rect x="-55" y="-12" width="110" height="20" rx="10"
+                  fill="rgba(13, 11, 43, 0.88)"
+                  stroke="${isCur ? '#fbbf24' : 'rgba(255,255,255,0.2)'}"
+                  stroke-width="1.5" />
+            <text x="0" y="2" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800" font-family="Nunito, sans-serif">
+              ${lv.name} ${isDone ? '⭐' : ''}
+            </text>
+          </g>
+        </g>`;
+    }).join('');
+
+    return `
+      <svg class="map-svg" viewBox="0 0 1000 580" preserveAspectRatio="xMidYMid meet" id="taldySvgMap">
+        <defs>
+          <!-- Тор сызықтары -->
+          <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.035)" stroke-width="1"/>
+          </pattern>
+          <!-- Қаратал өзені градиенті -->
+          <linearGradient id="riverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0284c7" />
+            <stop offset="50%" stop-color="#06b6d4" />
+            <stop offset="100%" stop-color="#0ea5e9" />
+          </linearGradient>
+        </defs>
+
+        <!-- Фон тор -->
+        <rect width="1000" height="580" fill="url(#gridPattern)" />
+
+        <!-- Қаратал өзені (Талдықорғанды бойлай ағады) -->
+        <path d="M -20,310 C 180,330 320,350 450,370 C 580,390 720,440 1020,570"
+              fill="none" stroke="url(#riverGrad)" stroke-width="36" stroke-linecap="round" opacity="0.85" />
+        <path d="M -20,310 C 180,330 320,350 450,370 C 580,390 720,440 1020,570"
+              fill="none" stroke="#e0f2fe" stroke-width="3" stroke-linecap="round" class="river-flow" opacity="0.6" />
+
+        <!-- Өзен жазуы -->
+        <text x="790" y="495" fill="#38bdf8" font-size="12" font-weight="900" letter-spacing="3" opacity="0.8" transform="rotate(22 790 495)">
+          🌊 ҚАРАТАЛ ӨЗЕНІ
+        </text>
+
+        <!-- Көпірлер -->
+        ${bridgesHTML}
+
+        <!-- Байланыстырушы жолдар -->
+        ${roadsHTML}
+
+        <!-- Шағын аудандар -->
+        ${nodesHTML}
+
+        <!-- Ойыншы аватары (Маркер) -->
+        <g id="playerAvatar" class="player-marker-g" transform="translate(${curDist.coords.x}, ${curDist.coords.y - 32})">
+          <g class="player-bubble">
+            <ellipse cx="0" cy="18" rx="14" ry="4" fill="rgba(0,0,0,0.5)" />
+            <circle cx="0" cy="0" r="16" fill="#fbbf24" stroke="#ffffff" stroke-width="2.5" />
+            <text x="0" y="6" text-anchor="middle" font-size="16">🚶‍♂️</text>
+          </g>
+        </g>
+      </svg>`;
+  },
+
+  /* Төменгі аудан карточкасының HTML-і */
+  _generateDistrictCardHTML(district) {
+    const unlocked = this.isDistrictUnlocked(district.id);
+    const stars    = (this.state.starsPerLevel || {})[district.id] || 0;
+    const isDone   = stars > 0;
+
+    let badgeClass = 'badge-unlocked';
+    let badgeText  = '⚡ Жаңа сандық табылды!';
+    if (!unlocked) {
+      badgeClass = 'badge-locked';
+      badgeText  = '🔒 Құлыптаулы';
+    } else if (isDone) {
+      badgeClass = 'badge-done';
+      badgeText  = `🏆 Аяқталды (${'⭐'.repeat(stars)})`;
+    }
+
+    return `
+      <div class="district-card-dock" id="districtDockCard">
+        <div class="district-dock-top">
+          <div class="district-info-left">
+            <div class="district-dock-icon" style="background:${district.color}22; border-color:${district.color}">
+              ${district.icon}
+            </div>
+            <div>
+              <div class="district-dock-name">${district.fullName}</div>
+              <div class="district-dock-landmark">${district.landmark}</div>
+            </div>
+          </div>
+          <span class="district-dock-badge ${badgeClass}">${badgeText}</span>
+        </div>
+
+        <div class="district-dock-desc">${district.districtDesc}</div>
+
+        <div class="district-dock-action">
+          <button class="btn-open-quest ${isDone ? 'done-btn' : ''}" id="btnOpenQuest" ${!unlocked ? 'disabled' : ''}>
+            ${!unlocked ? '🔒 Аудан жабық' : (isDone ? '⭐ Қайта шешу (Enter)' : '🔍 Есепті ашу және шешу (Enter)')}
+          </button>
+        </div>
+      </div>`;
+  },
+
+  /* Экрандық басқару крестовинасы (D-Pad) */
+  _generateDPadHTML(currentDistrict) {
+    const { neighbors } = currentDistrict;
+    return `
+      <div class="dpad-card">
+        <span class="dpad-title">🎮 Басқару</span>
+        <div class="dpad-grid">
+          <button class="dpad-btn dpad-up"    data-dir="up"    ${!neighbors.up ? 'disabled' : ''} title="Жоғары">▲</button>
+          <button class="dpad-btn dpad-left"  data-dir="left"  ${!neighbors.left ? 'disabled' : ''} title="Солға">◀</button>
+          <button class="dpad-btn dpad-enter" id="dpadActionBtn" title="Есепті ашу">🔍</button>
+          <button class="dpad-btn dpad-right" data-dir="right" ${!neighbors.right ? 'disabled' : ''} title="Оңға">▶</button>
+          <button class="dpad-btn dpad-down"  data-dir="down"  ${!neighbors.down ? 'disabled' : ''} title="Төмен">▼</button>
+        </div>
+        <div class="dpad-hint">Кнопкалармен немесе W,A,S,D пернелерімен жүр</div>
+      </div>`;
+  },
+
+  /* Интерактивті карта оқиғаларын байланыстыру */
+  _bindMapInteractions() {
+    // 1. Режимді ауыстыру (Карта / Тізім)
+    document.getElementById('btnModeGrid')?.addEventListener('click', () => {
+      this.showLevelSelect();
+    });
+
+    // 2. Аудан нүктелерін шерту арқылы жүру
+    document.querySelectorAll('.district-node-g').forEach(node => {
+      node.addEventListener('click', () => {
+        const id = parseInt(node.dataset.id);
+        if (id) this.movePlayerToDistrict(id);
+      });
+    });
+
+    // 3. D-Pad батырмаларын басу
+    document.querySelectorAll('.dpad-btn[data-dir]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dir = btn.dataset.dir;
+        this.handleDirection(dir);
+      });
+    });
+
+    // 4. Ортадағы іс-қимыл батырмасы (🔍)
+    document.getElementById('dpadActionBtn')?.addEventListener('click', () => {
+      this.openDistrictQuest(this.state.currentDistrictId || 1);
+    });
+
+    // 5. Үлкен «Есепті ашу» батырмасы
+    document.getElementById('btnOpenQuest')?.addEventListener('click', () => {
+      this.openDistrictQuest(this.state.currentDistrictId || 1);
+    });
+  },
+
+  /* Пернетақтамен жүруді байланыстыру (бір рет қосылады) */
+  _bindKeyboardNavigation() {
+    if (this.keyHandlerBound) return;
+    this.keyHandlerBound = true;
+
+    window.addEventListener('keydown', (e) => {
+      // Тек карта ашық тұрғанда пернетақтамен басқару істейді
+      if (this.state.viewMode !== 'map' || this.currentLevel !== null) return;
+
+      if (e.key === 'ArrowUp' || e.key === 'KeyW' || e.key === 'w' || e.key === 'W') {
+        e.preventDefault(); this.handleDirection('up');
+      } else if (e.key === 'ArrowDown' || e.key === 'KeyS' || e.key === 's' || e.key === 'S') {
+        e.preventDefault(); this.handleDirection('down');
+      } else if (e.key === 'ArrowLeft' || e.key === 'KeyA' || e.key === 'a' || e.key === 'A') {
+        e.preventDefault(); this.handleDirection('left');
+      } else if (e.key === 'ArrowRight' || e.key === 'KeyD' || e.key === 'd' || e.key === 'D') {
+        e.preventDefault(); this.handleDirection('right');
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault(); this.openDistrictQuest(this.state.currentDistrictId || 1);
+      }
+    });
+  },
+
+  /* Бағыт бойынша келесі ауданға жүру */
+  handleDirection(dir) {
+    const curId = this.state.currentDistrictId || 1;
+    const cur   = LEVELS.find(l => l.id === curId);
+    if (!cur || !cur.neighbors[dir]) return;
+
+    const targetId = cur.neighbors[dir];
+    const target   = LEVELS.find(l => l.id === targetId);
+    if (!target) return;
+
+    if (!this.isDistrictUnlocked(targetId)) {
+      Audio.play('wrong');
+      this._showToast(`🔒 ${target.name} ауданы жабық! Алдымен алдыңғы есепті шешіңіз.`);
+      return;
+    }
+
+    this.movePlayerToDistrict(targetId);
+  },
+
+  /* Ойыншыны таңдалған ауданға жылжыту */
+  movePlayerToDistrict(targetId) {
+    const target = LEVELS.find(l => l.id === targetId);
+    if (!target) return;
+
+    this.state.currentDistrictId = targetId;
+    saveState(this.state);
+    Audio.play('step');
+
+    // Картаны толық қайта салмай, аватар мен мәліметтерді жеңіл жаңарту
+    this.showTaldyMap();
+  },
+
+  /* Ауданның есептерін ашып, ойынды бастау */
+  openDistrictQuest(districtId) {
+    const level = LEVELS.find(l => l.id === districtId);
+    if (!level) return;
+
+    if (!this.isDistrictUnlocked(districtId)) {
+      Audio.play('wrong');
+      this._showToast('🔒 Бұл аудан әлі құлыптаулы!');
+      return;
+    }
+
+    Audio.play('unlock');
+    this.startLevel(level);
+  },
+
+  /* ========================================================
+     2. КЛАССИКАЛЫҚ ДЕҢГЕЙЛЕР КЕСТЕСІ (GRID MODE)
+     ======================================================== */
 
   showLevelSelect() {
+    this.state.viewMode = 'grid';
+    saveState(this.state);
     const root = document.getElementById('app');
     const stars = this.state.starsPerLevel || {};
     const accuracy = this.state.totalQuestions > 0
@@ -293,7 +756,7 @@ const App = {
       : 0;
 
     const cards = LEVELS.map(lv => {
-      const locked    = lv.id > (this.state.levelsCompleted + 1);
+      const locked    = !this.isDistrictUnlocked(lv.id);
       const starCount = stars[lv.id] || 0;
       const starStr   = '⭐'.repeat(starCount) + '☆'.repeat(3 - starCount);
 
@@ -312,22 +775,35 @@ const App = {
       <div class="game-wrapper">
         ${this._topBar()}
         <div class="select-header">
-          <p class="level-select-title">⚔️ Деңгей таңда</p>
-          <div class="accuracy-badge">🎯 ${accuracy}% дәлдік</div>
+          <div class="map-title-wrap">
+            <span class="level-select-title">⚔️ Аудан таңда</span>
+            <div class="accuracy-badge">🎯 ${accuracy}% дәлдік</div>
+          </div>
+          <div class="mode-toggle-group">
+            <button class="mode-btn" id="btnModeMapGrid">🗺️ Карта</button>
+            <button class="mode-btn active">📋 Тізім</button>
+          </div>
         </div>
         <div class="level-grid">${cards}</div>
         <a href="leaderboard.html" class="lb-link">🏆 Рейтинг кестесі →</a>
       </div>`;
 
     this._bindTopBar();
+    document.getElementById('btnModeMapGrid')?.addEventListener('click', () => {
+      this.showTaldyMap();
+    });
+
     root.querySelectorAll('.level-card:not(.locked)').forEach(card => {
       card.addEventListener('click', () => {
-        Audio.play('correct');
         const id = parseInt(card.dataset.level);
-        this.startLevel(LEVELS.find(l => l.id === id));
+        this.openDistrictQuest(id);
       });
     });
   },
+
+  /* ========================================================
+     3. ЕСЕПТЕРДІ ШЕШУ БӨЛІМІ (GAMEPLAY + KATEX)
+     ======================================================== */
 
   startLevel(level) {
     this.currentLevel  = level;
@@ -352,7 +828,7 @@ const App = {
         ${this._topBar()}
         <div class="question-card">
           <div class="q-top-row">
-            <span class="q-level-badge" style="color:${currentLevel.color}">${currentLevel.icon} ${currentLevel.name}</span>
+            <span class="q-level-badge" style="color:${currentLevel.color}">${currentLevel.icon} ${currentLevel.fullName}</span>
             <span class="q-counter">${currentQIdx + 1} / ${total}</span>
             ${combo >= 2 ? `<span class="combo-badge">🔥 x${combo}</span>` : ''}
           </div>
@@ -365,6 +841,7 @@ const App = {
             <div class="timer-bar" id="timerBar" style="width:100%"></div>
           </div>
 
+          <!-- KaTeX өрнектерін әдемі шығару -->
           <div class="question-text">${renderQ(q)}</div>
 
           <div class="answers-grid" id="answersGrid">
@@ -396,7 +873,7 @@ const App = {
 
     document.querySelectorAll('.answer-btn').forEach((btn, i) => {
       btn.disabled = true;
-      if (i === correct)                btn.classList.add('correct');
+      if (i === correct)                   btn.classList.add('correct');
       else if (i === chosen && !isCorrect) btn.classList.add('wrong');
     });
 
@@ -452,7 +929,7 @@ const App = {
     const el   = document.createElement('div');
     el.textContent = text;
     el.style.cssText = `
-      position:fixed; left:${rect.left + rect.width/2}px; top:${rect.top}px;
+      position:fixed; left:${rect.left + rect.width / 2}px; top:${rect.top}px;
       font-size:1.1rem; font-weight:900; color:#fbbf24;
       pointer-events:none; z-index:9999;
       animation: xpFly 1s forwards;
@@ -466,14 +943,16 @@ const App = {
     const totalQ    = this.shuffledQuestions.length;
     const correct   = totalQ - this.wrongCount;
     const starCount = correct === totalQ ? 3 : correct >= Math.ceil(totalQ * 0.6) ? 2 : 1;
-    const bonus     = starCount * 20;
+    const bonus     = starCount * 25;
     const win       = correct >= Math.ceil(totalQ * 0.6);
 
-    this.state.coins += bonus;
-    this.state.levelsCompleted = Math.max(this.state.levelsCompleted, this.currentLevel.id);
-    this.state.starsPerLevel[this.currentLevel.id] = Math.max(
-      this.state.starsPerLevel[this.currentLevel.id] || 0, starCount
-    );
+    if (win) {
+      this.state.coins += bonus;
+      this.state.levelsCompleted = Math.max(this.state.levelsCompleted, this.currentLevel.id);
+      this.state.starsPerLevel[this.currentLevel.id] = Math.max(
+        this.state.starsPerLevel[this.currentLevel.id] || 0, starCount
+      );
+    }
     this.state.lastWrong = this.wrongCount;
 
     saveState(this.state);
@@ -494,32 +973,43 @@ const App = {
       <div class="modal">
         <div class="modal-emoji">${win ? (stars === 3 ? '🏆' : '🎉') : '😔'}</div>
         <div class="modal-title" style="color:${win ? '#fbbf24' : '#f87171'}">
-          ${win ? (stars === 3 ? 'Тамаша! Мінсіз!' : 'Керемет!') : 'Тағы бір рет!'}
+          ${win ? (stars === 3 ? 'Мінсіз! Аудан бағындырылды!' : 'Керемет! Сандық ашылды!') : 'Тағы бір рет байқап көр!'}
         </div>
-        <div class="modal-stars">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
+        <div class="modal-stars">${'⭐'.repeat(stars)}${'☆'.repeat(3 - stars)}</div>
         <div class="modal-stats-row">
           <div class="modal-stat"><span>${correct}/${total}</span><small>Дұрыс</small></div>
           <div class="modal-stat"><span>${accuracy}%</span><small>Дәлдік</small></div>
           <div class="modal-stat"><span>${timeSec}с</span><small>Уақыт</small></div>
-          <div class="modal-stat"><span>+${bonus}</span><small>Монета</small></div>
+          <div class="modal-stat"><span>+${win ? bonus : 0}</span><small>Монета</small></div>
         </div>
         <div class="modal-buttons">
-          <button class="modal-btn secondary" id="btnHome">🏠 Басты</button>
-          <button class="modal-btn primary"   id="btnNext">${win ? '▶ Келесі' : '🔁 Қайта'}</button>
+          <button class="modal-btn secondary" id="btnHome">🗺️ Қала Картасы</button>
+          <button class="modal-btn primary"   id="btnNext">${win ? '▶ Келесі аудан' : '🔁 Қайта байқау'}</button>
         </div>
       </div>`;
     document.body.appendChild(modal);
     requestAnimationFrame(() => modal.classList.add('active'));
 
     modal.querySelector('#btnHome').addEventListener('click', () => {
-      modal.remove(); this.showLevelSelect();
+      modal.remove();
+      this.currentLevel = null;
+      this.showTaldyMap();
     });
+
     modal.querySelector('#btnNext').addEventListener('click', () => {
       modal.remove();
       if (win) {
         const nextId = this.currentLevel.id + 1;
         const next   = LEVELS.find(l => l.id === nextId);
-        if (next) this.startLevel(next); else this.showLevelSelect();
+        if (next && this.isDistrictUnlocked(nextId)) {
+          this.state.currentDistrictId = nextId;
+          saveState(this.state);
+          this.currentLevel = null;
+          this.showTaldyMap();
+        } else {
+          this.currentLevel = null;
+          this.showTaldyMap();
+        }
       } else {
         this.startLevel(this.currentLevel);
       }
@@ -580,6 +1070,23 @@ const App = {
     if (coin) coin.textContent = `🪙 ${this.state.coins}`;
   },
 
+  _showToast(msg) {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+      position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
+      background:rgba(15, 23, 42, 0.95); border:1px solid #f87171; color:#fca5a5;
+      padding:0.75rem 1.4rem; border-radius:50px; font-weight:800; font-size:0.9rem;
+      z-index:99999; box-shadow:0 8px 30px rgba(0,0,0,0.5); pointer-events:none;
+      transition:opacity 0.3s;
+    `;
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 300);
+    }, 2500);
+  },
+
   _checkAchievements() {
     ACHIEVEMENTS.forEach(ach => {
       if (!this.state.achievements.includes(ach.id) && ach.trigger(this.state)) {
@@ -609,8 +1116,7 @@ const App = {
   },
 };
 
-/* ===================== ЖІБЕРУ ===================== */
+/* ===================== БАСТАУ ===================== */
 document.addEventListener('DOMContentLoaded', () => {
-  Audio.init();
-  App.showLevelSelect();
+  App.init();
 });
