@@ -59,7 +59,9 @@
 
     <!-- Кіші сілтемелер -->
     <nav class="bottom-nav">
-      <a href="game.html">🎮 Ойын</a>
+      <a href="game.html">🗺️ Карта & Ойын</a>
+      <span>•</span>
+      <a href="game.html" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='bridge'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));">🌉 Көпір Инженері</a>
       <span>•</span>
       <a href="leaderboard.html">🏆 Рейтинг</a>
       <span>•</span>

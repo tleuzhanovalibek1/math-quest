@@ -1237,7 +1237,265 @@
   margin-top: 0.5rem;
 }
 
+/* ===================================================
+   ҚАРАТАЛ ИНЖЕНЕРІ — КӨПІР САЛУ ФИЗИКАСЫ
+   =================================================== */
+
+.bridge-game-wrapper {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.bridge-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.bridge-title {
+  font-size: 1.45rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bridge-level-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-bridge-nav {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: white;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-bridge-nav:hover:not(:disabled) {
+  background: #38bdf8;
+  color: #0d0b2b;
+}
+
+/* Канвас контейнері */
+.bridge-canvas-card {
+  width: 100%;
+  background: linear-gradient(180deg, #090820 0%, #0d1b38 60%, #062447 100%);
+  border: 2px solid rgba(56, 189, 248, 0.4);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.7), inset 0 0 40px rgba(56, 189, 248, 0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#bridgeCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+
+/* Көпір астындағы басқару және математикалық сызба панелі */
+.bridge-dock-panel {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.bridge-math-box {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.math-task-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.math-task-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #fbbf24;
+}
+.math-task-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.2rem 0.7rem;
+  border-radius: 50px;
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+}
+
+.math-task-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+}
+
+.math-task-formula {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: 14px;
+  padding: 0.8rem 1.2rem;
+  text-align: center;
+}
+
+/* Инженерлік таңдау нұсқалары */
+.bridge-choices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.6rem;
+}
+
+.bridge-choice-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 0.65rem 0.5rem;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  font-family: inherit;
+}
+.bridge-choice-btn:hover {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  transform: translateY(-2px);
+}
+.bridge-choice-btn.active {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+/* Оң жақ сынақ батырмалары мен көлік таңдау */
+.bridge-action-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.8rem;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.vehicle-selector-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.vehicle-options-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.btn-veh {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  padding: 0.45rem 0.2rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+}
+.btn-veh:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+.btn-veh.active {
+  border-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.2);
+}
+
+.btn-test-bridge {
+  width: 100%;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 0.95rem;
+  font-size: 1.05rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-test-bridge:hover:not(:disabled) {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+}
+.btn-test-bridge:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-reset-bridge {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 10px;
+  padding: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-reset-bridge:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 /* ---- Адаптивтілік ---- */
+@media (max-width: 720px) {
+  .bridge-dock-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 600px) {
   .picker-choices-row {
     grid-template-columns: 1fr;

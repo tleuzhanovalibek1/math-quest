@@ -547,6 +547,9 @@ const App = {
       this.showLevelSelect();
     } else if (this.state.viewMode === 'homescapes') {
       this.showHomescapesStudio();
+    } else if (this.state.viewMode === 'bridge') {
+      if (typeof BridgeGame !== 'undefined') BridgeGame.init();
+      else this.showTaldyMap();
     } else {
       this.showTaldyMap();
     }
@@ -602,6 +605,7 @@ const App = {
             </div>
             <div class="mode-toggle-group">
               <button class="mode-btn active" id="btnModeMap">🗺️ Карта</button>
+              <button class="mode-btn" id="btnModeBridge">🌉 Көпір</button>
               <button class="mode-btn" id="btnModeGrid">📋 Тізім</button>
               <button class="mode-btn" id="btnModeReno">🛠️ Жөндеу</button>
             </div>
@@ -644,9 +648,10 @@ const App = {
 
     // Көпірлер
     const bridgesHTML = BRIDGES.map(br => `
-      <g transform="translate(${br.x}, ${br.y}) rotate(${br.rot})">
-        <rect x="-24" y="-7" width="48" height="14" rx="4" fill="#1e293b" stroke="#fbbf24" stroke-width="2.5" />
+      <g class="bridge-item-g" transform="translate(${br.x}, ${br.y}) rotate(${br.rot})" style="cursor:pointer;" title="${br.name} — Инженерлік физикалық сынақ">
+        <rect x="-24" y="-7" width="48" height="14" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5" />
         <line x1="-20" y1="0" x2="20" y2="0" stroke="#f59e0b" stroke-dasharray="3 3" stroke-width="2" />
+        <text x="0" y="4" text-anchor="middle" font-size="9" fill="#38bdf8" font-weight="900" transform="rotate(-${br.rot})">🌉</text>
       </g>`).join('');
 
     // Шағын аудандар
@@ -786,6 +791,19 @@ const App = {
     });
     document.getElementById('btnModeReno')?.addEventListener('click', () => {
       this.showHomescapesStudio();
+    });
+    document.getElementById('btnModeBridge')?.addEventListener('click', () => {
+      this.state.viewMode = 'bridge';
+      saveState(this.state);
+      if (typeof BridgeGame !== 'undefined') BridgeGame.init();
+    });
+
+    document.querySelectorAll('.bridge-item-g').forEach(br => {
+      br.addEventListener('click', () => {
+        this.state.viewMode = 'bridge';
+        saveState(this.state);
+        if (typeof BridgeGame !== 'undefined') BridgeGame.init();
+      });
     });
 
     document.querySelectorAll('.district-node-g').forEach(node => {
@@ -1072,6 +1090,7 @@ const App = {
           </div>
           <div class="mode-toggle-group">
             <button class="mode-btn" id="btnModeMapGrid">🗺️ Карта</button>
+            <button class="mode-btn" id="btnModeBridgeGrid">🌉 Көпір</button>
             <button class="mode-btn active">📋 Тізім</button>
             <button class="mode-btn" id="btnModeRenoGrid">🛠️ Жөндеу</button>
           </div>
@@ -1083,6 +1102,11 @@ const App = {
     this._bindTopBar();
     document.getElementById('btnModeMapGrid')?.addEventListener('click', () => {
       this.showTaldyMap();
+    });
+    document.getElementById('btnModeBridgeGrid')?.addEventListener('click', () => {
+      this.state.viewMode = 'bridge';
+      saveState(this.state);
+      if (typeof BridgeGame !== 'undefined') BridgeGame.init();
     });
     document.getElementById('btnModeRenoGrid')?.addEventListener('click', () => {
       this.showHomescapesStudio();
@@ -1460,6 +1484,9 @@ const App = {
         <div class="stars-badge" id="starsDisplay" title="Жөндеуге арналған қолда бар жұлдыздар">
           ⭐ ${availStars}
         </div>
+        <button class="btn-renovate-top" style="background:linear-gradient(135deg, #0284c7, #38bdf8);" id="btnBridgeTop" title="Қаратал Көпірі Физикасы">
+          🌉 Көпір
+        </button>
         <button class="btn-renovate-top" id="btnRenovateTop">
           🛠️ Жөндеу
         </button>
@@ -1467,6 +1494,11 @@ const App = {
   },
 
   _bindTopBar() {
+    document.getElementById('btnBridgeTop')?.addEventListener('click', () => {
+      this.state.viewMode = 'bridge';
+      saveState(this.state);
+      if (typeof BridgeGame !== 'undefined') BridgeGame.init();
+    });
     document.getElementById('btnRenovateTop')?.addEventListener('click', () => {
       this.showHomescapesStudio();
     });
