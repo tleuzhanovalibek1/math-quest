@@ -21,8 +21,8 @@ const LEVELS = [
     districtDesc: 'Талдықорғанның қақ ортасы! Мұнда қала әкімдігі, демалыс аллеялары және білімнің бас кілті орналасқан.',
     icon: '🏛️',
     color: '#10b981',
-    coords: { x: 500, y: 310 },
-    neighbors: { up: 4, left: 3, right: 7, down: 6 },
+    coords: { x: 480, y: 310 },
+    neighbors: { left: 2, right: 3, up: 4, down: 5 },
     questions: [
       { q: '5 + 3 = ?',   answers: [8, 6, 7, 9],    correct: 0 },
       { q: '12 − 4 = ?',  answers: [7, 8, 9, 6],    correct: 1 },
@@ -30,79 +30,22 @@ const LEVELS = [
       { q: '15 ÷ 3 = ?',  tex: '15 \\div 3 = ?',    answers: [4, 3, 6, 5],     correct: 3 },
       { q: '7 + 8 = ?',   answers: [14, 15, 13, 16], correct: 1 },
       { q: '20 − 9 = ?',  answers: [10, 11, 12, 13], correct: 1 },
-      { q: '6 × 2 = ?',   tex: '6 \\times 2 = ?',   answers: [10, 12, 14, 8],  correct: 1 },
+      { q: '14 × 3 = ?',  tex: '14 \\times 3 = ?',  answers: [38, 40, 42, 36], correct: 2 },
+      { q: '81 ÷ 9 = ?',  tex: '81 \\div 9 = ?',    answers: [7, 8, 9, 10],    correct: 2 },
+      { q: '25 + 37 = ?', answers: [60, 62, 63, 58], correct: 1 },
+      { q: '100 − 48 = ?',answers: [52, 54, 56, 50], correct: 0 },
     ]
   },
   {
     id: 2,
-    name: '1-мкр',
-    fullName: '1-ші шағын аудан (Ғарышкер)',
-    landmark: '🚀 Ғарышкерлер көшесі & саябағы',
-    districtDesc: 'Талдықорғанның батыс бөлігіндегі тарихи аудан. Ғарыштық жылдамдық пен көбейту есептерін шешіңіз!',
-    icon: '🚀',
-    color: '#f59e0b',
-    coords: { x: 260, y: 210 },
-    neighbors: { right: 3, down: 10 },
-    questions: [
-      { q: '14 × 3 = ?',   tex: '14 \\times 3 = ?',  answers: [38, 40, 42, 36], correct: 2 },
-      { q: '81 ÷ 9 = ?',   tex: '81 \\div 9 = ?',    answers: [7, 8, 9, 10],    correct: 2 },
-      { q: '25 + 37 = ?',  answers: [60, 62, 63, 58], correct: 1 },
-      { q: '100 − 48 = ?', answers: [52, 54, 56, 50], correct: 0 },
-      { q: '6² = ?',       tex: '6^2 = ?',            answers: [30, 36, 32, 40], correct: 1 },
-      { q: '7 × 8 = ?',    tex: '7 \\times 8 = ?',   answers: [54, 56, 58, 52], correct: 1 },
-      { q: '144 ÷ 12 = ?', tex: '144 \\div 12 = ?',  answers: [11, 12, 13, 10], correct: 1 },
-    ]
-  },
-  {
-    id: 3,
-    name: 'Самал',
-    fullName: 'Самал шағын ауданы (4-мкр)',
-    landmark: '🌿 Самал саябағы & Жетісу сауда кешені',
-    districtDesc: 'Жасыл желекті, тыныш әрі көрнекті аудан. Мұнда дәрежелер мен түбірлердің құпиясы сақталған!',
-    icon: '🌿',
-    color: '#ef4444',
-    coords: { x: 380, y: 220 },
-    neighbors: { left: 2, right: 4, down: 1 },
-    questions: [
-      { q: '√144 = ?',       tex: '\\sqrt{144} = ?',            answers: [11, 12, 13, 14],     correct: 1 },
-      { q: '2³ × 5 = ?',     tex: '2^3 \\times 5 = ?',          answers: [30, 40, 45, 50],     correct: 1 },
-      { q: '15% of 200 = ?', tex: '15\\% \\text{ of } 200 = ?', answers: [25, 30, 35, 40],     correct: 1 },
-      { q: '7 × 8 + 4 = ?',  tex: '7 \\times 8 + 4 = ?',        answers: [56, 58, 60, 62],     correct: 2 },
-      { q: '3² + 4² = ?',    tex: '3^2 + 4^2 = ?',              answers: [20, 23, 25, 27],     correct: 2 },
-      { q: '√64 = ?',        tex: '\\sqrt{64} = ?',              answers: [6, 7, 8, 9],         correct: 2 },
-      { q: '5³ = ?',         tex: '5^3 = ?',                     answers: [100, 115, 125, 130], correct: 2 },
-    ]
-  },
-  {
-    id: 4,
-    name: 'Мүшелтой',
-    fullName: 'Мүшелтой шағын ауданы (7-мкр)',
-    landmark: '🏢 Мүшелтой тұрғын ауданы & мектептер кешені',
-    districtDesc: 'Қаланың солтүстігіндегі үлкен шағын аудан. Алгебралық теңдеулер жұмбағын шешіңіз!',
-    icon: '🏢',
-    color: '#8b5cf6',
-    coords: { x: 510, y: 160 },
-    neighbors: { left: 3, right: 7, down: 1 },
-    questions: [
-      { q: 'x + 5 = 12, x = ?',  tex: 'x + 5 = 12,\\quad x = ?',       answers: [5, 6, 7, 8],     correct: 2 },
-      { q: '2x = 18, x = ?',     tex: '2x = 18,\\quad x = ?',           answers: [7, 8, 9, 10],    correct: 2 },
-      { q: 'x² = 49, x = ?',     tex: 'x^2 = 49,\\quad x = ?',          answers: [5, 6, 7, 8],     correct: 2 },
-      { q: '3x − 6 = 15, x = ?', tex: '3x - 6 = 15,\\quad x = ?',       answers: [5, 6, 7, 8],     correct: 2 },
-      { q: 'x/4 = 5, x = ?',     tex: '\\dfrac{x}{4} = 5,\\quad x = ?', answers: [16, 18, 20, 22], correct: 2 },
-      { q: '2x + 3 = 11, x = ?', tex: '2x + 3 = 11,\\quad x = ?',       answers: [3, 4, 5, 6],     correct: 1 },
-      { q: 'x² − 9 = 0, x = ?',  tex: 'x^2 - 9 = 0,\\quad x = ?',       answers: [2, 3, 4, 5],     correct: 1 },
-    ]
-  },
-  {
-    id: 5,
     name: 'Қаратал',
     fullName: 'Қаратал шағын ауданы (6-мкр)',
     landmark: '🌊 Қаратал өзенінің Жағалауы & Аркасы',
-    districtDesc: 'Қараталдың саф ауасы мен сылдыраған суы! Өзен арқылы өтетін көпірлер мен геометриялық есептер.',
+    districtDesc: 'Қараталдың саф ауасы мен сылдыраған суы! Өзен жағалауы және геометриялық есептер.',
     icon: '🌊',
     color: '#06b6d4',
-    coords: { x: 370, y: 420 },
-    neighbors: { left: 10, right: 6, up: 1 },
+    coords: { x: 310, y: 260 },
+    neighbors: { right: 1, up: 3, down: 5 },
     questions: [
       { q: 'Шеңбер ауданы (r=5)?',         tex: 'S = \\pi r^2,\\ r=5,\\ S=?',            answers: ['25π','20π','15π','10π'],    correct: 0 },
       { q: 'Тік үшбұрыш a=3, b=4, c=?',   tex: 'a^2+b^2=c^2,\\ a=3,\\ b=4,\\ c=?',     answers: ['5','6','7','4.5'],          correct: 0 },
@@ -114,116 +57,75 @@ const LEVELS = [
     ]
   },
   {
-    id: 6,
-    name: 'Жастар',
-    fullName: 'Жастар шағын ауданы',
-    landmark: '🏟️ "Жастар" спорт сарайы & саябағы',
-    districtDesc: 'Спорт, серпін және жастық жігер алаңы! Мұнда ықтималдық пен комбинаторика шыңдалады.',
-    icon: '🏟️',
-    color: '#ec4899',
-    coords: { x: 550, y: 440 },
-    neighbors: { left: 5, right: 9, up: 1 },
+    id: 3,
+    name: 'Самал',
+    fullName: 'Самал шағын ауданы (4-мкр)',
+    landmark: '🌿 Самал саябағы & Жетісу сауда кешені',
+    districtDesc: 'Жасыл желекті, тыныш әрі көрнекті аудан. Мұнда дәрежелер, түбірлер мен теңдеулер құпиясы сақталған!',
+    icon: '🌿',
+    color: '#ef4444',
+    coords: { x: 730, y: 190 },
+    neighbors: { left: 1, down: 4 },
     questions: [
-      { q: 'Монета лақтырғанда "тура" ықтималдығы?', tex: 'P(\\text{тура}) = ?',          answers: ['1/4','1/3','1/2','2/3'],     correct: 2 },
-      { q: '6 қырлы кубикте 3 шығу ықт.?',           tex: 'P(3) = ?,\\ n=6',              answers: ['1/4','1/6','1/3','1/2'],     correct: 1 },
-      { q: '52 карта, туз алу ықтималдығы?',          tex: 'P(\\text{туз}),\\ n=52',       answers: ['1/52','1/13','4/52','1/26'], correct: 1 },
-      { q: 'P(A) = 0.3, P(A бар емес) = ?',           tex: 'P(A)=0.3,\\ P(\\bar{A})=?',   answers: ['0.3','0.5','0.7','0.6'],     correct: 2 },
-      { q: '2 монета: екеуі тура болу ықт.?',          tex: 'P(HH) = ?',                   answers: ['1/4','1/2','1/3','3/4'],     correct: 0 },
-      { q: 'Бірдей болу мүмкіндігі 10 ішінен 1?',     tex: 'P = \\dfrac{1}{10} = ?',      answers: ['10%','5%','15%','20%'],      correct: 0 },
+      { q: '√144 = ?',           tex: '\\sqrt{144} = ?',                      answers: [11, 12, 13, 14],     correct: 1 },
+      { q: '2³ × 5 = ?',         tex: '2^3 \\times 5 = ?',                    answers: [30, 40, 45, 50],     correct: 1 },
+      { q: '15% of 200 = ?',     tex: '15\\% \\text{ of } 200 = ?',           answers: [25, 30, 35, 40],     correct: 1 },
+      { q: '3² + 4² = ?',        tex: '3^2 + 4^2 = ?',                        answers: [20, 23, 25, 27],     correct: 2 },
+      { q: 'x + 5 = 12, x = ?',  tex: 'x + 5 = 12,\\quad x = ?',              answers: [5, 6, 7, 8],         correct: 2 },
+      { q: '2x = 18, x = ?',     tex: '2x = 18,\\quad x = ?',                 answers: [7, 8, 9, 10],        correct: 2 },
+      { q: 'x² = 49, x = ?',     tex: 'x^2 = 49,\\quad x = ?',                answers: [5, 6, 7, 8],         correct: 2 },
+      { q: '3x − 6 = 15, x = ?', tex: '3x - 6 = 15,\\quad x = ?',             answers: [5, 6, 7, 8],         correct: 2 },
     ]
   },
   {
-    id: 7,
-    name: 'Көктем',
-    fullName: 'Көктем шағын ауданы',
-    landmark: '🌸 Көктем саябағы & білім беру орталықтары',
-    districtDesc: 'Жаңарып жатқан жайлы мекен. Статистика, орташа мән, медиана және мода формулаларын игеріңіз!',
-    icon: '🌸',
-    color: '#14b8a6',
-    coords: { x: 690, y: 210 },
-    neighbors: { left: 4, right: 8, down: 1 },
-    questions: [
-      { q: '[2,4,6,8,10] орташа мәні?',      tex: '\\bar{x} = \\frac{2+4+6+8+10}{5} = ?', answers: ['5','6','7','8'],             correct: 1 },
-      { q: '[3,5,5,7,9] медианасы?',          answers: ['3','5','7','9'],                    correct: 1 },
-      { q: '[1,2,2,3,4] модасы?',             answers: ['1','2','3','4'],                    correct: 1 },
-      { q: 'Дисперсия — не өлшейді?',        answers: ['Орташа','Шашырау','Медиана','Мода'], correct: 1 },
-      { q: '[10,20,30] орташа ауытқуы?',      answers: ['5','8','10','12'],                  correct: 2 },
-      { q: '5 бала: 4,5,6,5,5 баллы. Мода?', answers: ['4','5','6','5.5'],                  correct: 1 },
-    ]
-  },
-  {
-    id: 8,
-    name: 'Шығыс',
-    fullName: 'Шығыс шағын ауданы (8-мкр)',
-    landmark: '🌅 Шығыс қақпасы & Сауда торабы',
-    districtDesc: 'Күн шығыс жақтан ашылатын қақпа. Бұрыштар мен тригонометриялық толқындардың сандығы осында!',
-    icon: '🌅',
-    color: '#f97316',
-    coords: { x: 830, y: 270 },
-    neighbors: { left: 7, down: 9 },
-    questions: [
-      { q: 'sin(0°) = ?',        tex: '\\sin 0^\\circ = ?',         answers: ['0','1','-1','0.5'],   correct: 0 },
-      { q: 'cos(90°) = ?',       tex: '\\cos 90^\\circ = ?',        answers: ['1','0','-1','0.5'],   correct: 1 },
-      { q: 'sin(30°) = ?',       tex: '\\sin 30^\\circ = ?',        answers: ['√3/2','1/2','1','0'], correct: 1 },
-      { q: 'tan(45°) = ?',       tex: '\\tan 45^\\circ = ?',        answers: ['0','1/2','1','√3'],   correct: 2 },
-      { q: 'cos(60°) = ?',       tex: '\\cos 60^\\circ = ?',        answers: ['1/2','√3/2','1','0'], correct: 0 },
-      { q: 'sin²x + cos²x = ?', tex: '\\sin^2 x + \\cos^2 x = ?', answers: ['0','2','1','-1'],      correct: 2 },
-    ]
-  },
-  {
-    id: 9,
+    id: 4,
     name: 'Болашақ',
     fullName: 'Болашақ шағын ауданы',
     landmark: '💻 IT Hub, Салтанат сарайы & Жаңа қалашық',
     districtDesc: 'Заманауи архитектура мен жаңа технологиялар тоғысы. Логика мен сандық алгоритмдерді бағындырыңыз!',
     icon: '💻',
     color: '#a855f7',
-    coords: { x: 730, y: 460 },
-    neighbors: { left: 6, up: 8 },
+    coords: { x: 620, y: 290 },
+    neighbors: { left: 1, up: 3, down: 5 },
     questions: [
       { q: 'Барлық мысықтар жануар. Барсик мысық. Барсик...?', answers: ['Жануар емес','Жануар','Белгісіз','Өсімдік'], correct: 1 },
       { q: '2, 4, 8, 16, ...?',            tex: '2,\\ 4,\\ 8,\\ 16,\\ \\ldots = ?',  answers: ['24','30','32','36'],    correct: 2 },
       { q: '1, 1, 2, 3, 5, 8, ...?',       tex: '1,1,2,3,5,8,\\ \\ldots = ?',         answers: ['11','12','13','14'],    correct: 2 },
-      { q: 'A немесе B = 0 болу үшін?',    answers: ['A=0','B=0','A және B=0','А=0 немесе B=0'], correct: 3 },
-      { q: '3, 9, 27, 81, ...?',           tex: '3,\\ 9,\\ 27,\\ 81,\\ \\ldots = ?', answers: ['162','243','216','200'], correct: 1 },
-      { q: 'Егер p→q және p болса, q...?', answers: ['Жалған','Шын','Белгісіз','Мүмкін'], correct: 1 },
+      { q: '[2,4,6,8,10] орташа мәні?',    tex: '\\bar{x} = \\frac{2+4+6+8+10}{5} = ?', answers: ['5','6','7','8'],     correct: 1 },
+      { q: '[3,5,5,7,9] медианасы?',       answers: ['3','5','7','9'],                correct: 1 },
+      { q: '3, 9, 27, 81, ...?',           tex: '3,\\ 9,\\ 27,\\ 81,\\ \\ldots = ?',  answers: ['162','243','216','200'], correct: 1 },
     ]
   },
   {
-    id: 10,
-    name: 'Батыс / Хутор',
-    fullName: 'Батыс / Хутор (Сарыбұлақ)',
-    landmark: '🏔️ Қаратал көпірі, Сарыбұлақ өткелі & Тау баурайы',
-    districtDesc: 'Алатау баурайындағы қасиетті мекен. Ең жоғары математика — интегралдар мен туындылар Гранд Мастері!',
-    icon: '🏔️',
-    color: '#fbbf24',
-    coords: { x: 190, y: 430 },
-    neighbors: { up: 2, right: 5 },
+    id: 5,
+    name: 'Жастар',
+    fullName: 'Жастар шағын ауданы',
+    landmark: '🏟️ "Жастар" спорт сарайы & саябағы',
+    districtDesc: 'Спорт, серпін және жастық жігер алаңы! Мұнда ықтималдық, комбинаторика және тригонометрия шыңдалады.',
+    icon: '🏟️',
+    color: '#ec4899',
+    coords: { x: 840, y: 410 },
+    neighbors: { up: 4, left: 1 },
     questions: [
-      { q: 'e ≈ ?',                       tex: 'e \\approx ?',                               answers: ['2.718','3.141','1.618','2.303'],   correct: 0 },
-      { q: 'ln(e²) = ?',                  tex: '\\ln(e^2) = ?',                              answers: ['1','e','2','2e'],                  correct: 2 },
-      { q: 'd/dx(sin x) = ?',             tex: '\\dfrac{d}{dx}(\\sin x) = ?',               answers: ['-cos x','cos x','tan x','-sin x'], correct: 1 },
-      { q: '∫x dx = ?',                   tex: '\\int x\\,dx = ?',                           answers: ['x²','x²/2 + C','2x','x/2'],       correct: 1 },
-      { q: 'lim(x→0) sin(x)/x = ?',       tex: '\\lim_{x \\to 0} \\dfrac{\\sin x}{x} = ?', answers: ['0','∞','1','-1'],                  correct: 2 },
-      { q: 'Евклид алгоритмі не табады?', answers: ['ЖОЕ','ЖЕАБ','π','e'],                  correct: 1 },
-      { q: 'i² = ? (кешен сан)',           tex: 'i^2 = ?\\quad (i = \\sqrt{-1})',            answers: ['1','-1','i','-i'],                 correct: 1 },
+      { q: 'Монета лақтырғанда "тура" ықтималдығы?', tex: 'P(\\text{тура}) = ?',          answers: ['1/4','1/3','1/2','2/3'],     correct: 2 },
+      { q: '6 қырлы кубикте 3 шығу ықт.?',           tex: 'P(3) = ?,\\ n=6',              answers: ['1/4','1/6','1/3','1/2'],     correct: 1 },
+      { q: 'sin(0°) = ?',                            tex: '\\sin 0^\\circ = ?',           answers: ['0','1','-1','0.5'],          correct: 0 },
+      { q: 'cos(90°) = ?',                           tex: '\\cos 90^\\circ = ?',          answers: ['1','0','-1','0.5'],          correct: 1 },
+      { q: 'tan(45°) = ?',                           tex: '\\tan 45^\\circ = ?',          answers: ['0','1/2','1','√3'],          correct: 2 },
+      { q: 'sin²x + cos²x = ?',                     tex: '\\sin^2 x + \\cos^2 x = ?',    answers: ['0','2','1','-1'],            correct: 2 },
     ]
   },
 ];
 
 /* Жолдар мен көпірлер торабы */
 const MAP_ROADS = [
-  [1, 4], [1, 3], [1, 7], [1, 6], [1, 5],
-  [2, 3], [2, 10], [3, 4], [4, 7],
-  [5, 6], [5, 10], [6, 9], [7, 8], [8, 9]
+  [1, 2], [1, 3], [1, 4], [1, 5],
+  [2, 3],
+  [3, 4],
+  [4, 5]
 ];
 
-const BRIDGES = [
-  { name: 'Батыс көпірі',   from: 2, to: 10, x: 225, y: 320, rot: 65 },
-  { name: 'Арбат көпірі',   from: 1, to: 5,  x: 435, y: 365, rot: 40 },
-  { name: 'Жастар көпірі',  from: 1, to: 6,  x: 525, y: 375, rot: -20 },
-  { name: 'Шығыс көпірі',   from: 8, to: 9,  x: 780, y: 365, rot: 55 },
-];
+const BRIDGES = [];
 
 /* ===================== ҚАЛАНЫ КӨРКЕЙТУ: ЖӨНДЕУ НЫСАНДАРЫ ===================== */
 
@@ -332,13 +234,13 @@ const ACHIEVEMENTS = [
   { id: 'perfect',          icon: '💯', title: 'Мінсіз!',                  desc: 'Аудан есебін қатесіз шештің',          trigger: s => s.lastWrong === 0 && s.levelsCompleted >= 1 },
   { id: 'collector',        icon: '💰', title: 'Байлық жинаушы',           desc: '100 монета жиналды',                    trigger: s => s.coins >= 100 },
   { id: 'speed_demon',      icon: '⚡', title: 'Жылдамшыл!',               desc: '5 есепті 5 сек ішінде шеш',            trigger: s => s.fastAnswers >= 5 },
-  { id: 'master',           icon: '👑', title: 'Талдықорған Шебері!',      desc: '10 шағын ауданның барлығын бағындырдың',trigger: s => s.levelsCompleted >= 10 },
+  { id: 'master',           icon: '👑', title: 'Талдықорған Шебері!',      desc: 'Барлық шағын ауданның барлығын бағындырдың',trigger: s => s.levelsCompleted >= LEVELS.length },
   { id: 'combo_3',          icon: '🔥', title: 'Үштік комбо!',              desc: '3 қатарынан дұрыс жауап',              trigger: s => s.maxCombo >= 3 },
   { id: 'combo_5',          icon: '💥', title: 'Бесті комбо!',               desc: '5 қатарынан дұрыс жауап',              trigger: s => s.maxCombo >= 5 },
   { id: 'rich',             icon: '💎', title: 'Алмаз мәртебе',            desc: '500 монета жиналды',                    trigger: s => s.coins >= 500 },
-  { id: 'halfway',          icon: '🌟', title: 'Қала жартысы!',             desc: '5 шағын аудан ашылды',                 trigger: s => s.levelsCompleted >= 5 },
+  { id: 'halfway',          icon: '🌟', title: 'Қала жартысы!',             desc: 'Шағын аудандардың жартысы ашылды',     trigger: s => s.levelsCompleted >= Math.ceil(LEVELS.length / 2) },
   { id: 'mathematician',    icon: '🧮', title: 'Бас Математик!',           desc: '1000 XP жиналды',                       trigger: s => s.xp >= 1000 },
-  { id: 'taldy_conqueror',  icon: '🏙️', title: 'Талдықорған Аңызы',        desc: 'Қала картасында барлық есептер ашылды', trigger: s => s.levelsCompleted >= 10 },
+  { id: 'taldy_conqueror',  icon: '🏙️', title: 'Талдықорған Аңызы',        desc: 'Қала картасында барлық есептер ашылды', trigger: s => s.levelsCompleted >= LEVELS.length },
   { id: 'city_builder',     icon: '🛠️', title: 'Бас Сәулетші',             desc: 'Қала бойынша 3 нысанды жөндеп көркейту', trigger: s => Object.keys(s.renovations || {}).length >= 3 },
 ];
 
@@ -544,6 +446,17 @@ const App = {
   init() {
     Audio.init();
     this._bindKeyboardNavigation();
+
+    // URL параметрін тексеру (?mode=map)
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const forcedMode = urlParams.get('mode');
+      if (forcedMode) {
+        this.state.viewMode = forcedMode;
+        saveState(this.state);
+      }
+    } catch (e) {}
+
     if (this.state.viewMode === 'grid') {
       this.showLevelSelect();
     } else if (this.state.viewMode === 'reno') {
@@ -602,7 +515,7 @@ const App = {
           <div class="map-header">
             <div class="map-title-wrap">
               <span class="map-title">🗺️ Талдықорған Саяхаты</span>
-              <span class="map-city-badge">10 Шағын Аудан</span>
+              <span class="map-city-badge">${LEVELS.length} Шағын Аудан</span>
             </div>
             <div class="mode-toggle-group">
               <button class="mode-btn active" id="btnModeMap">🗺️ Карта</button>
@@ -647,13 +560,8 @@ const App = {
         />`;
     }).join('');
 
-    // Көпірлер
-    const bridgesHTML = BRIDGES.map(br => `
-      <g class="bridge-item-g" transform="translate(${br.x}, ${br.y}) rotate(${br.rot})" style="cursor:pointer;" title="${br.name} — Инженерлік физикалық сынақ">
-        <rect x="-24" y="-7" width="48" height="14" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-width="2.5" />
-        <line x1="-20" y1="0" x2="20" y2="0" stroke="#f59e0b" stroke-dasharray="3 3" stroke-width="2" />
-        <text x="0" y="4" text-anchor="middle" font-size="9" fill="#38bdf8" font-weight="900" transform="rotate(-${br.rot})">🌉</text>
-      </g>`).join('');
+    // Көпірлер алынып тасталды
+    const bridgesHTML = '';
 
     // Шағын аудандар
     const nodesHTML = LEVELS.map(lv => {
@@ -691,27 +599,18 @@ const App = {
     }).join('');
 
     return `
-      <svg class="map-svg" viewBox="0 0 1000 580" preserveAspectRatio="xMidYMid meet" id="taldySvgMap">
+      <svg class="map-svg" viewBox="0 0 1024 576" preserveAspectRatio="xMidYMid meet" id="taldySvgMap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
-          <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.035)" stroke-width="1"/>
-          </pattern>
-          <linearGradient id="riverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#0284c7" />
-            <stop offset="50%" stop-color="#06b6d4" />
-            <stop offset="100%" stop-color="#0ea5e9" />
-          </linearGradient>
+          <filter id="shadowFilter" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.6)" />
+          </filter>
         </defs>
 
-        <rect width="1000" height="580" fill="url(#gridPattern)" />
+        <!-- 3D Изометриялық Қала Подложкасы -->
+        <image href="images/map-isometric.jpg" xlink:href="images/map-isometric.jpg" x="0" y="0" width="1024" height="576" preserveAspectRatio="none" />
 
-        <!-- Қаратал өзені -->
-        <path d="M -20,310 C 180,330 320,350 450,370 C 580,390 720,440 1020,570"
-              fill="none" stroke="url(#riverGrad)" stroke-width="36" stroke-linecap="round" opacity="0.85" />
-        <path d="M -20,310 C 180,330 320,350 450,370 C 580,390 720,440 1020,570"
-              fill="none" stroke="#e0f2fe" stroke-width="3" stroke-linecap="round" class="river-flow" opacity="0.6" />
-
-        <text x="790" y="495" fill="#38bdf8" font-size="12" font-weight="900" letter-spacing="3" opacity="0.8" transform="rotate(22 790 495)">
+        <!-- Қаратал өзені жазуы (тікелей өзен үстінде) -->
+        <text x="360" y="165" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="900" letter-spacing="2" opacity="0.95" transform="rotate(-36 360 165)" style="font-family: Nunito, sans-serif; text-shadow: 0 1px 4px rgba(2,132,199,0.9), 0 0 10px rgba(3,105,161,0.85);">
           🌊 ҚАРАТАЛ ӨЗЕНІ
         </text>
 
@@ -1569,6 +1468,10 @@ const App = {
 };
 
 /* ===================== БАСТАУ ===================== */
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    App.init();
+  });
+} else {
   App.init();
-});
+}

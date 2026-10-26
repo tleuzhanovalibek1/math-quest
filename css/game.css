@@ -501,9 +501,14 @@
 /* Карта контуры және контейнері */
 .map-canvas-card {
   width: 100%;
-  background: radial-gradient(circle at 50% 30%, #15113d 0%, #0d0b2b 100%);
-  border: 1px solid rgba(168, 85, 247, 0.35);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(124, 58, 237, 0.1);
+  aspect-ratio: 1024 / 576;
+  background-color: #244b2c;
+  background-image: url('../images/map-isometric.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  border: 2px solid rgba(168, 85, 247, 0.45);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.15);
   border-radius: 24px;
   overflow: hidden;
   position: relative;
@@ -512,9 +517,10 @@
 
 .map-svg {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   user-select: none;
+  background: transparent;
 }
 
 /* Қаратал өзені */
@@ -533,22 +539,22 @@
 }
 
 .road-line.unlocked {
-  stroke: rgba(168, 85, 247, 0.75);
+  stroke: rgba(147, 51, 234, 0.85);
   stroke-width: 3.5;
   stroke-dasharray: 6 4;
   animation: roadPulse 3s infinite linear;
 }
 
 .road-line.locked {
-  stroke: rgba(255, 255, 255, 0.12);
-  stroke-width: 2;
+  stroke: rgba(51, 65, 85, 0.35);
+  stroke-width: 2.5;
   stroke-dasharray: 4 6;
 }
 
 .road-line.active {
-  stroke: #fbbf24;
-  stroke-width: 4.5;
-  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.8));
+  stroke: #f59e0b;
+  stroke-width: 5;
+  filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.9));
 }
 
 @keyframes roadPulse {
