@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MathQuest — Математика Әлемі</title>
-  <link rel="stylesheet" href="css/style.css?v=3.8" />
+  <title>MathQuest — Талдықорған Интерактивті STEM & AI Экожүйесі</title>
+  <link rel="stylesheet" href="css/style.css?v=4.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
 </head>
@@ -25,14 +25,14 @@
     <h1 class="title">
       <span class="title-math">Math</span><span class="title-quest">Quest</span>
     </h1>
-    <p class="subtitle">«Қаратал Инженері» физикалық ойыны & Талдықорғанды көркейту! Шағын аудандарды бағындыр!</p>
+    <p class="subtitle">Талдықорған 10 шағын ауданы • «Қаратал Инженері» 2D Физикасы • Әл-Фараби AI-Тьюторы • Жетісу Бәйгесі!</p>
 
     <!-- Статистика карточкалары (динамикалық) -->
     <div class="stats-row" id="statsRow">
       <div class="stat-card">
         <span class="stat-icon">🏙️</span>
         <span class="stat-value" id="statLevel">1</span>
-        <span class="stat-label">Аудан</span>
+        <span class="stat-label">Деңгей</span>
       </div>
       <div class="stat-card">
         <span class="stat-icon">⭐</span>
@@ -52,29 +52,39 @@
     </div>
 
     <!-- 3D Карта Превью -->
-    <a href="game.html" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='map'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));" class="map-preview-card" style="display:block; text-decoration:none; max-width:440px; width:92%; margin: 1.2rem auto; border-radius:20px; overflow:hidden; border:2px solid rgba(168,85,247,0.5); box-shadow:0 12px 35px rgba(0,0,0,0.6); position:relative; transition: transform 0.25s, box-shadow 0.25s;">
+    <a href="game.html" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='map'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));" class="map-preview-card" style="display:block; text-decoration:none; max-width:440px; width:92%; margin: 1.1rem auto; border-radius:20px; overflow:hidden; border:2px solid rgba(168,85,247,0.5); box-shadow:0 12px 35px rgba(0,0,0,0.6); position:relative; transition: transform 0.25s, box-shadow 0.25s;">
       <img src="images/map-isometric.jpg" alt="Талдықорған 3D Картасы" style="width:100%; display:block; aspect-ratio: 16/9; object-fit:cover;" />
       <div style="position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent, rgba(13,11,43,0.92)); padding:1.2rem 1rem 0.8rem; text-align:center; color:#ffffff;">
         <span style="font-weight:900; font-size:1.1rem; color:#fbbf24;">🗺️ Талдықорған 3D Изометриялық Картасы</span>
-        <div style="font-size:0.82rem; opacity:0.85; margin-top:2px;">Шағын аудандар & Қаратал өзені (Ойнау үшін басыңыз)</div>
+        <div style="font-size:0.82rem; opacity:0.85; margin-top:2px;">10 шағын аудан & Қаратал өзені (Ойнау үшін басыңыз)</div>
       </div>
     </a>
 
-    <!-- Бастау түймесі -->
-    <a href="game.html" class="btn-start" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='map'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));">
-      <span class="btn-icon">🚀</span>
-      3D Картамен Ойнау
-    </a>
+    <!-- Негізгі батырмалар қатары -->
+    <div style="display:flex; gap:0.8rem; flex-wrap:wrap; justify-content:center; align-items:center;">
+      <a href="game.html" class="btn-start" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='map'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));">
+        <span class="btn-icon">🚀</span>
+        Ойынды Бастау
+      </a>
+      <a href="about.html" class="btn-start" style="background:linear-gradient(135deg, #10b981, #059669); box-shadow:0 8px 25px rgba(16,185,129,0.45); font-size:1rem; padding:0.95rem 1.8rem;">
+        <span class="btn-icon">💼</span>
+        Инвесторларға (Pitch Deck)
+      </a>
+    </div>
 
     <!-- Кіші сілтемелер -->
-    <nav class="bottom-nav">
-      <a href="game.html" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='map'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));">🗺️ 3D Карта</a>
+    <nav class="bottom-nav" style="flex-wrap:wrap; justify-content:center; line-height:1.8;">
+      <a href="game.html" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='map'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));">🗺️ Карта</a>
       <span>•</span>
-      <a href="game.html" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='bridge'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));">🌉 Көпір Инженері</a>
+      <a href="game.html" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='bridge'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));">🌉 Көпір Физикасы</a>
+      <span>•</span>
+      <a href="game.html?mode=baige">🏇 Жетісу Бәйгесі</a>
+      <span>•</span>
+      <a href="game.html?mode=shop">🛍️ Батыр Дүкені</a>
+      <span>•</span>
+      <a href="game.html?mode=cert">📊 Сертификат</a>
       <span>•</span>
       <a href="leaderboard.html">🏆 Рейтинг</a>
-      <span>•</span>
-      <a href="about.html">ℹ️ Жоба туралы</a>
     </nav>
 
   </main>
@@ -86,12 +96,12 @@
     </svg>
   </div>
 
-  <script src="js/stars.js"></script>
+  <script src="js/stars.js?v=4.0"></script>
   <script>
     // Динамикалық статистика
     const raw = localStorage.getItem('mathquest_state_v2');
     const s = raw ? JSON.parse(raw) : { xp: 0, coins: 0, levelsCompleted: 0, achievements: [] };
-    const playerLevel = Math.floor(s.xp / 200) + 1;
+    const playerLevel = Math.floor((s.xp || 0) / 200) + 1;
     document.getElementById('statLevel').textContent = playerLevel;
     document.getElementById('statXP').textContent    = s.xp || 0;
     document.getElementById('statCoins').textContent = s.coins || 0;
