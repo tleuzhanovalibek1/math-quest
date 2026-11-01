@@ -22,10 +22,13 @@
     </div>
 
     <!-- Тақырып -->
+    <div style="background:rgba(59,130,246,0.2); border:1px solid rgba(96,165,250,0.45); color:#93c5fd; font-size:0.75rem; font-weight:900; padding:0.3rem 0.9rem; border-radius:50px; margin-bottom:0.4rem;">
+      🎓 І. ЖАНСҮГІРОВ АТЫНДАҒЫ ЖЕТІСУ УНИВЕРСИТЕТІ • «JAS ǴALYM» ЖОБАСЫ
+    </div>
     <h1 class="title">
       <span class="title-math">Smart</span><span class="title-quest">Math</span>
     </h1>
-    <p class="subtitle">«Қаратал Инженері» физикалық ойыны & Талдықорғанды көркейту! Шағын аудандарды бағындыр!</p>
+    <p class="subtitle">ЖИ мен геймификация көмегімен 7–9 сынып оқушыларының алгебрадан үлгерімін арттыру (3 модуль • 60 есеп • 3 деңгейлі ЖИ көмегі)</p>
 
     <!-- Статистика карточкалары (динамикалық) -->
     <div class="stats-row" id="statsRow">
@@ -67,14 +70,20 @@
     </a>
 
     <!-- Кіші сілтемелер -->
-    <nav class="bottom-nav">
-      <a href="game.html" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='map'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));">🗺️ 3D Карта</a>
+    <nav class="bottom-nav" style="flex-wrap:wrap; justify-content:center; gap:0.5rem 0.7rem;">
+      <a href="game.html?mode=map">🗺️ 3D Карта</a>
       <span>•</span>
-      <a href="game.html" onclick="const s = JSON.parse(localStorage.getItem('mathquest_state_v2')||'{}'); s.viewMode='bridge'; localStorage.setItem('mathquest_state_v2',JSON.stringify(s));">🌉 Көпір Инженері</a>
+      <a href="game.html?mode=modules">📚 3 Модуль (60 есеп)</a>
+      <span>•</span>
+      <a href="game.html?mode=diagnostics">🩺 Диагностика</a>
+      <span>•</span>
+      <a href="game.html?mode=teacher">👨‍🏫 Мұғалім панелі</a>
+      <span>•</span>
+      <a href="game.html?mode=bridge">🌉 Көпір</a>
       <span>•</span>
       <a href="leaderboard.html">🏆 Рейтинг</a>
       <span>•</span>
-      <a href="about.html">ℹ️ Жоба туралы</a>
+      <a href="about.html">📄 Жоба паспорты</a>
     </nav>
 
   </main>

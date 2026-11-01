@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmartMath — Жоба туралы</title>
-  <link rel="stylesheet" href="css/style.css?v=4.2" />
+  <title>SmartMath — «Jas ǵalym» Ғылыми Жоба Паспорты</title>
+  <link rel="stylesheet" href="css/style.css?v=5.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet" />
   <style>
@@ -15,59 +15,124 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2rem;
+      gap: 1.8rem;
+      max-width: 1020px;
+      margin: 0 auto;
     }
 
     .back-link {
       align-self: flex-start;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.8);
       text-decoration: none;
-      font-size: 1rem;
-      font-weight: 700;
+      font-size: 0.95rem;
+      font-weight: 800;
       display: flex; align-items: center; gap: 0.4rem;
-      transition: color 0.2s;
+      background: rgba(255,255,255,0.08);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.2s;
     }
-    .back-link:hover { color: #fbbf24; }
+    .back-link:hover { color: #fbbf24; border-color: #fbbf24; }
 
-    .about-hero { text-align: center; }
-    .about-hero h1 { font-size: clamp(2rem,6vw,3.5rem); font-weight: 900; }
+    .about-hero { text-align: center; width: 100%; }
+    .uni-badge {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.22);
+      border: 1px solid rgba(96, 165, 250, 0.5);
+      color: #93c5fd;
+      font-size: 0.8rem;
+      font-weight: 900;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.5px;
+    }
+    .about-hero h1 { font-size: clamp(1.8rem, 4.5vw, 2.7rem); font-weight: 900; line-height: 1.25; }
     .about-hero h1 span { color: #a855f7; }
-    .about-hero p  { color: rgba(255,255,255,0.7); max-width: 560px; margin: 0.8rem auto 0; line-height: 1.7; }
+    .about-hero p  { color: rgba(255,255,255,0.8); max-width: 780px; margin: 0.8rem auto 0; line-height: 1.65; font-size: 0.98rem; }
+
+    .passport-card {
+      width: 100%;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1.5px solid rgba(96, 165, 250, 0.35);
+      backdrop-filter: blur(12px);
+      border-radius: 22px;
+      padding: 1.6rem 1.8rem;
+    }
+
+    .passport-card h2 {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #fbbf24;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .team-member {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+    }
+    .team-role { font-size: 0.75rem; font-weight: 900; color: #38bdf8; text-transform: uppercase; margin-bottom: 0.25rem; }
+    .team-name { font-size: 1.05rem; font-weight: 900; color: #ffffff; margin-bottom: 0.25rem; }
+    .team-aff  { font-size: 0.84rem; color: rgba(255,255,255,0.72); line-height: 1.45; }
 
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.1rem;
       width: 100%;
-      max-width: 800px;
     }
 
     .info-card {
-      background: rgba(255,255,255,0.07);
+      background: rgba(15, 23, 42, 0.82);
       border: 1px solid rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
       border-radius: 20px;
-      padding: 1.5rem;
+      padding: 1.4rem;
     }
 
-    .info-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.6rem; display: flex; align-items:center; gap:0.5rem; }
-    .info-card p  { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+    .info-card h3 { font-size: 1.05rem; font-weight: 900; margin-bottom: 0.55rem; color: #93c5fd; }
+    .info-card p, .info-card li { font-size: 0.88rem; color: rgba(255,255,255,0.8); line-height: 1.55; }
+    .info-card ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.4rem; }
+
+    .actions-row {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
     .btn-start-sm {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: linear-gradient(135deg, #7c3aed, #ec4899);
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
       color: white;
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 800;
-      padding: 0.85rem 2.4rem;
+      padding: 0.8rem 1.6rem;
       border-radius: 50px;
-      box-shadow: 0 6px 24px rgba(124,58,237,0.5);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 6px 24px rgba(37, 99, 235, 0.45);
+      transition: transform 0.2s;
     }
-    .btn-start-sm:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(236,72,153,0.5); }
+    .btn-start-sm:hover { transform: translateY(-2px); }
+    .btn-start-sm.secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      box-shadow: none;
+    }
   </style>
 </head>
 <body>
@@ -75,37 +140,88 @@
 
   <main class="about-page">
 
-    <a class="back-link" href="index.html">← Артқа</a>
+    <a class="back-link" href="index.html">← Басты бетке оралу</a>
 
     <div class="about-hero">
-      <h1>Smart<span>Math</span> туралы</h1>
+      <div class="uni-badge">🎓 ІЛИЯС ЖАНСҮГІРОВ АТЫНДАҒЫ ЖЕТІСУ УНИВЕРСИТЕТІ • «JAS ǴALYM» КОНКУРСЫ</div>
+      <h1>Smart<span>Math</span>: ЖИ мен геймификация көмегімен мектеп оқушыларының математикадан үлгерімін арттыру</h1>
       <p>
-        Бұл жоба математиканы ойын арқылы оқыту — <strong>геймификация</strong> және <strong>Жасанды Интеллект («Әл-Фараби AI»)</strong> әдісіне негізделген
-        интерактивті білім беру саяхаты. Оқушылар Талдықорған қаласының негізгі шағын аудандарын
-        карта бойынша шарлап, жасырын есеп сандықтарын тауып, ашып отырады.
+        <strong>ҒТАМР (ГРНТИ): 14.01.85</strong> — Білім берудегі автоматтандыру және автоматтандырылған жүйелер.<br/>
+        7–9 сынып оқушыларының алгебра пәнінен білім олқылықтарын диагностикалауға, 3 деңгейлі қадамдық ЖИ көмегімен жеке траектория құруға және оқу мотивациясын арттыруға арналған зияткерлік веб-платформа.
       </p>
     </div>
 
+    <!-- Ғылыми зерттеу тобы -->
+    <section class="passport-card">
+      <h2>👩‍🔬 Жобаның ғылыми-зерттеу тобы</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="team-role">Ғылыми жетекші</div>
+          <div class="team-name">Гаврилова Екатерина Николаевна</div>
+          <div class="team-aff">PhD, физика-математика факультетінің оқытушы-дәріскері<br/>📧 e.gavrilova.zhu@gmail.com</div>
+        </div>
+        <div class="team-member">
+          <div class="team-role">Орындаушы (Магистрант)</div>
+          <div class="team-name">Тлеужанов Алибек Берикович</div>
+          <div class="team-aff">Физика-математика факультетінің «Математика» БББ 1 курс магистранты</div>
+        </div>
+        <div class="team-member">
+          <div class="team-role">Орындаушы (Магистрант)</div>
+          <div class="team-name">Болат Жұбаныш Дәулетұлы</div>
+          <div class="team-aff">Физика-математика факультетінің «Математика» БББ 1 курс магистранты</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Жобаның ғылыми-әдістемелік құрылымы -->
     <div class="info-grid">
       <div class="info-card">
-        <h3>🗺️ Талдықорған Картасы</h3>
-        <p>Қаратал өзені, көпірлер және негізгі шағын аудандар (Орталық, Самал, Қаратал, Жастар, Болашақ) бейнеленген интерактивті 3D карта.</p>
+        <h3>📚 3 Оқу Модулі • 60 Тексерілген Есеп</h3>
+        <p>7–9 сынып алгебрасының базалық және күрделі тақырыптарын қамтитын 60 верификацияланған тапсырма:</p>
+        <ul>
+          <li><strong>1-модуль:</strong> Көпмүшелерге амалдар қолдану (20 есеп, M1-01..M1-20)</li>
+          <li><strong>2-модуль:</strong> Қысқаша көбейту формулалары (20 есеп, M2-01..M2-20)</li>
+          <li><strong>3-модуль:</strong> Көпмүшелерді көбейткіштерге жіктеу (20 есеп, M3-01..M3-20)</li>
+        </ul>
       </div>
+
       <div class="info-card">
-        <h3>🧙‍♂️ Әл-Фараби AI-Тьюторы</h3>
-        <p>Есептерді қадам-қадаммен түсіндіретін Сократтық AI көмекшісі, қатемен жұмыс және шексіз жаңа есептер генераторы.</p>
+        <h3>🧙‍♂️ 3 Деңгейлі ЖИ Көмегі & Ғылыми Жаңалық</h3>
+        <p>Әр тапсырма дайын жауапты бірден көрсетпей, оқушыны ойлануға жетелейтін 3 деңгейлі көмекпен жабдықталған:</p>
+        <ul>
+          <li><strong>1-деңгей (Ереже):</strong> Қажетті формула мен ережені еске салу;</li>
+          <li><strong>2-деңгей (Қадам бағыты):</strong> Аралық түрлендіруді көрсету;</li>
+          <li><strong>3-деңгей (Толық шешім):</strong> Қадамдық талдау және келесі есепті көмексіз орындауын бақылау.</li>
+        </ul>
       </div>
+
       <div class="info-card">
-        <h3>🌉 Қаратал Көпірі & KaTeX</h3>
-        <p>Базалық деңгейден ҰБТ, тригонометрия, туынды, интеграл және 2D көпір физикасына дейінгі тереңдетілген есептер.</p>
+        <h3>🩺 Диагностикалық Құралдар (12+12+6)</h3>
+        <p>8 апталық педагогикалық эксперимент пен білім өсімін дәл өлшеуге арналған бақылау пакеті:</p>
+        <ul>
+          <li><strong>Бастапқы диагностика (Pre-test):</strong> 12 тапсырма (А және Б параллель нұсқалары);</li>
+          <li><strong>Қорытынды диагностика (Post-test):</strong> 12 тапсырма (А және Б параллель нұсқалары);</li>
+          <li><strong>Кейінгі тексеру (Retention):</strong> 6 тапсырма (тұрақты білімді тексеру).</li>
+        </ul>
       </div>
+
       <div class="info-card">
-        <h3>🏆 Мотивация & Жетістіктер</h3>
-        <p>XP жүйесі, алтын монеталар, қала сәулетін жаңарту және Талдықорған чемпионы атану мүмкіндігі.</p>
+        <h3>👨‍🏫 Мұғалім Панелі & Қателер Таксономиясы</h3>
+        <p>Мұғалімге сыныптағы олқылықтарды нақты уақытта көруге мүмкіндік беретін аналитика:</p>
+        <ul>
+          <li>4 қате түрін автоматты жіктеу: <strong>Таңба қатесі (+/-)</strong>, <strong>Ереже қатесі</strong>, <strong>Алгоритм қатесі</strong>, <strong>Дәреже/есептеу қатесі</strong>;</li>
+          <li>Сабақтың басында қай тақырыпты қайталау керектігі туралы нақты ұсыныс;</li>
+          <li>Анонимді зерттеу деректерін <strong>CSV</strong> форматында экспорттау.</li>
+        </ul>
       </div>
     </div>
 
-    <a class="btn-start-sm" href="game.html">🚀 Ойынды бастау</a>
+    <div class="actions-row">
+      <a class="btn-start-sm" href="game.html?mode=modules">📚 3 Модульді ашу (60 есеп)</a>
+      <a class="btn-start-sm" href="game.html?mode=diagnostics">🩺 Диагностиканы бастау</a>
+      <a class="btn-start-sm" href="game.html?mode=teacher">👨‍🏫 Мұғалім панелі</a>
+      <a class="btn-start-sm secondary" href="game.html?mode=map">🗺️ Талдықорған Картасы</a>
+    </div>
 
   </main>
 
