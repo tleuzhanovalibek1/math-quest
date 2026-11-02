@@ -1537,36 +1537,53 @@ function enhanceSmartMathPlatform() {
   };
 
   // Талдықорғанның шағын аудандарын 7–9 сынып Алгебрасының 3 модулімен (60 есеп) байланыстыру
-  // ЕСКЕРТУ: Картаның дәл ортасында (id: 1, x: 480, y: 295) І. Жансүгіров атындағы Жетісу Университетінің Бас оқу ғимараты үлкен етіп орналастырылды!
+  // ЕСКЕРТУ: Картаның дәл ортасында (x: 485, y: 295) ЕҢ СОҢҒЫ 10-ДЕҢГЕЙ (БІЛІМ ШЫҢЫ) ретінде
+  // І. Жансүгіров атындағы Жетісу Университетінің Бас оқу ғимараты үлкен етіп орналастырылды!
   if (typeof LEVELS !== 'undefined' && Array.isArray(LEVELS)) {
-    // 1-ші (Орталық) нүктені І. Жансүгіров атындағы Жетісу Университеті етіп орнату
+    // 1-деңгей (Бастапқы нүкте): Орталық (x: 460, y: 145)
     if (LEVELS[0]) {
-      LEVELS[0].name = 'Жетісу Университеті';
-      LEVELS[0].fullName = 'І. Жансүгіров атындағы Жетісу Университеті';
-      LEVELS[0].landmark = '🎓 Бас оқу ғимараты • Физика-математика факультеті';
-      LEVELS[0].icon = '🎓';
-      LEVELS[0].photo = 'images/zhetysu-uni-building.jpg';
-      LEVELS[0].color = '#2563eb';
-      LEVELS[0].coords = { x: 485, y: 295 };
-      LEVELS[0].isUniversityCenter = true;
+      LEVELS[0].name = '1. Орталық';
+      LEVELS[0].fullName = '1-деңгей: Орталық (Тәуелсіздік алаңы & Арбат)';
+      LEVELS[0].landmark = '🏛️ Тәуелсіздік алаңы, І. Жансүгіров саябағы & Арбат';
+      LEVELS[0].icon = '🏛️';
+      delete LEVELS[0].photo;
+      delete LEVELS[0].isUniversityCenter;
+      LEVELS[0].color = '#10b981';
+      LEVELS[0].coords = { x: 460, y: 145 };
+    }
+    if (LEVELS[1]) {
+      LEVELS[1].name = '2. Қаратал';
+      LEVELS[1].coords = { x: 285, y: 265 };
+    }
+    if (LEVELS[2]) {
+      LEVELS[2].name = '3. Самал';
+      LEVELS[2].coords = { x: 730, y: 185 };
+    }
+    if (LEVELS[3]) {
+      LEVELS[3].name = '4. Болашақ';
+      LEVELS[3].coords = { x: 680, y: 295 };
+    }
+    if (LEVELS[4]) {
+      LEVELS[4].name = '5. Жастар';
+      LEVELS[4].coords = { x: 840, y: 410 };
     }
 
     const extraDistricts = [
       {
         id: 6,
-        name: 'Орталық',
-        fullName: 'Орталық (Тәуелсіздік алаңы & Арбат)',
-        landmark: '🏛️ Тәуелсіздік алаңы, І. Жансүгіров саябағы & Арбат',
+        name: '6. Шығыс',
+        fullName: '6-деңгей: Шығыс шағын ауданы (Восточный)',
+        landmark: '🌅 Шығыс қақпасы & Инновациялық мектеп',
         districtDesc: '2-модуль (ҚКФ): Толық квадрат бөліп алу және тиімді есептеулер орталығы!',
-        icon: '🏛️',
-        color: '#10b981',
-        coords: { x: 460, y: 145 },
-        neighbors: { down: 1, left: 2, right: 3 }
+        icon: '🌅',
+        color: '#f97316',
+        coords: { x: 870, y: 230 },
+        neighbors: { left: 3, down: 5 }
       },
       {
         id: 7,
-        name: 'Мүшелтой',
-        fullName: 'Мүшелтой шағын ауданы (7-мкр)',
+        name: '7. Мүшелтой',
+        fullName: '7-деңгей: Мүшелтой шағын ауданы (7-мкр)',
         landmark: '🏫 Зияткерлік мектеп & Оқушылар сарайы',
         districtDesc: '3-модуль: Ортақ көбейткішті жақша сыртына шығару және топтау тәсілі!',
         icon: '🏫',
@@ -1576,63 +1593,71 @@ function enhanceSmartMathPlatform() {
       },
       {
         id: 8,
-        name: 'Ғарышкер',
-        fullName: 'Ғарышкер шағын ауданы (5-мкр)',
+        name: '8. Ғарышкер',
+        fullName: '8-деңгей: Ғарышкер шағын ауданы (5-мкр)',
         landmark: '🚀 Ғарышкерлер аллеясы',
         districtDesc: '3-модуль: Қысқаша көбейту формулалары арқылы көбейткіштерге жіктеу!',
         icon: '🚀',
         color: '#06b6d4',
         coords: { x: 485, y: 465 },
-        neighbors: { up: 1, left: 7, right: 5 }
+        neighbors: { up: 10, left: 7, right: 5 }
       },
       {
         id: 9,
-        name: 'Көктал',
-        fullName: 'Көктал шағын ауданы',
+        name: '9. Көктал',
+        fullName: '9-деңгей: Көктал шағын ауданы',
         landmark: '🌲 Көктал эко-аймағы',
         districtDesc: '3-модуль: Квадрат үшмүшені жіктеу, бөлшектерді қысқарту және теңдеулер!',
         icon: '🌲',
         color: '#10b981',
         coords: { x: 185, y: 170 },
-        neighbors: { right: 6, down: 2 }
+        neighbors: { right: 1, down: 2 }
       },
       {
         id: 10,
-        name: 'Шығыс',
-        fullName: 'Шығыс шағын ауданы (Восточный)',
-        landmark: '🏆 SmartMath Гранд Финал Аренасы',
-        districtDesc: 'Қорытынды синтез: 3 модуль бойынша жоғары деңгейлі (3-деңгей) олимпиадалық есептер!',
-        icon: '🏆',
+        name: '10. Жетісу Ун-ті (ШЫҢ)',
+        fullName: '👑 10-ДЕҢГЕЙ (БІЛІМ ШЫҢЫ): І. Жансүгіров атындағы Жетісу Университеті',
+        landmark: '🎓 Бас оқу ғимараты • Физика-математика факультеті (Гранд Финал Шыңы)',
+        districtDesc: '👑 ЕҢ СОҢҒЫ ШЫҢ ДЕҢГЕЙІ! Барлық 9 шағын ауданды бағындырған оқушы жететін Білім Шыңы — 1–3 модульдер бойынша жоғары деңгейлі (3-деңгей) қорытынды алгебралық сынақ!',
+        icon: '👑',
+        photo: 'images/zhetysu-uni-building.jpg',
         color: '#eab308',
-        coords: { x: 870, y: 230 },
-        neighbors: { left: 3, down: 5 }
+        coords: { x: 485, y: 295 },
+        isUniversityCenter: true,
+        isFinalPeak: true,
+        neighbors: { up: 1, left: 2, right: 4, down: 8 }
       }
     ];
 
     extraDistricts.forEach(ed => {
-      if (!LEVELS.some(l => l.id === ed.id)) {
+      const existingIdx = LEVELS.findIndex(l => l.id === ed.id);
+      if (existingIdx >= 0) {
+        LEVELS[existingIdx] = ed;
+      } else {
         LEVELS.push(ed);
       }
     });
 
-    // Көрші аудандардың координаталарын орталықтағы үлкен Жетісу Университетіне кедергі жасамайтындай реттеу
-    if (LEVELS[1]) LEVELS[1].coords = { x: 285, y: 265 }; // Қаратал
-    if (LEVELS[3]) LEVELS[3].coords = { x: 675, y: 295 }; // Болашақ
-
-    // Жолдар мен көршілерді жаңарту
-    LEVELS[0].neighbors = { left: 2, right: 4, up: 6, down: 8 };
-    LEVELS[1].neighbors = { right: 1, up: 9, down: 7 };
-    LEVELS[2].neighbors = { left: 6, down: 4, right: 10 };
-    LEVELS[3].neighbors = { left: 1, up: 3, down: 5 };
-    LEVELS[4].neighbors = { up: 10, left: 8 };
+    // Жолдар мен көршілерді жаңарту (барлық жолдар айналып келіп орталықтағы 10-деңгей Жетісу Университетіне — Шыңға түйіседі)
+    LEVELS[0].neighbors = { left: 9, right: 3, down: 10 };
+    LEVELS[1].neighbors = { up: 9, right: 10, down: 7 };
+    LEVELS[2].neighbors = { left: 1, down: 4, right: 6 };
+    LEVELS[3].neighbors = { left: 10, up: 3, down: 5 };
+    LEVELS[4].neighbors = { up: 6, left: 8 };
 
     if (typeof MAP_ROADS !== 'undefined' && Array.isArray(MAP_ROADS)) {
-      const extraRoads = [[1, 6], [1, 8], [2, 7], [2, 9], [6, 9], [6, 3], [7, 8], [8, 5], [3, 10], [5, 10]];
-      extraRoads.forEach(r => {
-        if (!MAP_ROADS.some(ex => (ex[0] === r[0] && ex[1] === r[1]) || (ex[0] === r[1] && ex[1] === r[0]))) {
-          MAP_ROADS.push(r);
-        }
-      });
+      MAP_ROADS.length = 0;
+      const peakRoads = [
+        [1, 2], [1, 3], [1, 9],
+        [2, 7], [2, 9],
+        [3, 4], [3, 6],
+        [4, 5],
+        [5, 6], [5, 8],
+        [7, 8],
+        // Барлық тараптан орталықтағы 10-деңгейге (Жетісу Университеті — Білім Шыңына) апаратын финалдық жолдар:
+        [1, 10], [2, 10], [4, 10], [8, 10]
+      ];
+      peakRoads.forEach(r => MAP_ROADS.push(r));
     }
 
     // 10 шағын ауданға 60 верификацияланған есепті (әрқайсысына 6 есептен) бөліп беру
@@ -1677,8 +1702,8 @@ function enhanceSmartMathPlatform() {
         />`;
     }).join('');
 
-    // Орталықтағы Жетісу Университетін ең үстіңгі қабатта (соңында) рендерлеу үшін сұрыптау
-    const sortedLevels = [...LEVELS].sort((a, b) => (a.id === 1 ? 1 : b.id === 1 ? -1 : 0));
+    // Орталықтағы 10-деңгей Жетісу Университетін (Білім Шыңын) ең үстіңгі қабатта рендерлеу үшін сұрыптау
+    const sortedLevels = [...LEVELS].sort((a, b) => (a.isUniversityCenter ? 1 : b.isUniversityCenter ? -1 : 0));
 
     const nodesHTML = sortedLevels.map(lv => {
       const isCur = lv.id === curId;
@@ -1686,19 +1711,19 @@ function enhanceSmartMathPlatform() {
       const stars = (this.state.starsPerLevel || {})[lv.id] || 0;
       const isDone = stars > 0;
 
-      // Егер бұл орталықтағы І. Жансүгіров атындағы Жетісу Университеті болса — үлкен фото-кампус ретінде көрсету!
-      if (lv.id === 1 || lv.isUniversityCenter) {
+      // Егер бұл орталықтағы 10-ДЕҢГЕЙ (БІЛІМ ШЫҢЫ) — І. Жансүгіров атындағы Жетісу Университеті болса:
+      if (lv.isUniversityCenter) {
         return `
           <g class="district-node-g uni-center-node" data-id="${lv.id}" transform="translate(${lv.coords.x}, ${lv.coords.y})" style="cursor:pointer;">
-            <!-- Сыртқы алтын-көк жарқырау ореолы -->
-            <ellipse cx="0" cy="6" rx="112" ry="70" fill="rgba(37, 99, 235, 0.28)" filter="url(#shadowFilter)" />
-            ${isCur ? `<rect x="-98" y="-60" width="196" height="116" rx="18" fill="none" stroke="#fbbf24" stroke-width="3.5" class="node-pulse-ring" />` : ''}
+            <!-- Сыртқы алтын-көк Шың ореолы -->
+            <ellipse cx="0" cy="6" rx="116" ry="74" fill="rgba(234, 179, 8, 0.26)" filter="url(#shadowFilter)" />
+            <rect x="-98" y="-60" width="196" height="116" rx="18" fill="none" stroke="#fbbf24" stroke-width="${isCur ? '4' : '2.5'}" class="node-pulse-ring" />
 
-            <!-- Университет ғимаратының үлкен фото жиегі -->
+            <!-- Университет ғимаратының үлкен алтын жиегі -->
             <rect x="-92" y="-54" width="184" height="104" rx="15"
                   fill="#0f172a"
-                  stroke="${isCur ? '#fbbf24' : '#38bdf8'}"
-                  stroke-width="${isCur ? '4' : '3'}"
+                  stroke="#fbbf24"
+                  stroke-width="${isCur ? '4.5' : '3.5'}"
                   filter="url(#shadowFilter)" />
 
             <!-- Бас оқу ғимаратының нақты фотосы -->
@@ -1707,24 +1732,24 @@ function enhanceSmartMathPlatform() {
                    preserveAspectRatio="xMidYMid slice"
                    clip-path="url(#uniBuildingClip)" />
 
-            <!-- Жоғарғы эмблема белгісі -->
-            <g transform="translate(0, -54)" pointer-events="none">
-              <rect x="-74" y="-12" width="148" height="22" rx="11"
-                    fill="#1e3a8a" stroke="#fbbf24" stroke-width="1.8" filter="url(#shadowFilter)" />
-              <text x="0" y="3" text-anchor="middle" fill="#fbbf24" font-size="9.5" font-weight="900" font-family="Nunito, sans-serif" letter-spacing="0.6">
-                🎓 ZHETYSU UNIVERSITY
+            <!-- Жоғарғы «👑 10-ДЕҢГЕЙ • БІЛІМ ШЫҢЫ» тәж белгісі -->
+            <g transform="translate(0, -56)" pointer-events="none">
+              <rect x="-94" y="-13" width="188" height="24" rx="12"
+                    fill="#1e3a8a" stroke="#fbbf24" stroke-width="2" filter="url(#shadowFilter)" />
+              <text x="0" y="3" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="900" font-family="Nunito, sans-serif" letter-spacing="0.5">
+                👑 10-ДЕҢГЕЙ • БІЛІМ ШЫҢЫ
               </text>
             </g>
 
             <!-- Төменгі үлкен атау баннері -->
             <g transform="translate(0, 60)" pointer-events="none">
-              <rect x="-108" y="-14" width="216" height="28" rx="14"
-                    fill="rgba(15, 23, 42, 0.95)"
-                    stroke="${isCur ? '#fbbf24' : '#38bdf8'}"
-                    stroke-width="2.2"
+              <rect x="-114" y="-14" width="228" height="28" rx="14"
+                    fill="rgba(15, 23, 42, 0.96)"
+                    stroke="#fbbf24"
+                    stroke-width="2.4"
                     filter="url(#shadowFilter)" />
               <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="900" font-family="Nunito, sans-serif">
-                🏛️ І. Жансүгіров ат. Жетісу Ун-ті ${isDone ? '⭐' : ''}
+                🎓 І. Жансүгіров ат. Жетісу Ун-ті ${isDone ? '⭐' : '👑'}
               </text>
             </g>
           </g>`;
@@ -1747,7 +1772,7 @@ function enhanceSmartMathPlatform() {
           </text>
 
           <g transform="translate(0, 36)" pointer-events="none">
-            <rect x="-55" y="-12" width="110" height="20" rx="10"
+            <rect x="-58" y="-12" width="116" height="20" rx="10"
                   fill="rgba(13, 11, 43, 0.88)"
                   stroke="${isCur ? '#fbbf24' : 'rgba(255,255,255,0.2)'}"
                   stroke-width="1.5" />
@@ -1758,7 +1783,7 @@ function enhanceSmartMathPlatform() {
         </g>`;
     }).join('');
 
-    const avatarOffsetY = (curDist.id === 1 || curDist.isUniversityCenter) ? -86 : -32;
+    const avatarOffsetY = curDist.isUniversityCenter ? -88 : -32;
 
     return `
       <svg class="map-svg" viewBox="0 0 1024 576" preserveAspectRatio="xMidYMid meet" id="taldySvgMap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -1801,23 +1826,16 @@ function enhanceSmartMathPlatform() {
     const unlocked = this.isDistrictUnlocked(district.id);
     const stars = (this.state.starsPerLevel || {})[district.id] || 0;
     const isDone = stars > 0;
-    let badgeClass = 'badge-unlocked';
-    let badgeText = '🎓 Бас Ғылыми Орда';
-    if (!unlocked) {
-      badgeClass = 'badge-locked';
-      badgeText = '🔒 Құлыптаулы';
-    } else if (isDone) {
-      badgeClass = 'badge-done';
-      badgeText = `🏆 Аяқталды (${'⭐'.repeat(stars)})`;
-    }
+    let badgeClass = 'badge-done';
+    let badgeText = isDone ? `🏆 Шың бағындырылды (${'⭐'.repeat(stars)})` : '👑 10-ДЕҢГЕЙ • БІЛІМ ШЫҢЫ (ФИНАЛ)';
 
     return `
-      <div class="district-card-dock" id="districtDockCard">
+      <div class="district-card-dock" id="districtDockCard" style="border: 1.5px solid rgba(251, 191, 36, 0.55);">
         <div class="district-dock-top">
           <div class="district-info-left" style="gap:14px;">
-            <img src="${district.photo}" alt="${district.fullName}" style="width:92px; height:56px; object-fit:cover; border-radius:10px; border:2px solid #fbbf24; box-shadow:0 4px 12px rgba(0,0,0,0.4);" />
+            <img src="${district.photo}" alt="${district.fullName}" style="width:96px; height:58px; object-fit:cover; border-radius:10px; border:2px solid #fbbf24; box-shadow:0 4px 12px rgba(0,0,0,0.4);" />
             <div>
-              <div class="district-dock-name">${district.fullName}</div>
+              <div class="district-dock-name" style="color:#fbbf24;">${district.fullName}</div>
               <div class="district-dock-landmark">${district.landmark}</div>
             </div>
           </div>
@@ -1825,11 +1843,22 @@ function enhanceSmartMathPlatform() {
         </div>
         <div class="district-dock-desc">${district.districtDesc}</div>
         <div class="district-dock-action">
-          <button class="btn-open-quest ${isDone ? 'done-btn' : ''}" id="btnOpenQuest" ${!unlocked ? 'disabled' : ''}>
-            ${!unlocked ? '🔒 Аудан жабық' : (isDone ? '⭐ Қайта шешу (Enter)' : '🔍 Есепті ашу және шешу (Enter)')}
+          <button class="btn-open-quest ${isDone ? 'done-btn' : ''}" id="btnOpenQuest" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-weight: 800;">
+            ${isDone ? '⭐ Шың сынағын қайта шешу (Enter)' : '👑 Білім Шыңы сынағын бастау (10-деңгей • Финал)'}
           </button>
         </div>
       </div>`;
+  };
+
+  const origOpenDistrictQuest = App.openDistrictQuest.bind(App);
+  App.openDistrictQuest = function (districtId) {
+    const level = LEVELS.find(l => l.id === districtId);
+    if (level && level.isFinalPeak) {
+      Audio.play('unlock');
+      this.startLevel(level);
+      return;
+    }
+    origOpenDistrictQuest(districtId);
   };
 
   // Сұрақ жауаптарын араластырғанда қате картасын (errorMap) бірге сақтап араластыру
