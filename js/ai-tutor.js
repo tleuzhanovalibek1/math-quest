@@ -1537,17 +1537,30 @@ function enhanceSmartMathPlatform() {
   };
 
   // Талдықорғанның шағын аудандарын 7–9 сынып Алгебрасының 3 модулімен (60 есеп) байланыстыру
+  // ЕСКЕРТУ: Картаның дәл ортасында (id: 1, x: 480, y: 295) І. Жансүгіров атындағы Жетісу Университетінің Бас оқу ғимараты үлкен етіп орналастырылды!
   if (typeof LEVELS !== 'undefined' && Array.isArray(LEVELS)) {
+    // 1-ші (Орталық) нүктені І. Жансүгіров атындағы Жетісу Университеті етіп орнату
+    if (LEVELS[0]) {
+      LEVELS[0].name = 'Жетісу Университеті';
+      LEVELS[0].fullName = 'І. Жансүгіров атындағы Жетісу Университеті';
+      LEVELS[0].landmark = '🎓 Бас оқу ғимараты • Физика-математика факультеті';
+      LEVELS[0].icon = '🎓';
+      LEVELS[0].photo = 'images/zhetysu-uni-building.jpg';
+      LEVELS[0].color = '#2563eb';
+      LEVELS[0].coords = { x: 485, y: 295 };
+      LEVELS[0].isUniversityCenter = true;
+    }
+
     const extraDistricts = [
       {
         id: 6,
-        name: 'Жетісу Ун-ті',
-        fullName: 'І. Жансүгіров ат. Жетісу Университеті',
-        landmark: '🎓 Бас ғимарат • Физика-математика факультеті',
+        name: 'Орталық',
+        fullName: 'Орталық (Тәуелсіздік алаңы & Арбат)',
+        landmark: '🏛️ Тәуелсіздік алаңы, І. Жансүгіров саябағы & Арбат',
         districtDesc: '2-модуль (ҚКФ): Толық квадрат бөліп алу және тиімді есептеулер орталығы!',
-        icon: '🎓',
-        color: '#3b82f6',
-        coords: { x: 460, y: 165 },
+        icon: '🏛️',
+        color: '#10b981',
+        coords: { x: 460, y: 145 },
         neighbors: { down: 1, left: 2, right: 3 }
       },
       {
@@ -1569,7 +1582,7 @@ function enhanceSmartMathPlatform() {
         districtDesc: '3-модуль: Қысқаша көбейту формулалары арқылы көбейткіштерге жіктеу!',
         icon: '🚀',
         color: '#06b6d4',
-        coords: { x: 480, y: 455 },
+        coords: { x: 485, y: 465 },
         neighbors: { up: 1, left: 7, right: 5 }
       },
       {
@@ -1601,6 +1614,10 @@ function enhanceSmartMathPlatform() {
         LEVELS.push(ed);
       }
     });
+
+    // Көрші аудандардың координаталарын орталықтағы үлкен Жетісу Университетіне кедергі жасамайтындай реттеу
+    if (LEVELS[1]) LEVELS[1].coords = { x: 285, y: 265 }; // Қаратал
+    if (LEVELS[3]) LEVELS[3].coords = { x: 675, y: 295 }; // Болашақ
 
     // Жолдар мен көршілерді жаңарту
     LEVELS[0].neighbors = { left: 2, right: 4, up: 6, down: 8 };
@@ -1641,6 +1658,179 @@ function enhanceSmartMathPlatform() {
       }
     });
   }
+
+  // Картаның дәл ортасында І. Жансүгіров атындағы Жетісу Университетінің Бас оқу ғимаратының фотосын үлкен етіп көрсету
+  App._generateMapSVG = function () {
+    const curId = this.state.currentDistrictId || 1;
+    const curDist = LEVELS.find(l => l.id === curId) || LEVELS[0];
+
+    const roadsHTML = MAP_ROADS.map(([aId, bId]) => {
+      const a = LEVELS.find(l => l.id === aId);
+      const b = LEVELS.find(l => l.id === bId);
+      if (!a || !b) return '';
+      const unlocked = this.isDistrictUnlocked(aId) && this.isDistrictUnlocked(bId);
+      const isActive = (curId === aId && this.isDistrictUnlocked(bId)) || (curId === bId && this.isDistrictUnlocked(aId));
+      return `
+        <line x1="${a.coords.x}" y1="${a.coords.y}"
+              x2="${b.coords.x}" y2="${b.coords.y}"
+              class="road-line ${unlocked ? 'unlocked' : 'locked'} ${isActive ? 'active' : ''}"
+        />`;
+    }).join('');
+
+    // Орталықтағы Жетісу Университетін ең үстіңгі қабатта (соңында) рендерлеу үшін сұрыптау
+    const sortedLevels = [...LEVELS].sort((a, b) => (a.id === 1 ? 1 : b.id === 1 ? -1 : 0));
+
+    const nodesHTML = sortedLevels.map(lv => {
+      const isCur = lv.id === curId;
+      const unlocked = this.isDistrictUnlocked(lv.id);
+      const stars = (this.state.starsPerLevel || {})[lv.id] || 0;
+      const isDone = stars > 0;
+
+      // Егер бұл орталықтағы І. Жансүгіров атындағы Жетісу Университеті болса — үлкен фото-кампус ретінде көрсету!
+      if (lv.id === 1 || lv.isUniversityCenter) {
+        return `
+          <g class="district-node-g uni-center-node" data-id="${lv.id}" transform="translate(${lv.coords.x}, ${lv.coords.y})" style="cursor:pointer;">
+            <!-- Сыртқы алтын-көк жарқырау ореолы -->
+            <ellipse cx="0" cy="6" rx="112" ry="70" fill="rgba(37, 99, 235, 0.28)" filter="url(#shadowFilter)" />
+            ${isCur ? `<rect x="-98" y="-60" width="196" height="116" rx="18" fill="none" stroke="#fbbf24" stroke-width="3.5" class="node-pulse-ring" />` : ''}
+
+            <!-- Университет ғимаратының үлкен фото жиегі -->
+            <rect x="-92" y="-54" width="184" height="104" rx="15"
+                  fill="#0f172a"
+                  stroke="${isCur ? '#fbbf24' : '#38bdf8'}"
+                  stroke-width="${isCur ? '4' : '3'}"
+                  filter="url(#shadowFilter)" />
+
+            <!-- Бас оқу ғимаратының нақты фотосы -->
+            <image href="images/zhetysu-uni-building.jpg" xlink:href="images/zhetysu-uni-building.jpg"
+                   x="-89" y="-51" width="178" height="98"
+                   preserveAspectRatio="xMidYMid slice"
+                   clip-path="url(#uniBuildingClip)" />
+
+            <!-- Жоғарғы эмблема белгісі -->
+            <g transform="translate(0, -54)" pointer-events="none">
+              <rect x="-74" y="-12" width="148" height="22" rx="11"
+                    fill="#1e3a8a" stroke="#fbbf24" stroke-width="1.8" filter="url(#shadowFilter)" />
+              <text x="0" y="3" text-anchor="middle" fill="#fbbf24" font-size="9.5" font-weight="900" font-family="Nunito, sans-serif" letter-spacing="0.6">
+                🎓 ZHETYSU UNIVERSITY
+              </text>
+            </g>
+
+            <!-- Төменгі үлкен атау баннері -->
+            <g transform="translate(0, 60)" pointer-events="none">
+              <rect x="-108" y="-14" width="216" height="28" rx="14"
+                    fill="rgba(15, 23, 42, 0.95)"
+                    stroke="${isCur ? '#fbbf24' : '#38bdf8'}"
+                    stroke-width="2.2"
+                    filter="url(#shadowFilter)" />
+              <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="900" font-family="Nunito, sans-serif">
+                🏛️ І. Жансүгіров ат. Жетісу Ун-ті ${isDone ? '⭐' : ''}
+              </text>
+            </g>
+          </g>`;
+      }
+
+      return `
+        <g class="district-node-g" data-id="${lv.id}" transform="translate(${lv.coords.x}, ${lv.coords.y})">
+          ${isCur ? `<circle cx="0" cy="0" r="28" fill="none" stroke="#fbbf24" stroke-width="2.5" class="node-pulse-ring" />` : ''}
+
+          <circle cx="0" cy="0" r="24"
+                  class="node-circle"
+                  fill="${unlocked ? lv.color : '#334155'}"
+                  stroke="${isCur ? '#fbbf24' : (unlocked ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.2)')}"
+                  stroke-width="${isCur ? '4' : '2'}"
+                  opacity="${unlocked ? '1' : '0.55'}"
+          />
+
+          <text x="0" y="7" text-anchor="middle" font-size="20" pointer-events="none">
+            ${unlocked ? lv.icon : '🔒'}
+          </text>
+
+          <g transform="translate(0, 36)" pointer-events="none">
+            <rect x="-55" y="-12" width="110" height="20" rx="10"
+                  fill="rgba(13, 11, 43, 0.88)"
+                  stroke="${isCur ? '#fbbf24' : 'rgba(255,255,255,0.2)'}"
+                  stroke-width="1.5" />
+            <text x="0" y="2" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="800" font-family="Nunito, sans-serif">
+              ${lv.name} ${isDone ? '⭐' : ''}
+            </text>
+          </g>
+        </g>`;
+    }).join('');
+
+    const avatarOffsetY = (curDist.id === 1 || curDist.isUniversityCenter) ? -86 : -32;
+
+    return `
+      <svg class="map-svg" viewBox="0 0 1024 576" preserveAspectRatio="xMidYMid meet" id="taldySvgMap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+          <filter id="shadowFilter" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.65)" />
+          </filter>
+          <clipPath id="uniBuildingClip">
+            <rect x="-89" y="-51" width="178" height="98" rx="12" />
+          </clipPath>
+        </defs>
+
+        <!-- 3D Изометриялық Қала Подложкасы -->
+        <image href="images/map-isometric.jpg" xlink:href="images/map-isometric.jpg" x="0" y="0" width="1024" height="576" preserveAspectRatio="none" />
+
+        <!-- Қаратал өзені жазуы -->
+        <text x="360" y="165" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="900" letter-spacing="2" opacity="0.95" transform="rotate(-36 360 165)" style="font-family: Nunito, sans-serif; text-shadow: 0 1px 4px rgba(2,132,199,0.9), 0 0 10px rgba(3,105,161,0.85);">
+          🌊 ҚАРАТАЛ ӨЗЕНІ
+        </text>
+
+        ${roadsHTML}
+        ${nodesHTML}
+
+        <!-- Ойыншы аватары -->
+        <g id="playerAvatar" class="player-marker-g" transform="translate(${curDist.coords.x}, ${curDist.coords.y + avatarOffsetY})">
+          <g class="player-bubble">
+            <ellipse cx="0" cy="18" rx="14" ry="4" fill="rgba(0,0,0,0.5)" />
+            <circle cx="0" cy="0" r="16" fill="#fbbf24" stroke="#ffffff" stroke-width="2.5" />
+            <text x="0" y="6" text-anchor="middle" font-size="16">🚶‍♂️</text>
+          </g>
+        </g>
+      </svg>`;
+  };
+
+  const origGenerateDistrictCardHTML = App._generateDistrictCardHTML.bind(App);
+  App._generateDistrictCardHTML = function (district) {
+    if (!district || !district.photo) {
+      return origGenerateDistrictCardHTML(district);
+    }
+    const unlocked = this.isDistrictUnlocked(district.id);
+    const stars = (this.state.starsPerLevel || {})[district.id] || 0;
+    const isDone = stars > 0;
+    let badgeClass = 'badge-unlocked';
+    let badgeText = '🎓 Бас Ғылыми Орда';
+    if (!unlocked) {
+      badgeClass = 'badge-locked';
+      badgeText = '🔒 Құлыптаулы';
+    } else if (isDone) {
+      badgeClass = 'badge-done';
+      badgeText = `🏆 Аяқталды (${'⭐'.repeat(stars)})`;
+    }
+
+    return `
+      <div class="district-card-dock" id="districtDockCard">
+        <div class="district-dock-top">
+          <div class="district-info-left" style="gap:14px;">
+            <img src="${district.photo}" alt="${district.fullName}" style="width:92px; height:56px; object-fit:cover; border-radius:10px; border:2px solid #fbbf24; box-shadow:0 4px 12px rgba(0,0,0,0.4);" />
+            <div>
+              <div class="district-dock-name">${district.fullName}</div>
+              <div class="district-dock-landmark">${district.landmark}</div>
+            </div>
+          </div>
+          <span class="district-dock-badge ${badgeClass}">${badgeText}</span>
+        </div>
+        <div class="district-dock-desc">${district.districtDesc}</div>
+        <div class="district-dock-action">
+          <button class="btn-open-quest ${isDone ? 'done-btn' : ''}" id="btnOpenQuest" ${!unlocked ? 'disabled' : ''}>
+            ${!unlocked ? '🔒 Аудан жабық' : (isDone ? '⭐ Қайта шешу (Enter)' : '🔍 Есепті ашу және шешу (Enter)')}
+          </button>
+        </div>
+      </div>`;
+  };
 
   // Сұрақ жауаптарын араластырғанда қате картасын (errorMap) бірге сақтап араластыру
   App.prepareQuestionWithShuffledAnswers = function (q) {
