@@ -2870,3 +2870,320 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ========================================================
+   ТАЛДЫҚОРҒАН СӘУЛЕТТІК МОДЕЛЬДЕРІ (3D MINIATURE LANDMARKS)
+   ======================================================== */
+
+.landmark-model {
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.28s ease;
+  cursor: pointer;
+}
+
+.landmark-model:hover {
+  filter: brightness(1.18) drop-shadow(0 10px 22px rgba(0, 0, 0, 0.7));
+}
+
+.landmark-interactive {
+  cursor: pointer;
+}
+
+/* Қазақстан туының толқындану анимациясы */
+.kazakh-flag-wave {
+  transform-origin: 0 0;
+  animation: flagFlutter 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes flagFlutter {
+  0% {
+    transform: translate(0, -82px) rotate(0deg) skewY(0deg);
+  }
+  50% {
+    transform: translate(0, -82px) rotate(-2deg) skewY(2.2deg);
+  }
+  100% {
+    transform: translate(0, -82px) rotate(1.8deg) skewY(-2deg);
+  }
+}
+
+/* Жатақхана төбесіндегі қызыл сигналды маяк жыпылықтауы */
+.antenna-blink {
+  animation: beaconBlink 1.4s ease-in-out infinite;
+}
+
+@keyframes beaconBlink {
+  0%, 100% { fill: #ef4444; opacity: 1; filter: drop-shadow(0 0 5px #ef4444); }
+  50% { fill: #7f1d1d; opacity: 0.3; filter: none; }
+}
+
+/* Білім Шыңы тәжінің баяу қалықтауы */
+.crown-float {
+  animation: crownHover 3s ease-in-out infinite alternate;
+}
+
+@keyframes crownHover {
+  0% { transform: translate(0, -42px); }
+  100% { transform: translate(0, -48px); }
+}
+
+/* Арка шамдары мен анимациясы */
+.arch-pulse {
+  animation: archPulse 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes archPulse {
+  0% { filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.4)); }
+  100% { filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.85)); }
+}
+
+/* Көрікті жерлер жоғарғы панелі (Quick Bar) */
+.landmarks-quick-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 14px;
+  padding: 8px 14px;
+  margin-bottom: 10px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.lm-bar-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #fbbf24;
+  margin-right: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lm-pill-btn {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f1f5f9;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Nunito', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lm-pill-btn:hover {
+  background: rgba(251, 191, 36, 0.2);
+  border-color: #fbbf24;
+  color: #fbbf24;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 10px rgba(251, 191, 36, 0.25);
+}
+
+/* Сәулеттік модаль терезесі (Landmark Spotlight Modal) */
+.landmark-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 29, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  animation: lmFadeIn 0.25s ease-out;
+}
+
+@keyframes lmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.landmark-modal-card {
+  background: linear-gradient(155deg, #0f172a 0%, #1e293b 100%);
+  border: 2px solid rgba(251, 191, 36, 0.7);
+  border-radius: 24px;
+  max-width: 620px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(251, 191, 36, 0.25);
+  color: #f8fafc;
+  position: relative;
+  animation: lmCardPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes lmCardPop {
+  from { transform: scale(0.9) translateY(20px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.landmark-modal-hero {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+  background: #020617;
+}
+
+.landmark-modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.landmark-modal-card:hover .landmark-modal-img {
+  transform: scale(1.04);
+}
+
+.landmark-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.landmark-modal-close:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  transform: rotate(90deg);
+}
+
+.landmark-modal-badge {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1.5px solid #fbbf24;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #fbbf24;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.landmark-modal-body {
+  padding: 1.5rem 1.6rem 1.6rem;
+}
+
+.landmark-modal-title {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #fbbf24;
+  margin-bottom: 0.35rem;
+  line-height: 1.35;
+  font-family: 'Nunito', sans-serif;
+}
+
+.landmark-modal-sub {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  margin-bottom: 1.1rem;
+  font-weight: 600;
+}
+
+.landmark-modal-desc {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  margin-bottom: 1.2rem;
+  background: rgba(15, 23, 42, 0.55);
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  border-left: 3.5px solid #38bdf8;
+}
+
+.landmark-modal-math {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.14), rgba(16, 185, 129, 0.09));
+  border: 1.5px solid rgba(234, 179, 8, 0.4);
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  font-size: 0.91rem;
+  line-height: 1.6;
+  color: #fde68a;
+  margin-bottom: 1.4rem;
+}
+
+.landmark-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-lm-visit {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  border: none;
+  font-weight: 800;
+  padding: 11px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+  transition: all 0.2s ease;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+}
+
+.btn-lm-visit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.65);
+}
+
+.btn-lm-close {
+  background: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-weight: 700;
+  padding: 11px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.92rem;
+}
+
+.btn-lm-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+
+/* 3D Изометриялық Модельдер Стильдері */
+.landmark-3d-img {
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.28s ease;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.landmark-model:hover .landmark-3d-img {
+  transform: translateY(-8px) scale(1.08);
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.8)) brightness(1.15);
+}
+
+.uni-center-node:hover .landmark-3d-img {
+  transform: translateY(-10px) scale(1.1);
+  filter: drop-shadow(0 20px 36px rgba(251, 191, 36, 0.6)) brightness(1.18);
+}

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SmartMath — «Jas ǵalym» Ғылыми-Білім Беру Платформасының ЖИ, Диагностика және Мұғалім Аналитикасы Модулі
  * =========================================================================================================
  * Ілияс Жансүгіров атындағы Жетісу университеті
@@ -1554,6 +1554,7 @@ function enhanceSmartMathPlatform() {
     if (LEVELS[1]) {
       LEVELS[1].name = '2. Қаратал';
       LEVELS[1].coords = { x: 285, y: 265 };
+      LEVELS[1].photo = 'images/landmark-arch.jpg';
     }
     if (LEVELS[2]) {
       LEVELS[2].name = '3. Самал';
@@ -1565,7 +1566,9 @@ function enhanceSmartMathPlatform() {
     }
     if (LEVELS[4]) {
       LEVELS[4].name = '5. Жастар';
-      LEVELS[4].coords = { x: 840, y: 410 };
+      LEVELS[4].coords = { x: 840, y: 395 };
+      LEVELS[4].photo = 'images/landmark-zhastar.jpg';
+      LEVELS[4].isZhastarPalace = true;
     }
 
     const extraDistricts = [
@@ -1609,6 +1612,7 @@ function enhanceSmartMathPlatform() {
         landmark: '🌲 Көктал эко-аймағы',
         districtDesc: '3-модуль: Квадрат үшмүшені жіктеу, бөлшектерді қысқарту және теңдеулер!',
         icon: '🌲',
+        photo: 'images/landmark-flagpole.jpg',
         color: '#10b981',
         coords: { x: 185, y: 170 },
         neighbors: { right: 1, down: 2 }
@@ -1620,9 +1624,9 @@ function enhanceSmartMathPlatform() {
         landmark: '🎓 Бас оқу ғимараты • Физика-математика факультеті (Гранд Финал Шыңы)',
         districtDesc: '👑 ЕҢ СОҢҒЫ ШЫҢ ДЕҢГЕЙІ! Барлық 9 шағын ауданды бағындырған оқушы жететін Білім Шыңы — 1–3 модульдер бойынша жоғары деңгейлі (3-деңгей) қорытынды алгебралық сынақ!',
         icon: '👑',
-        photo: 'images/zhetysu-uni-building.jpg',
+        photo: 'images/landmark-university.webp',
         color: '#eab308',
-        coords: { x: 485, y: 295 },
+        coords: { x: 485, y: 285 },
         isUniversityCenter: true,
         isFinalPeak: true,
         neighbors: { up: 1, left: 2, right: 4, down: 8 }
@@ -1684,7 +1688,257 @@ function enhanceSmartMathPlatform() {
     });
   }
 
-  // Картаның дәл ортасында І. Жансүгіров атындағы Жетісу Университетінің Бас оқу ғимаратының фотосын үлкен етіп көрсету
+    /* ========================================================
+     ТАЛДЫҚОРҒАННЫҢ 5 БАСТЫ 3D ИЗОМЕТРИЯЛЫҚ МОДЕЛІ (3D MODELS)
+     1. Қазақстанның Мемлекеттік Флагштогы
+     2. «Талдықорған» Салтанатты Кіреберіс Аркасы
+     3. І. Жансүгіров ат. Жетісу Университетінің Бас ғимараты
+     4. Жетісу Университетінің Студенттер үйі (Жатақхана)
+     5. «Жастар» Спорт Сарайы
+     ======================================================== */
+
+  const TALDYKORGAN_LANDMARKS = {
+    flagpole: {
+      id: 'flagpole',
+      name: 'Қазақстанның Мемлекеттік Флагштогы',
+      titleRu: 'Государственный флагшток Казахстана (Талдыкорган)',
+      photo: 'images/model-flagpole.jpg',
+      modelCutout: 'images/model-flagpole-3d.png',
+      districtId: 9,
+      location: 'Көктал эко-аймағы, Панорамалық қырат',
+      desc: 'Талдықорғанның ең биік панорамалық қыратында орналасқан зәулім Мемлекеттік ту тұғыры. Көк байрағымыз қаланың кез келген нүктесінен асқақтап көрініп, Жетісу жерінің мәртебесін паш етеді.',
+      mathFact: '📐 Математикалық факт: Флагштоктың биіктігін (90+ м) ұқсас үшбұрыштар мен тригонометрия арқылы күннің түсу бұрышына қарай (h = L · tg α) оңай өлшеуге болады! Ал Қазақстан туының ені мен ұзындығының қатынасы қатаң түрде 1:2 пропорциясында сақталған.'
+    },
+    arch: {
+      id: 'arch',
+      name: '«Талдықорған» Салтанатты Кіреберіс Аркасы',
+      titleRu: 'Въездная арка города Талдыкорган',
+      photo: 'images/model-arch.jpg',
+      modelCutout: 'images/model-arch-3d.png',
+      districtId: 2,
+      location: 'Алматы — Талдықорған тасжолының басты қақпасы',
+      desc: 'Талдықорған қаласына кіреберісте салынған монументалды сәулет қақпасы. Екі жағындағы классикалық бағаналар, көпжолақты даңғыл үстінен өтетін темір көпір фермасы, алтын күн таңбалары және үлкен «TALDYQORGAN» жазуы бар.',
+      mathFact: '📐 Математикалық факт: Көпір құрылымы қатаң үшбұрышты фермалар жүйесінен тұрады. Үшбұрыш — үш қабырғасы берілгенде пішінін өзгертпейтін жалғыз геометриялық фигура, бұл арканың ондаған тонналық салмаққа төтеп беруін қамтамасыз етеді!'
+    },
+    university: {
+      id: 'university',
+      name: 'І. Жансүгіров ат. Жетісу Университеті (Бас ғимарат)',
+      titleRu: 'Главный учебный корпус Жетысуского университета им. И. Жансугурова',
+      photo: 'images/model-university-scene.jpg',
+      modelCutout: 'images/model-university-3d.png',
+      districtId: 10,
+      location: 'Қала орталығы, І. Жансүгіров көшесі, 187а',
+      desc: 'Жетісу өңірінің жетекші ғылым мен білім ордасы. Зүбәржат-жасыл шатырлары, классикалық фронтоны мен сәулетті қанаттары бар бұл Бас оқу ғимараты — математика, жаратылыстану және инновациялық технологиялар орталығы.',
+      mathFact: '📐 Математикалық факт: Ойынның 10-деңгейі (Білім Шыңы) дәл осы ғимаратта орналасқан! Мұнда көпмүшелер, қысқаша көбейту формулалары мен квадрат үшмүшені жіктеудің жоғары деңгейлі алгебралық синтезі шешіледі.'
+    },
+    dormitory: {
+      id: 'dormitory',
+      name: 'Жетісу Университетінің Студенттер үйі (Жатақхана)',
+      titleRu: 'Студенческое общежитие Жетысуского университета',
+      photo: 'images/model-dormitory.jpg',
+      modelCutout: 'images/model-dormitory-3d.png',
+      districtId: 10,
+      location: 'Университет кампусы, Студенттер аллеясы',
+      desc: 'І. Жансүгіров атындағы Жетісу университетінің заманауи көпқабатты студенттер жатақханасы. Орталық цилиндрлі көгілдір шыны мұнарасы, төбесіндегі шпилі мен жайлы студенттік инфрақұрылымы бар көрікті сәулеттік кешен.',
+      mathFact: '📐 Математикалық факт: Ғимараттың орталық шыны атриумы тік дөңгелек цилиндр пішінінде жасалған. Цилиндр бетінің ауданы S = 2πrh және көлемі V = πr²h формуласы ең аз құрылыс материалдарымен ең үлкен ішкі пайдалы көлем мен жарықты алуға мүмкіндік береді!'
+    },
+    zhastar: {
+      id: 'zhastar',
+      name: '«Жастар» Спорт Сарайы',
+      titleRu: 'Дворец спорта «Жастар» (Талдыкорган)',
+      photo: 'images/model-zhastar.jpg',
+      modelCutout: 'images/model-zhastar-3d.png',
+      districtId: 5,
+      location: '«Жастар» шағын ауданы & саябағы',
+      desc: 'Талдықорғандағы ең танымал және ерекше футуристік спорт кешені. Аэродинамикалық доғалы күмбезі, кең панорамалық шыны қасбеті мен үлкен аренасы халықаралық және республикалық турнирлерді қабылдайды.',
+      mathFact: '📐 Математикалық факт: Спорт сарайының бірегей төбесі параболалық доғаларға (y = ax² + bx + c) негізделген. Параболалық қисық күмбез ішкі кеңістікте бағандарсыз үлкен трибуналар мен аренаны қамтуға мүмкіндік береді!'
+    }
+  };
+
+  App.showLandmarkModal = function (landmarkKey) {
+    const lm = TALDYKORGAN_LANDMARKS[landmarkKey];
+    if (!lm) return;
+
+    document.getElementById('landmarkSpotlightModal')?.remove();
+
+    const overlay = document.createElement('div');
+    overlay.className = 'landmark-modal-overlay';
+    overlay.id = 'landmarkSpotlightModal';
+
+    overlay.innerHTML = `
+      <div class="landmark-modal-card">
+        <div class="landmark-modal-hero">
+          <img src="${lm.photo}" alt="${lm.name}" class="landmark-modal-img" />
+          <button class="landmark-modal-close" id="btnLmClose" title="Жабу">&times;</button>
+          <span class="landmark-modal-badge">🏛️ Талдықорған Сәулеті (3D Модель)</span>
+        </div>
+        <div class="landmark-modal-body">
+          <div class="landmark-modal-title">${lm.name}</div>
+          <div class="landmark-modal-sub">📍 ${lm.location} • <em>${lm.titleRu}</em></div>
+          <div class="landmark-modal-desc">${lm.desc}</div>
+          <div class="landmark-modal-math">${lm.mathFact}</div>
+          <div class="landmark-modal-actions">
+            <button class="btn-lm-close" id="btnLmCancel">Жабу</button>
+            <button class="btn-lm-visit" id="btnLmVisit">🗺️ Осы ауданға бару (${lm.districtId}-аудан)</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    const closeModal = () => overlay.remove();
+    overlay.querySelector('#btnLmClose')?.addEventListener('click', closeModal);
+    overlay.querySelector('#btnLmCancel')?.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    overlay.querySelector('#btnLmVisit')?.addEventListener('click', () => {
+      closeModal();
+      if (lm.districtId && typeof App.movePlayerToDistrict === 'function') {
+        App.movePlayerToDistrict(lm.districtId);
+      }
+    });
+  };
+
+  // 1. Сам университет Жетысу (Бас оқу ғимараты) - Нақты 3D Изометриялық модель
+  App._generateLandmarkUniversity = function (lv, isCur, isDone, unlocked) {
+    return `
+      <g class="district-node-g uni-center-node landmark-model" data-id="${lv.id}" transform="translate(${lv.coords.x}, ${lv.coords.y})" style="cursor:pointer;">
+        <!-- Жердегі 3D көлеңке & ореол -->
+        <ellipse cx="0" cy="18" rx="88" ry="32" fill="rgba(15,23,42,0.55)" filter="url(#shadowFilter)" />
+        ${isCur ? `<ellipse cx="0" cy="18" rx="92" ry="34" fill="none" stroke="#fbbf24" stroke-width="3" class="node-pulse-ring" />` : ''}
+
+        <!-- 3D Изометриялық Университет моделі (Тұпнұсқа 3D рендер) -->
+        <image href="images/model-university-3d.png" xlink:href="images/model-university-3d.png"
+               x="-95" y="-75" width="190" height="113"
+               preserveAspectRatio="xMidYMid meet"
+               class="landmark-3d-img"
+               filter="url(#shadowFilter)" />
+
+        <!-- Жоғарғы «👑 10-ДЕҢГЕЙ • БІЛІМ ШЫҢЫ» қалықтама алтын тәжі -->
+        <g transform="translate(0, -68)" class="crown-float" pointer-events="none">
+          <ellipse cx="0" cy="14" rx="26" ry="6" fill="rgba(234,179,8,0.25)" filter="url(#shadowFilter)" />
+          <rect x="-64" y="-11" width="128" height="22" rx="11" fill="#0f172a" stroke="#fbbf24" stroke-width="2" filter="url(#shadowFilter)" />
+          <text x="0" y="4" text-anchor="middle" fill="#fbbf24" font-size="9.5" font-weight="900" font-family="Nunito, sans-serif" letter-spacing="0.5">
+            👑 10-ДЕҢГЕЙ • БІЛІМ ШЫҢЫ
+          </text>
+        </g>
+
+        <!-- Төменгі сәулеттік атау баннері -->
+        <g transform="translate(0, 48)" pointer-events="none">
+          <rect x="-114" y="-13" width="228" height="26" rx="13" fill="rgba(15,23,42,0.96)" stroke="#fbbf24" stroke-width="2.2" filter="url(#shadowFilter)" />
+          <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="900" font-family="Nunito, sans-serif">
+            🎓 І. Жансүгіров ат. Жетісу Ун-ті ${isDone ? '⭐' : '👑'}
+          </text>
+        </g>
+      </g>
+    `;
+  };
+
+  // 2. Дворец спорта «Жастар» - Нақты 3D Изометриялық модель
+  App._generateLandmarkZhastar = function (lv, isCur, isDone, unlocked) {
+    return `
+      <g class="district-node-g landmark-model" data-id="${lv.id}" transform="translate(${lv.coords.x}, ${lv.coords.y})" style="cursor:pointer;">
+        <!-- Жердегі 3D көлеңке & ореол -->
+        <ellipse cx="0" cy="16" rx="64" ry="24" fill="rgba(15,23,42,0.5)" filter="url(#shadowFilter)" />
+        ${isCur ? `<ellipse cx="0" cy="16" rx="68" ry="26" fill="none" stroke="#fbbf24" stroke-width="3" class="node-pulse-ring" />` : ''}
+
+        <!-- 3D Изометриялық «Жастар» Спорт Сарайының моделі -->
+        <image href="images/model-zhastar-3d.png" xlink:href="images/model-zhastar-3d.png"
+               x="-68" y="-82" width="136" height="136"
+               preserveAspectRatio="xMidYMid meet"
+               class="landmark-3d-img"
+               filter="url(#shadowFilter)" />
+
+        <!-- Төменгі атау баннері -->
+        <g transform="translate(0, 42)" pointer-events="none">
+          <rect x="-68" y="-11" width="136" height="22" rx="11" fill="rgba(15,23,42,0.94)" stroke="${isCur ? '#fbbf24' : '#ec4899'}" stroke-width="${isCur ? '2.2' : '1.5'}" filter="url(#shadowFilter)" />
+          <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800" font-family="Nunito, sans-serif">
+            🏟️ «Жастар» Сарайы ${isDone ? '⭐' : ''}
+          </text>
+        </g>
+      </g>
+    `;
+  };
+
+  // 3. Қазақстанның Мемлекеттік Флагштогы - Нақты 3D Изометриялық модель
+  App._generateLandmarkFlagpole = function () {
+    return `
+      <g class="landmark-model landmark-interactive" data-landmark="flagpole" transform="translate(175, 110)" title="Қазақстан Флагштогы (Талдықорған)">
+        <!-- Жердегі 3D көлеңке -->
+        <ellipse cx="0" cy="16" rx="55" ry="20" fill="rgba(15,23,42,0.4)" filter="url(#shadowFilter)" />
+
+        <!-- 3D Изометриялық Қазақстан Флагштогы моделі -->
+        <image href="images/model-flagpole-3d.png" xlink:href="images/model-flagpole-3d.png"
+               x="-58" y="-90" width="116" height="116"
+               preserveAspectRatio="xMidYMid meet"
+               class="landmark-3d-img"
+               filter="url(#shadowFilter)" />
+
+        <!-- Ықшам жазу баннері -->
+        <g transform="translate(0, 34)" pointer-events="none">
+          <rect x="-65" y="-10" width="130" height="20" rx="10" fill="rgba(15,23,42,0.92)" stroke="#00afca" stroke-width="1.5" filter="url(#shadowFilter)" />
+          <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800" font-family="Nunito, sans-serif">
+            🇰🇿 Қазақстан Флагштогы
+          </text>
+        </g>
+      </g>
+    `;
+  };
+
+  // 4. «Талдықорған» Салтанатты Кіреберіс Аркасы - Нақты 3D Изометриялық модель
+  App._generateLandmarkArch = function () {
+    return `
+      <g class="landmark-model landmark-interactive arch-pulse" data-landmark="arch" transform="translate(235, 345)" title="«Талдықорған» Салтанатты Аркасы">
+        <!-- Жердегі 3D көлеңке -->
+        <ellipse cx="0" cy="18" rx="60" ry="22" fill="rgba(15,23,42,0.5)" filter="url(#shadowFilter)" />
+
+        <!-- 3D Изометриялық Кіреберіс Аркасының моделі -->
+        <image href="images/model-arch-3d.png" xlink:href="images/model-arch-3d.png"
+               x="-64" y="-82" width="128" height="128"
+               preserveAspectRatio="xMidYMid meet"
+               class="landmark-3d-img"
+               filter="url(#shadowFilter)" />
+
+        <!-- Төменгі атау баннері -->
+        <g transform="translate(0, 38)" pointer-events="none">
+          <rect x="-72" y="-10" width="144" height="20" rx="10" fill="rgba(15,23,42,0.92)" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadowFilter)" />
+          <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800" font-family="Nunito, sans-serif">
+            ⛩️ «Талдықорған» Кіреберіс Аркасы
+          </text>
+        </g>
+      </g>
+    `;
+  };
+
+  // 5. Жетісу Университетінің Студенттер үйі (Жатақхана) - Нақты 3D Изометриялық модель
+  App._generateLandmarkDormitory = function () {
+    return `
+      <g class="landmark-model landmark-interactive" data-landmark="dormitory" transform="translate(585, 220)" title="ЖМУ Жатақханасы (Студенттер үйі)">
+        <!-- Жердегі 3D көлеңке -->
+        <ellipse cx="0" cy="18" rx="55" ry="20" fill="rgba(15,23,42,0.45)" filter="url(#shadowFilter)" />
+
+        <!-- 3D Изометриялық Жатақхана Мұнарасының моделі -->
+        <image href="images/model-dormitory-3d.png" xlink:href="images/model-dormitory-3d.png"
+               x="-58" y="-88" width="116" height="116"
+               preserveAspectRatio="xMidYMid meet"
+               class="landmark-3d-img"
+               filter="url(#shadowFilter)" />
+
+        <!-- Ықшам атау баннері -->
+        <g transform="translate(0, 34)" pointer-events="none">
+          <rect x="-65" y="-10" width="130" height="20" rx="10" fill="rgba(15,23,42,0.92)" stroke="#38bdf8" stroke-width="1.5" filter="url(#shadowFilter)" />
+          <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="800" font-family="Nunito, sans-serif">
+            🏢 ЖМУ Жатақханасы
+          </text>
+        </g>
+      </g>
+    `;
+  };
+
+  // 3D Изометриялық Картаның толық SVG рендерингі (5 мини-модельмен бірге)
   App._generateMapSVG = function () {
     const curId = this.state.currentDistrictId || 1;
     const curDist = LEVELS.find(l => l.id === curId) || LEVELS[0];
@@ -1711,50 +1965,17 @@ function enhanceSmartMathPlatform() {
       const stars = (this.state.starsPerLevel || {})[lv.id] || 0;
       const isDone = stars > 0;
 
-      // Егер бұл орталықтағы 10-ДЕҢГЕЙ (БІЛІМ ШЫҢЫ) — І. Жансүгіров атындағы Жетісу Университеті болса:
-      if (lv.isUniversityCenter) {
-        return `
-          <g class="district-node-g uni-center-node" data-id="${lv.id}" transform="translate(${lv.coords.x}, ${lv.coords.y})" style="cursor:pointer;">
-            <!-- Сыртқы алтын-көк Шың ореолы -->
-            <ellipse cx="0" cy="6" rx="116" ry="74" fill="rgba(234, 179, 8, 0.26)" filter="url(#shadowFilter)" />
-            <rect x="-98" y="-60" width="196" height="116" rx="18" fill="none" stroke="#fbbf24" stroke-width="${isCur ? '4' : '2.5'}" class="node-pulse-ring" />
-
-            <!-- Университет ғимаратының үлкен алтын жиегі -->
-            <rect x="-92" y="-54" width="184" height="104" rx="15"
-                  fill="#0f172a"
-                  stroke="#fbbf24"
-                  stroke-width="${isCur ? '4.5' : '3.5'}"
-                  filter="url(#shadowFilter)" />
-
-            <!-- Бас оқу ғимаратының нақты фотосы -->
-            <image href="images/zhetysu-uni-building.jpg" xlink:href="images/zhetysu-uni-building.jpg"
-                   x="-89" y="-51" width="178" height="98"
-                   preserveAspectRatio="xMidYMid slice"
-                   clip-path="url(#uniBuildingClip)" />
-
-            <!-- Жоғарғы «👑 10-ДЕҢГЕЙ • БІЛІМ ШЫҢЫ» тәж белгісі -->
-            <g transform="translate(0, -56)" pointer-events="none">
-              <rect x="-94" y="-13" width="188" height="24" rx="12"
-                    fill="#1e3a8a" stroke="#fbbf24" stroke-width="2" filter="url(#shadowFilter)" />
-              <text x="0" y="3" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="900" font-family="Nunito, sans-serif" letter-spacing="0.5">
-                👑 10-ДЕҢГЕЙ • БІЛІМ ШЫҢЫ
-              </text>
-            </g>
-
-            <!-- Төменгі үлкен атау баннері -->
-            <g transform="translate(0, 60)" pointer-events="none">
-              <rect x="-114" y="-14" width="228" height="28" rx="14"
-                    fill="rgba(15, 23, 42, 0.96)"
-                    stroke="#fbbf24"
-                    stroke-width="2.4"
-                    filter="url(#shadowFilter)" />
-              <text x="0" y="4" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="900" font-family="Nunito, sans-serif">
-                🎓 І. Жансүгіров ат. Жетісу Ун-ті ${isDone ? '⭐' : '👑'}
-              </text>
-            </g>
-          </g>`;
+      // 1) 10-ДЕҢГЕЙ (БІЛІМ ШЫҢЫ) — І. Жансүгіров атындағы Жетісу Университетінің 3D моделі:
+      if (lv.isUniversityCenter || lv.id === 10) {
+        return this._generateLandmarkUniversity(lv, isCur, isDone, unlocked);
       }
 
+      // 2) 5-ДЕҢГЕЙ — «Жастар» спорт сарайының 3D моделі:
+      if (lv.isZhastarPalace || lv.id === 5) {
+        return this._generateLandmarkZhastar(lv, isCur, isDone, unlocked);
+      }
+
+      // Қалған 8 шағын ауданның стандартты интерактивті түйіні:
       return `
         <g class="district-node-g" data-id="${lv.id}" transform="translate(${lv.coords.x}, ${lv.coords.y})">
           ${isCur ? `<circle cx="0" cy="0" r="28" fill="none" stroke="#fbbf24" stroke-width="2.5" class="node-pulse-ring" />` : ''}
@@ -1783,17 +2004,28 @@ function enhanceSmartMathPlatform() {
         </g>`;
     }).join('');
 
-    const avatarOffsetY = curDist.isUniversityCenter ? -88 : -32;
+    // Ландшафттағы 3 дербес сәулеттік 3D мини-модель:
+    const flagpoleHTML = this._generateLandmarkFlagpole();
+    const archHTML = this._generateLandmarkArch();
+    const dormHTML = this._generateLandmarkDormitory();
+
+    const avatarOffsetY = curDist.id === 10 ? -62 : (curDist.id === 5 ? -52 : -32);
 
     return `
+      <div class="landmarks-quick-bar">
+        <span class="lm-bar-label">🏛️ Талдықорған Сәулеті (3D Модельдер):</span>
+        <button class="lm-pill-btn" onclick="App.showLandmarkModal('flagpole')">🇰🇿 Флагшток 3D</button>
+        <button class="lm-pill-btn" onclick="App.showLandmarkModal('arch')">⛩️ Кіреберіс Аркасы 3D</button>
+        <button class="lm-pill-btn" onclick="App.showLandmarkModal('university')">🎓 ЖМУ Университеті 3D</button>
+        <button class="lm-pill-btn" onclick="App.showLandmarkModal('dormitory')">🏢 Жатақханасы 3D</button>
+        <button class="lm-pill-btn" onclick="App.showLandmarkModal('zhastar')">🏟️ «Жастар» Сарайы 3D</button>
+      </div>
+
       <svg class="map-svg" viewBox="0 0 1024 576" preserveAspectRatio="xMidYMid meet" id="taldySvgMap" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
           <filter id="shadowFilter" x="-20%" y="-20%" width="140%" height="140%">
             <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="rgba(0,0,0,0.65)" />
           </filter>
-          <clipPath id="uniBuildingClip">
-            <rect x="-89" y="-51" width="178" height="98" rx="12" />
-          </clipPath>
         </defs>
 
         <!-- 3D Изометриялық Қала Подложкасы -->
@@ -1804,7 +2036,17 @@ function enhanceSmartMathPlatform() {
           🌊 ҚАРАТАЛ ӨЗЕНІ
         </text>
 
+        <!-- Жолдар торабы -->
         ${roadsHTML}
+
+        <!-- Ландшафттағы 3D мини-модельдер -->
+        <g id="landscapeLandmarksLayer">
+          ${flagpoleHTML}
+          ${archHTML}
+          ${dormHTML}
+        </g>
+
+        <!-- Аудан түйіндері (Орталықтағы Университет & Жастар сарайын қоса) -->
         ${nodesHTML}
 
         <!-- Ойыншы аватары -->
@@ -1826,16 +2068,16 @@ function enhanceSmartMathPlatform() {
     const unlocked = this.isDistrictUnlocked(district.id);
     const stars = (this.state.starsPerLevel || {})[district.id] || 0;
     const isDone = stars > 0;
-    let badgeClass = 'badge-done';
-    let badgeText = isDone ? `🏆 Шың бағындырылды (${'⭐'.repeat(stars)})` : '👑 10-ДЕҢГЕЙ • БІЛІМ ШЫҢЫ (ФИНАЛ)';
+    let badgeClass = isDone ? 'badge-done' : (unlocked ? 'badge-unlocked' : 'badge-locked');
+    let badgeText = isDone ? `🏆 Бағындырылды (${'⭐'.repeat(stars)})` : (district.isFinalPeak ? '👑 10-ДЕҢГЕЙ • БІЛІМ ШЫҢЫ (ФИНАЛ)' : (unlocked ? '🔓 Ашық' : '🔒 Құлыптаулы'));
 
     return `
       <div class="district-card-dock" id="districtDockCard" style="border: 1.5px solid rgba(251, 191, 36, 0.55);">
         <div class="district-dock-top">
           <div class="district-info-left" style="gap:14px;">
-            <img src="${district.photo}" alt="${district.fullName}" style="width:96px; height:58px; object-fit:cover; border-radius:10px; border:2px solid #fbbf24; box-shadow:0 4px 12px rgba(0,0,0,0.4);" />
+            <img src="${district.photo}" alt="${district.fullName || district.name}" style="width:96px; height:58px; object-fit:cover; border-radius:10px; border:2px solid #fbbf24; box-shadow:0 4px 12px rgba(0,0,0,0.4);" />
             <div>
-              <div class="district-dock-name" style="color:#fbbf24;">${district.fullName}</div>
+              <div class="district-dock-name" style="color:#fbbf24;">${district.fullName || district.name}</div>
               <div class="district-dock-landmark">${district.landmark}</div>
             </div>
           </div>
@@ -1844,11 +2086,28 @@ function enhanceSmartMathPlatform() {
         <div class="district-dock-desc">${district.districtDesc}</div>
         <div class="district-dock-action">
           <button class="btn-open-quest ${isDone ? 'done-btn' : ''}" id="btnOpenQuest" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-weight: 800;">
-            ${isDone ? '⭐ Шың сынағын қайта шешу (Enter)' : '👑 Білім Шыңы сынағын бастау (10-деңгей • Финал)'}
+            ${isDone ? '⭐ Қайта шешу (Enter)' : (district.isFinalPeak ? '👑 Білім Шыңы сынағын бастау (10-деңгей • Финал)' : '🚀 Сынақты бастау (Enter)')}
           </button>
         </div>
       </div>`;
   };
+
+  // Интерактивті модельдерді шерту оқиғаларын байланыстыру
+  const origBindMapInteractions = App._bindMapInteractions ? App._bindMapInteractions.bind(App) : null;
+  App._bindMapInteractions = function () {
+    if (origBindMapInteractions) origBindMapInteractions();
+
+    document.querySelectorAll('.landmark-interactive[data-landmark]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const lk = el.dataset.landmark;
+        if (lk && typeof App.showLandmarkModal === 'function') {
+          App.showLandmarkModal(lk);
+        }
+      });
+    });
+  };
+
 
   const origOpenDistrictQuest = App.openDistrictQuest.bind(App);
   App.openDistrictQuest = function (districtId) {
